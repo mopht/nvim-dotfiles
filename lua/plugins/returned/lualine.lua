@@ -37,6 +37,6 @@ return {
             lualine_z = { "location" },
         },
         tabline = {},
-        extensions = { "neo-tree", "trouble", "lazy" }, -- Lualine会根据不同的窗口显示不同的插件
+        extensions = { "neo-tree", "trouble" }, -- Lualine会根据不同的窗口显示不同的插件
     }
 }
