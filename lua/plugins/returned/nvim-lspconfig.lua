@@ -54,8 +54,8 @@ return {
             ["clangd"] = function()
                 lspconfig.clangd.setup({
                     cmd = {
-                        "clangd",
-                        "--experimental-modules-support"
+                        "E:/apps/apps/mingw-mstorsjo-llvm-ucrt/current/bin/clangd.exe",
+                        "--query-driver=clang++",
                     },
                 })
             end
@@ -63,13 +63,11 @@ return {
 
         vim.lsp.config("clangd", {
             cmd = {
-                "clangd",
+                "E:/apps/apps/mingw-mstorsjo-llvm-ucrt/current/bin/clangd.exe",
                 -- "--experimental-modules-support",
                 "--background-index",
+                "--query-driver=clang++",
                 -- "--format-style=file",
-                -- "--query-driver=*arm-none-eabi*",
-                -- "-fmodules",
-                -- "--std=c++26",
                 -- NOTE：在Windows下使用如下绝对路径时反而无效
                 -- "--query-driver=${path_to_compiler}\\gcc-arm-none-eabi\\12.2.rel1\\bin\\arm-none-eabi*",
             },

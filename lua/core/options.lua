@@ -35,14 +35,9 @@ vim.opt.winblend = 30
 vim.opt.pumblend = 23
 vim.opt.pumheight = 12
 vim.opt.background = "dark"
--- vim.cmd([[colorscheme tokyonight]])
--- vim.cmd([[colorscheme catppuccin]])
--- vim.cmd[[noicedisable]]
--- vim.cmd.colorscheme "catppuccin"
--- vim.cmd[[colorscheme embark]]
-vim.cmd.colorscheme "everforest"
--- require('onedark').load()
--- opt.guifont = {"Operator Mono Lig", ":h25" }
+-- Colorscheme is applied by pack-loader VimEnter autocmd (after plugins are in rtp)
+-- To change colorscheme, edit lua/core/pack-loader.lua → VimEnter callback
+-- or set it here after pack-loader.setup() (start/ plugins are already in rtp by then)
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -59,8 +54,8 @@ vim.opt.laststatus = 2
 
 vim.opt.fillchars = { vert = " ", eob = " " }
 
-vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+-- Treesitter fold settings apply at VimEnter (after treesitter is loaded)
+-- Default foldlevel is set here; foldmethod and foldexpr are set in pack-loader
 vim.wo.foldlevel = 99
 
 vim.g.everforest_enable_italic = true

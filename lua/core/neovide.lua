@@ -4,7 +4,7 @@ if vim.g.neovide then
     vim.opt.linespace = 9
     -- vim.o.guifont = "Maple_Mono:h16:#e-subpixelantialias"     -- text below applies for VimScript
     -- vim.o.guifont = "Monaco:h18:#e-subpixelantialias"
-    local blur = 0.5
+    local blur = 0.45
     vim.g.neovide_opacity = blur
     vim.g.neovide_normal_opacity = blur
     -- vim.g.neovide_cursor_vfx_mode = "ripple"
