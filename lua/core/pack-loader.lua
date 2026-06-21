@@ -50,6 +50,10 @@ M.plugins = {
         config = function()
             require("c3")
         end },
+    { name = "which-key.nvim",          pack = "start",
+    config = function()
+        require("which-key").setup({})
+    end},
     -- Core
     { name = "nvim-lspconfig",          pack = "start",
         config = function()
@@ -69,7 +73,7 @@ M.plugins = {
     { name = "nvim-treesitter",         pack = "start",
         config = function()
             local spec = require("plugins.returned.nvim-treesitter")
-            require("nvim-treesitter.configs").setup(spec.opts or {})
+            require("nvim-treesitter.config").setup(spec.opts or {})
         end },
 
     -- Colorschemes
@@ -131,17 +135,6 @@ M.plugins = {
 
     -- Language support
     { name = "rustaceanvim",            pack = "start" },
-    { name = "zig-lamp",                pack = "start",
-        pre = function()
-            -- Must run BEFORE plugin is sourced (sets vim.g globals)
-            -- See plugins/returned/zig-lamp.lua init()
-            vim.g.zig_lamp_zls_auto_install = nil
-            vim.g.zig_lamp_fall_back_sys_zls = nil
-            vim.g.zig_lamp_zls_lsp_opt = {}
-            vim.g.zig_lamp_zls_settings = {}
-            vim.g.zig_lamp_pkg_help_fg = "#CF5C00"
-            vim.g.zig_lamp_zig_fetch_timeout = 5000
-        end },
 
     -- ══════════════════════════════════════════════
     -- opt/  — lazy-loaded on demand
@@ -187,11 +180,6 @@ M.plugins = {
         end },
 
     -- ── key-based ────────────────────────────────
-    { name = "which-key.nvim",          pack = "opt",
-        keys = {
-            { "<leader>?", mode = "n", action = function() require("which-key").show({ global = false }) end, desc = "Buffer Keymaps" },
-        },
-        config = function() require("which-key").setup({}) end },
     { name = "flash.nvim",              pack = "opt",
         keys = {
             { "s",     mode = { "n", "x", "o" }, action = function() require("flash").jump() end,                    desc = "Flash" },
@@ -254,6 +242,15 @@ M.plugins = {
     -- ── filetype-based ───────────────────────────
     { name = "lazydev.nvim",            pack = "opt", ft = { "lua" },
         config = function() require("lazydev").setup(require("plugins.returned.lazydev").opts) end },
+    { name = "zig-lamp",                pack = "opt", ft = { "zig", "zon" },
+        pre = function()
+            vim.g.zig_lamp_zls_auto_install = nil
+            vim.g.zig_lamp_fall_back_sys_zls = nil
+            vim.g.zig_lamp_zls_lsp_opt = {}
+            vim.g.zig_lamp_zls_settings = {}
+            vim.g.zig_lamp_pkg_help_fg = "#CF5C00"
+            vim.g.zig_lamp_zig_fetch_timeout = 5000
+        end },
 }
 
 -- ============================================================================
@@ -263,7 +260,7 @@ M.plugins = {
 --- Shadow a plugin command: on first invocation, packadd + config, then re-dispatch.
 -- CRITICAL: delete our shadow BEFORE packadd—otherwise the plugin's own
 -- nvim_create_user_command() will fail due to a name conflict.
-local function hook_cmd(plugin_name, cmd_name, config_fn)
+local function hook_cmd(plugin_name, cmd_name, config_fn, pre_fn)
     api.nvim_create_user_command(cmd_name, function(opts)
         -- Save arguments so we can re-dispatch after loading
         local args = opts.args
@@ -271,6 +268,7 @@ local function hook_cmd(plugin_name, cmd_name, config_fn)
         -- Delete shadow command FIRST (plugins cannot register if name is taken)
         pcall(api.nvim_del_user_command, cmd_name)
         -- Now the plugin can safely create its own :Command
+        if pre_fn then pcall(pre_fn) end
         vim.cmd("packadd " .. plugin_name)
         if config_fn then config_fn() end
         -- Re-dispatch to the real plugin command
@@ -287,7 +285,7 @@ end
 -- packadd synchronously sources plugin files (which register their own keymaps),
 -- so our lazy mapping is replaced immediately. Re-feeding the key causes the
 -- plugin's real mapping to fire — no vim.schedule needed (avoids ordering issues).
-local function hook_key(plugin_name, config_fn, key_specs)
+local function hook_key(plugin_name, config_fn, key_specs, pre_fn)
     for _, ks in ipairs(key_specs) do
         local lhs   = ks[1]
         local mode  = ks.mode  or "n"
@@ -296,6 +294,7 @@ local function hook_key(plugin_name, config_fn, key_specs)
         local opts  = vim.tbl_extend("keep", ks.opts or {}, { desc = desc })
 
         vim.keymap.set(mode, lhs, function()
+            if pre_fn then pcall(pre_fn) end
             vim.cmd("packadd " .. plugin_name)
             if config_fn then config_fn() end
             if action then
@@ -313,10 +312,11 @@ local function hook_key(plugin_name, config_fn, key_specs)
 end
 
 --- Fire once on an autocmd event
-local function hook_event(plugin_name, config_fn, events)
+local function hook_event(plugin_name, config_fn, events, pre_fn)
     api.nvim_create_autocmd(events, {
         once = true,
         callback = function()
+            if pre_fn then pcall(pre_fn) end
             vim.cmd("packadd " .. plugin_name)
             if config_fn then config_fn() end
         end,
@@ -325,11 +325,12 @@ local function hook_event(plugin_name, config_fn, events)
 end
 
 --- Fire once on filetype
-local function hook_ft(plugin_name, config_fn, filetypes)
+local function hook_ft(plugin_name, config_fn, filetypes, pre_fn)
     api.nvim_create_autocmd("FileType", {
         pattern = filetypes,
         once = true,
         callback = function()
+            if pre_fn then pcall(pre_fn) end
             vim.cmd("packadd " .. plugin_name)
             if config_fn then config_fn() end
         end,
@@ -396,20 +397,35 @@ function M.setup()
         if p.pack == "opt" then
             if p.cmd then
                 for _, c in ipairs(p.cmd) do
-                    hook_cmd(p.name, c, p.config)
+                    hook_cmd(p.name, c, p.config, p.pre)
                 end
             end
             if p.keys then
-                hook_key(p.name, p.config, p.keys)
+                hook_key(p.name, p.config, p.keys, p.pre)
             end
             if p.event then
-                hook_event(p.name, p.config, p.event)
+                hook_event(p.name, p.config, p.event, p.pre)
             end
             if p.ft then
-                hook_ft(p.name, p.config, p.ft)
+                hook_ft(p.name, p.config, p.ft, p.pre)
             end
         end
     end
+
+    -- Phase 3: register treesitter auto-start (Neovim 0.12 requires explicit call)
+    api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "FileType" }, {
+        callback = function(ev)
+            if vim.treesitter.highlighter.active[ev.buf] then return end
+            local ft = vim.bo[ev.buf].filetype
+            if ft and ft ~= "" then
+                local lang = vim.treesitter.language.get_lang(ft)
+                if lang then
+                    pcall(vim.treesitter.start, ev.buf, lang)
+                end
+            end
+        end,
+        desc = "auto-start treesitter highlighting",
+    })
 
     -- Register user commands
     api.nvim_create_user_command("PackUpdate", function()

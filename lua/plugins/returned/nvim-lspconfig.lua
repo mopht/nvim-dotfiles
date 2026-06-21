@@ -14,7 +14,9 @@ return {
         }
     },
     config = function()
-        local lspconfig = require("lspconfig")
+        -- nvim-lspconfig 0.11+ API: use vim.lsp.enable() / vim.lsp.config()
+        -- Old require('lspconfig').xxx.setup() is DEPRECATED
+
         require("mason").setup({
             ui = {
                 icons = {
@@ -26,66 +28,49 @@ return {
         })
 
         require("mason-lspconfig").setup({
-            -- 确保安装，根据需要填写
             ensure_installed = {
                 -- "lua_ls",
                 -- "clangd",
                 -- "hls"
             },
+            handlers = {
+                -- Default: auto-enable all installed servers
+                function(server_name)
+                    vim.lsp.enable(server_name)
+                end,
+                -- Custom: clangd uses specific path
+                ["clangd"] = function()
+                    vim.lsp.config("clangd", {
+                        cmd = {
+                            "E:/apps/apps/mingw-mstorsjo-llvm-ucrt/current/bin/clangd.exe",
+                            "--background-index",
+                            "--query-driver=clang++",
+                        },
+                        filetypes = { "cc", "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+                    })
+                    vim.lsp.enable("clangd")
+                end,
+            },
         })
-
-        -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
         vim.diagnostic.config({
             virtual_text = {
-                -- source = "always",  -- Or "if_many"
-                prefix = '■', -- Could be '■', '▎', 'x'
+                prefix = '■',
             },
             severity_sort = true,
             float = {
-                source = "always", -- Or "if_many"
+                source = "always",
             },
         })
 
-        require("mason-lspconfig").setup({
-            function(server_name)
-                vim.lsp.config(server_name).setup({})
-            end,
-            ["clangd"] = function()
-                lspconfig.clangd.setup({
-                    cmd = {
-                        "E:/apps/apps/mingw-mstorsjo-llvm-ucrt/current/bin/clangd.exe",
-                        "--query-driver=clang++",
-                    },
-                })
-            end
-        })
+        -- Manually enable servers not handled by mason-lspconfig
+        vim.lsp.enable('c3_lsp')
 
-        vim.lsp.config("clangd", {
-            cmd = {
-                "E:/apps/apps/mingw-mstorsjo-llvm-ucrt/current/bin/clangd.exe",
-                -- "--experimental-modules-support",
-                "--background-index",
-                "--query-driver=clang++",
-                -- "--format-style=file",
-                -- NOTE：在Windows下使用如下绝对路径时反而无效
-                -- "--query-driver=${path_to_compiler}\\gcc-arm-none-eabi\\12.2.rel1\\bin\\arm-none-eabi*",
-            },
-            filetypes = { "cc", "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-        })
+        -- haskell-language-server (via ghcup)
         vim.lsp.config("haskell-language-server", {
-            cmd = {
-                "haskell-language-server",
-                -- "--experimental-modules-support",
-                -- "--background-index",
-                -- "--format-style=file",
-                -- "--query-driver=*arm-none-eabi*",
-                -- "-fmodules",
-                -- "--std=c++26",
-                -- NOTE：在Windows下使用如下绝对路径时反而无效
-                -- "--query-driver=${path_to_compiler}\\gcc-arm-none-eabi\\12.2.rel1\\bin\\arm-none-eabi*",
-            },
-            filetypes = { "hs" },
+            cmd = { "haskell-language-server-wrapper" },
+            filetypes = { "haskell", "lhaskell" },
         })
+        vim.lsp.enable("haskell-language-server")
     end
 }

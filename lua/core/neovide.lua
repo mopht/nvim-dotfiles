@@ -1,7 +1,6 @@
-
 if vim.g.neovide then
-    vim.o.guifont = "Maple_Mono:h18:#e-subpixelantialias"     -- text below applies for VimScript
-    vim.opt.linespace = 9
+    vim.o.guifont = "Maple Mono NF:h19:#e-subpixelantialias"     -- NF = Nerd Font glyphs
+    vim.opt.linespace = 11
     -- vim.o.guifont = "Maple_Mono:h16:#e-subpixelantialias"     -- text below applies for VimScript
     -- vim.o.guifont = "Monaco:h18:#e-subpixelantialias"
     local blur = 0.45
