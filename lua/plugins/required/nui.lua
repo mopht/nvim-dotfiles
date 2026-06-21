@@ -1,0 +1,1 @@
+-- nui.nvim is a dependency library, no explicit setup needed

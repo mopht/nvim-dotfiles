@@ -11,6 +11,5 @@ return {
     },
     config = function()
         require("plugins.required.neo-tree")
-        require("plugins.required.nui")
     end,
  }
