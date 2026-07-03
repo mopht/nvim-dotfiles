@@ -49,7 +49,7 @@ require("italicize").setup({
 		"SpecialComment",
 		"@lsp.type.operator",
 		"Normal",
-		"@operator",
+		-- "@operator",
 		"@string",
 		"Todo",
 		"CmpItemKind",

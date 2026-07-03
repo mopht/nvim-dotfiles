@@ -35,21 +35,15 @@ M.plugins = {
     -- ══════════════════════════════════════════════
 
 	-- Dependencies (must load before dependent plugins)
-	{ name = "_blink.lib",              pack = "start" },  -- blink.cmp v2 dep; '_' prefix ensures loads first
+	{ name = "_blink.lib",              pack = "start" },  -- blink.cmp v2 native library loader (saghen/blink.lib)
 	{ name = "plenary.nvim",             pack = "start" },
     { name = "nvim-web-devicons",       pack = "start" },
     { name = "nui.nvim",                pack = "start" },
     { name = "mini.icons",              pack = "start" },
     { name = "nvim-navic",              pack = "start" },
-    { name = "friendly-snippets",       pack = "start" },
     { name = "mason.nvim",              pack = "start" },
     { name = "mason-lspconfig.nvim",    pack = "start" },
-    { name = "none-ls-extras.nvim",     pack = "start" },
 
-    { name = "c3.nvim",                 pack = "start",
-        config = function()
-            require("c3")
-        end },
     { name = "which-key.nvim",          pack = "start",
     config = function()
         require("which-key").setup({})
@@ -78,8 +72,6 @@ M.plugins = {
 
     -- Colorschemes
     { name = "everforest-nvim",         pack = "start" },
-    { name = "catppuccin",              pack = "start" },
-    { name = "tokyonight.nvim",         pack = "start" },
 
     -- UI
     { name = "lualine.nvim",            pack = "start",
@@ -107,11 +99,6 @@ M.plugins = {
             local spec = require("plugins.returned.noice")
             require("noice").setup(spec.opts or {})
         end },
-    { name = "todo-comments.nvim",      pack = "start",
-        config = function()
-            local spec = require("plugins.returned.todo-comments")
-            require("todo-comments").setup(spec.opts or {})
-        end },
     { name = "rainbow-delimiters.nvim", pack = "start" },
     { name = "nvim-treesitter-context", pack = "start",
         config = function()
@@ -122,19 +109,6 @@ M.plugins = {
         config = function()
             require("plugins.required.italicize")
         end },
-    { name = "toggleterm.nvim",         pack = "start",
-        config = function()
-            local spec = require("plugins.returned.toggleterm")
-            if spec.config then spec.config() end
-        end },
-    { name = "none-ls.nvim",            pack = "start",
-        config = function()
-            local spec = require("plugins.returned.none-ls")
-            if spec.config then spec.config() end
-        end },
-
-    -- Language support
-    { name = "rustaceanvim",            pack = "start" },
 
     -- ══════════════════════════════════════════════
     -- opt/  — lazy-loaded on demand
@@ -234,14 +208,33 @@ M.plugins = {
         config = function() require("tabout").setup(require("plugins.returned.tabout").opts) end },
     { name = "lsp_signature.nvim",      pack = "opt", event = { "InsertEnter" },
         config = function() require("lsp_signature").setup(require("plugins.returned.lsp_signature").opts) end },
-    { name = "inlay-hints.nvim",        pack = "opt", event = { "LspAttach" },
-        config = function() require("inlay-hints").setup({}) end },
+    { name = "friendly-snippets",       pack = "opt", event = { "InsertEnter" } },
+    -- { name = "inlay-hints.nvim",        pack = "opt", event = { "LspAttach" },
+    --     config = function() require("inlay-hints").setup({}) end },
+    { name = "none-ls.nvim",            pack = "opt", event = { "LspAttach" },
+        config = function()
+            vim.cmd("packadd none-ls-extras.nvim")
+            local spec = require("plugins.returned.none-ls")
+            if spec.config then spec.config() end
+        end },
     { name = "vim-better-whitespace",   pack = "opt", event = { "BufEnter" },
         config = nil },
+    { name = "toggleterm.nvim",         pack = "opt", event = { "BufEnter" },
+        config = function()
+            local spec = require("plugins.returned.toggleterm")
+            if spec.config then spec.config() end
+        end },
+    { name = "todo-comments.nvim",      pack = "opt", event = { "BufEnter" },
+        config = function()
+            local spec = require("plugins.returned.todo-comments")
+            require("todo-comments").setup(spec.opts or {})
+        end },
 
     -- ── filetype-based ───────────────────────────
     { name = "lazydev.nvim",            pack = "opt", ft = { "lua" },
         config = function() require("lazydev").setup(require("plugins.returned.lazydev").opts) end },
+    { name = "haskell-tools.nvim",      pack = "opt", ft = { "haskell" },
+        config = nil },
     { name = "zig-lamp",                pack = "opt", ft = { "zig", "zon" },
         pre = function()
             vim.g.zig_lamp_zls_auto_install = nil
@@ -251,6 +244,16 @@ M.plugins = {
             vim.g.zig_lamp_pkg_help_fg = "#CF5C00"
             vim.g.zig_lamp_zig_fetch_timeout = 5000
         end },
+    { name = "rustaceanvim",            pack = "opt", ft = { "rust" } },
+    { name = "c3.nvim",                 pack = "opt", ft = { "c3", "c3i" },
+        config = function()
+            require("c3")
+        end },
+
+    -- ── unused / backup ──────────────────────────
+    { name = "none-ls-extras.nvim",     pack = "opt" },
+    { name = "catppuccin",              pack = "opt" },
+    { name = "tokyonight.nvim",         pack = "opt" },
 }
 
 -- ============================================================================
@@ -375,21 +378,22 @@ function M.setup()
     -- and sourced their plugin/ files — everything is ready.
     api.nvim_create_autocmd("VimEnter", {
         once = true,
-        callback = function()
-            -- 1a. Call config functions for start/ plugins
-            for _, p in ipairs(M.plugins) do
-                if p.pack == "start" and p.config then
-                    pcall(p.config)
-                end
-            end
-            -- 1b. Apply colorscheme
-            pcall(vim.cmd.colorscheme, "everforest")
-            -- 1c. Treesitter-dependent fold options
-            pcall(function()
-                vim.wo.foldmethod = "expr"
-                vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
-            end)
-        end,
+		callback = function()
+			-- 1a. Apply colorscheme FIRST (must be before italicize)
+            require("everforest").setup({ transparent_background_level = 2})
+			pcall(vim.cmd.colorscheme, "everforest")
+			-- 1b. Treesitter-dependent fold options
+			pcall(function()
+				vim.wo.foldmethod = "expr"
+				vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+			end)
+			-- 1c. Call config functions for start/ plugins (AFTER colorscheme)
+			for _, p in ipairs(M.plugins) do
+				if p.pack == "start" and p.config then
+					pcall(p.config)
+				end
+			end
+		end,
     })
 
     -- Phase 2: register lazy-load hooks for opt/ plugins

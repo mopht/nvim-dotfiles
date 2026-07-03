@@ -15,7 +15,7 @@ vim.opt.si = true
 
 -- anti warp
 vim.opt.wrap = false
-vim.opt.cursorline = true
+-- vim.opt.cursorline = true
 
 -- enable mouse
 vim.opt.mouse:append("a")
