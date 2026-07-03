@@ -7,6 +7,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Auto cmd
+require("autocmd.italicize")
+
 -- General options (no plugin dependencies)
 require("core.options")
 
