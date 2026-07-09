@@ -4,18 +4,18 @@ Personal Neovim configuration.
 
 ## Features
 
-- Plugin manager: <!-- e.g. lazy.nvim -->
-- LSP setup: <!-- e.g. nvim-lspconfig + mason.nvim -->
-- Completion: <!-- e.g. nvim-cmp / blink.cmp -->
-- Syntax highlighting: <!-- e.g. nvim-treesitter -->
-- Fuzzy finder: <!-- e.g. telescope.nvim / fzf-lua -->
-- File explorer: <!-- e.g. neo-tree.nvim -->
-- Statusline: <!-- e.g. lualine.nvim -->
-- Colorscheme: <!-- your theme -->
+- Plugin manager: vim.pack
+- LSP setup: nvim-lspconfig + mason.nvim
+- Completion: blink.cmp
+- Syntax highlighting: nvim-treesitter
+- Fuzzy finder: fzf-lua
+- File explorer: neo-tree.nvim
+- Statusline: lualine.nvim
+- Colorscheme: everforest
 
 ## Requirements
 
-- Neovim >= <!-- version, e.g. 0.10 -->
+- Neovim >= 0.12.4
 - [ghcup](https://www.haskell.org/ghcup/) + [HLS](https://github.com/haskell/haskell-language-server) (for Haskell development)
 - A [Nerd Font](https://www.nerdfonts.com/) for icons
 - `ripgrep`, `fd` (for fuzzy finding)
@@ -32,10 +32,16 @@ mv ~/.config/nvim ~/.config/nvim.bak
 Clone this repo:
 
 ```bash
-git clone git@github.com:<your-username>/nvim-config.git ~/.config/nvim
+git clone git@github.com:<MoYu-CL/nvim-config.git ~/.config/nvim
 ```
 
-Launch Neovim — plugins will install automatically on first run:
+Before launch, you have to install all the plugins:
+
+```bash
+./install-plugins.sh
+```
+
+Launch Neovim:
 
 ```bash
 nvim
@@ -52,11 +58,8 @@ nvim
 └── lazy-lock.json    # pinned plugin versions
 ```
 
-## Key Notes
+<!-- ## Key Notes -->
 
-<!-- Anything worth documenting, e.g. Haskell/Brick TUI dev setup,
-     Neovide-specific config, custom keymaps worth remembering -->
-
-## License
-
-MIT
+<!-- ## License -->
+<!---->
+<!-- MIT -->
