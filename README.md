@@ -32,7 +32,7 @@ mv ~/.config/nvim ~/.config/nvim.bak
 Clone this repo:
 
 ```bash
-git clone git@github.com:<MoYu-CL/nvim-config.git ~/.config/nvim
+git clone git@github.com:MoYu-CL/nvim-config.git ~/.config/nvim
 ```
 
 Before launch, you have to install all the plugins:
