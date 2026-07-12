@@ -250,10 +250,10 @@ M.plugins = {
         end },
 
         -- ── filetype-based ───────────────────────────
+        { name = "haskell-tools.nvim",      pack = "start",--[[  ft = { "haskell" }, ]]
+        config = nil },
         { name = "lazydev.nvim",            pack = "opt", ft = { "lua" },
         config = function() require("lazydev").setup(require("plugins.returned.lazydev").opts) end },
-        { name = "haskell-tools.nvim",      pack = "opt", ft = { "haskell" },
-        config = nil },
         { name = "zig-lamp",                pack = "opt", ft = { "zig", "zon" },
         pre = function()
             vim.g.zig_lamp_zls_auto_install = nil
