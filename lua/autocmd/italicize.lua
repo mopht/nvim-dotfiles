@@ -1,7 +1,7 @@
 vim.api.nvim_create_autocmd("UIEnter", {
     callback = function()
         local groups = {
-            "@keyword", "@keyword.function", "@keyword.return",
+            "@keyword", "@keyword.function", "@keyword.return", "@keyword.repeat",
             "@keyword.operator", "@keyword.import", "@keyword.conditional",
             "@conditional", "@repeat", "@keyword.exception",
             "Keyword", "Conditional", "Repeat",
