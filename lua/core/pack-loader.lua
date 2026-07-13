@@ -247,7 +247,7 @@ M.plugins = {
 
     -- ── filetype-based ───────────────────────────
     { name = "haskell-tools.nvim",      pack = "start",--[[  ft = { "haskell" }, ]]
-    config = nil },
+    config = nil }, -- already lazyed
     { name = "lazydev.nvim",            pack = "opt", ft = { "lua" },
     config = function() require("lazydev").setup(require("plugins.returned.lazydev").opts) end },
     -- { name = "zig-lamp",                pack = "opt", ft = { "zig", "zon" },
