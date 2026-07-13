@@ -250,20 +250,20 @@ M.plugins = {
     config = nil },
     { name = "lazydev.nvim",            pack = "opt", ft = { "lua" },
     config = function() require("lazydev").setup(require("plugins.returned.lazydev").opts) end },
-    { name = "zig-lamp",                pack = "opt", ft = { "zig", "zon" },
-    pre = function()
-        vim.g.zig_lamp_zls_auto_install = nil
-        vim.g.zig_lamp_fall_back_sys_zls = nil
-        vim.g.zig_lamp_zls_lsp_opt = {}
-        vim.g.zig_lamp_zls_settings = {}
-        vim.g.zig_lamp_pkg_help_fg = "#CF5C00"
-        vim.g.zig_lamp_zig_fetch_timeout = 5000
-    end },
+    -- { name = "zig-lamp",                pack = "opt", ft = { "zig", "zon" },
+    -- pre = function()
+    --     vim.g.zig_lamp_zls_auto_install = nil
+    --     vim.g.zig_lamp_fall_back_sys_zls = nil
+    --     vim.g.zig_lamp_zls_lsp_opt = {}
+    --     vim.g.zig_lamp_zls_settings = {}
+    --     vim.g.zig_lamp_pkg_help_fg = "#CF5C00"
+    --     vim.g.zig_lamp_zig_fetch_timeout = 5000
+    -- end },
     { name = "rustaceanvim",            pack = "opt", ft = { "rust" } },
-    { name = "c3.nvim",                 pack = "opt", ft = { "c3", "c3i" },
-    config = function()
-        require("c3")
-    end },
+    -- { name = "c3.nvim",                 pack = "opt", ft = { "c3", "c3i" },
+    -- config = function()
+    --     require("c3")
+    -- end },
 
     -- ── unused / backup ──────────────────────────
     { name = "none-ls-extras.nvim",     pack = "opt" },
