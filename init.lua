@@ -21,10 +21,3 @@ require("core.keymap")
 
 -- Neovide GUI settings
 require("core.neovide")
-
-vim.filetype.add({
-    extension = {
-        c3 = "c3",
-        c3i = "c3"
-    },
-})
