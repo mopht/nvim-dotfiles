@@ -50,3 +50,5 @@ vim.keymap.set("n", "<leader>fh", "<cmd>FzfLua helptags<cr>")
 -- vim.keymap.set("n", "<leader>fn", "<cmd>ToggleTerm direction=float<cr>")
 vim.keymap.set("n", "<leader>fn", "<cmd>lua _NUSHELL_TOGGLE()<cr>")
 vim.keymap.set("n", "<leader>fm", "<cmd>lua _LAZYGIT_TOGGLE()<cr>");
+
+vim.keymap.set("n", "<leader>he", "<cmd>Haskell hls evalAll<cr>")
