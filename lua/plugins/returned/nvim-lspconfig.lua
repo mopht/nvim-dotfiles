@@ -39,17 +39,17 @@ return {
                     vim.lsp.enable(server_name)
                 end,
                 -- Custom: clangd uses specific path
-                ["clangd"] = function()
-                    vim.lsp.config("clangd", {
-                        cmd = {
-                            "E:/apps/apps/mingw-mstorsjo-llvm-ucrt/current/bin/clangd.exe",
-                            "--background-index",
-                            "--query-driver=clang++",
-                        },
-                        filetypes = { "cc", "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-                    })
-                    vim.lsp.enable("clangd")
-                end,
+                -- ["clangd"] = function()
+                --     vim.lsp.config("clangd", {
+                --         cmd = {
+                --             "E:/apps/apps/mingw-mstorsjo-llvm-ucrt/current/bin/clangd.exe",
+                --             "--background-index",
+                --             "--query-driver=clang++",
+                --         },
+                --         filetypes = { "cc", "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+                --     })
+                --     vim.lsp.enable("clangd")
+                -- end,
             },
         })
 
@@ -63,14 +63,17 @@ return {
             },
         })
 
-        -- Manually enable servers not handled by mason-lspconfig
-        vim.lsp.enable('c3_lsp')
-
         -- haskell-language-server (via ghcup)
         vim.lsp.config("haskell-language-server", {
             cmd = { "haskell-language-server-wrapper" },
             filetypes = { "haskell", "lhaskell" },
         })
         vim.lsp.enable("haskell-language-server")
+
+        vim.lsp.config("clangd", {
+            cmd = { "clangd" },
+            filetypes = { "cpp", "c++", "c" },
+        })
+        vim.lsp.enable("clangd")
     end
 }
