@@ -246,6 +246,7 @@ M.plugins = {
     end },
 
     -- ── filetype-based ───────────────────────────
+    { name = "koka.nvim",               pack = "start" },
     { name = "haskell-tools.nvim",      pack = "start",--[[  ft = { "haskell" }, ]]
     config = nil }, -- already lazyed
     { name = "lazydev.nvim",            pack = "opt", ft = { "lua" },

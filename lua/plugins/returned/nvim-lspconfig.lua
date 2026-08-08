@@ -75,5 +75,7 @@ return {
             filetypes = { "cpp", "c++", "c" },
         })
         vim.lsp.enable("clangd")
+
+        -- vim.lsp.inlay_hint.enable()
     end
 }

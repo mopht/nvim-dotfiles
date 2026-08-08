@@ -21,3 +21,14 @@ require("core.keymap")
 
 -- Neovide GUI settings
 require("core.neovide")
+
+vim.filetype.add({
+  extension = {
+    kk = "koka",
+  },
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "koka",
+    callback = function() pcall(vim.treesitter.start) end,
+})
