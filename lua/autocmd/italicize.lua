@@ -6,7 +6,8 @@ vim.api.nvim_create_autocmd("UIEnter", {
             "@conditional", "@repeat", "@keyword.exception",
             "Keyword", "Conditional", "Repeat",
             "@string", "@number", "@type", "Type",
-            "@variable.member", "@module", "@boolean"
+            "@variable.member", "@module", "@boolean",
+            "@constructor"
         }
         for _, group in ipairs(groups) do
             local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
