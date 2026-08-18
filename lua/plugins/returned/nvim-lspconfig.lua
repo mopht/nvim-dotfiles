@@ -83,6 +83,12 @@ return {
         })
         vim.lsp.enable("idris2_lsp")
 
+        vim.lsp.config('prolog_ls', {
+            cmd = { 'swipl', '-g', 'use_module(library(lsp_server))', '-g', 'lsp_server:main', '-t', 'halt', '--', 'stdio' },
+            filetypes = { 'prolog' },
+            root_markers = { '.git' },
+        })
+        vim.lsp.enable('prolog_ls')
         -- vim.lsp.inlay_hint.enable()
     end
 }
