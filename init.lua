@@ -25,6 +25,8 @@ require("core.neovide")
 vim.filetype.add({
   extension = {
     kk = "koka",
+    pl = 'prolog',
+    idr = "idris2",
   },
 })
 

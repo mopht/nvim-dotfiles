@@ -246,6 +246,8 @@ M.plugins = {
     end },
 
     -- ── filetype-based ───────────────────────────
+    { name = "idris2-nvim",             pack = "start",
+    config = function() require("idris2-nvim").setup() end},
     { name = "koka.nvim",               pack = "start" },
     { name = "haskell-tools.nvim",      pack = "start",--[[  ft = { "haskell" }, ]]
     config = nil }, -- already lazyed

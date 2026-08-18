@@ -76,11 +76,12 @@ return {
         })
         vim.lsp.enable("clangd")
 
-        vim.lsp.config("idris2", {
+        vim.lsp.config("idris2_lsp", {
             cmd = { "idris2-lsp" },
-            filetypes = { "idr" },
+            filetypes = { "idris2", "idr" },
+            root_markers = { ".ipkg", ".git"},
         })
-        vim.lsp.enable("idris2")
+        vim.lsp.enable("idris2_lsp")
 
         -- vim.lsp.inlay_hint.enable()
     end
