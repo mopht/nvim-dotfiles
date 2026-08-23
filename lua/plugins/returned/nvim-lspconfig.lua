@@ -90,5 +90,10 @@ return {
         })
         vim.lsp.enable('prolog_ls')
         -- vim.lsp.inlay_hint.enable()
+        vim.lsp.config("nixd", {
+            cmd = { "nixd" },
+            filetypes = { "nix" },
+        })
+        vim.lsp.enable("nixd")
     end
 }

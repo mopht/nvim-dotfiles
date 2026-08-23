@@ -70,7 +70,7 @@ M.plugins = {
         require("nvim-treesitter.config").setup(spec.opts or {})
     end },
     {
-        name = 'tree-sitter-manager.nvim', pack = "start",
+        name = 'tree-sitter-manager.nvim', pack = "opt",
         config = function()
             require('tree-sitter-manager').setup({
                 ensure_installed = {
@@ -246,9 +246,9 @@ M.plugins = {
     end },
 
     -- ── filetype-based ───────────────────────────
-    { name = "idris2-nvim",             pack = "start",
+    { name = "idris2-nvim",             pack = "opt", ft = "idris",
     config = function() require("idris2-nvim").setup() end},
-    { name = "koka.nvim",               pack = "start" },
+    { name = "koka.nvim",               pack = "opt", ft = "koka" },
     { name = "haskell-tools.nvim",      pack = "start",--[[  ft = { "haskell" }, ]]
     config = nil }, -- already lazyed
     { name = "lazydev.nvim",            pack = "opt", ft = { "lua" },

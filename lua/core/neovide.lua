@@ -1,5 +1,5 @@
 if vim.g.neovide then
-    -- vim.o.guifont = "Maple Mono NF:h19:#e-subpixelantialias"     -- NF = Nerd Font glyphs
+    -- vim.o.guifont = "Cascadia Code, Maple Mono NF:h19:#e-subpixelantialias"     -- NF = Nerd Font glyphs
     vim.opt.linespace = 10
     -- vim.o.guifont = "Maple_Mono:h16:#e-subpixelantialias"     -- text below applies for VimScript
     vim.o.guifont = "Operator Mono Lig, Maple Mono NF:h20:#e-subpixelantialias"
