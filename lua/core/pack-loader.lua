@@ -70,7 +70,7 @@ M.plugins = {
         require("nvim-treesitter.config").setup(spec.opts or {})
     end },
     {
-        name = 'tree-sitter-manager.nvim', pack = "opt",
+        name = 'tree-sitter-manager.nvim', pack = "start",
         config = function()
             require('tree-sitter-manager').setup({
                 ensure_installed = {
@@ -124,6 +124,9 @@ M.plugins = {
         local spec = require("plugins.returned.nvim-treesitter-context")
         require("treesitter-context").setup(spec.opts or {})
     end },
+
+    { name = "oil.nvim",                pack = "start",
+    config = function() require("oil").setup() end},
 
     -- ══════════════════════════════════════════════
     -- opt/  — lazy-loaded on demand
