@@ -249,6 +249,7 @@ M.plugins = {
     end },
 
     -- ── filetype-based ───────────────────────────
+    { name = "moonbit.nvim",            pack = "opt", ft = "moonbit" },
     { name = "idris2-nvim",             pack = "opt", ft = "idris",
     config = function() require("idris2-nvim").setup() end},
     { name = "koka.nvim",               pack = "opt", ft = "koka" },
