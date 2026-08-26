@@ -95,5 +95,11 @@ return {
             filetypes = { "nix" },
         })
         vim.lsp.enable("nixd")
+
+        vim.lsp.config("moonbit-lsp", {
+            cmd = { "moon-lsp" },
+            filetypes = { "moonbit" },
+        })
+        vim.lsp.enable("moonbit-lsp")
     end
 }
