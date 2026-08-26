@@ -27,6 +27,7 @@ vim.filetype.add({
     kk = "koka",
     pl = 'prolog',
     idr = "idris2",
+    mbt = "moonbit"
   },
 })
 
