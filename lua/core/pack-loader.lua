@@ -125,8 +125,8 @@ M.plugins = {
         require("treesitter-context").setup(spec.opts or {})
     end },
 
-    { name = "oil.nvim",                pack = "start",
-    config = function() require("oil").setup() end},
+    -- { name = "oil.nvim",                pack = "start",
+    -- config = function() require("oil").setup() end},
 
     -- ══════════════════════════════════════════════
     -- opt/  — lazy-loaded on demand
@@ -294,7 +294,7 @@ M.plugins = {
     --     vim.g.zig_lamp_pkg_help_fg = "#CF5C00"
     --     vim.g.zig_lamp_zig_fetch_timeout = 5000
     -- end },
-    { name = "rustaceanvim",            pack = "opt", ft = { "rust" } },
+    { name = "rustaceanvim",            pack = "start" },
     -- { name = "c3.nvim",                 pack = "opt", ft = { "c3", "c3i" },
     -- config = function()
     --     require("c3")
