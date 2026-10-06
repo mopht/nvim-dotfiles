@@ -101,5 +101,11 @@ return {
             filetypes = { "moonbit" },
         })
         vim.lsp.enable("moonbit-lsp")
+
+        vim.lsp.config("scheme-lsp", {
+            cmd = { "guile-lsp-server" },
+            filetypes = { "scheme" },
+        })
+        vim.lsp.enable("scheme-lsp")
     end
 }
