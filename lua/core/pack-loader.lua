@@ -213,7 +213,7 @@ M.plugins = {
     config = nil },
 
     -- ── event-based ──────────────────────────────
-    { name = "auto-save.nvim",          src = "okuuva/auto-save.nvim",               pack = "opt", event = { "InsertEnter" },  -- TODO: 确认你原来用的是 okuuva 还是 pocco81 版本
+    { name = "auto-save.nvim",          src = "okuuva/auto-save.nvim",               pack = "opt", event = { "InsertEnter" },
     config = function() require("auto-save").setup({}) end },
     { name = "better-escape.nvim",      src = "max397574/better-escape.nvim",        pack = "opt", event = { "InsertEnter" },
     config = function()
@@ -282,7 +282,7 @@ M.plugins = {
     }) end },
     { name = "idris2-nvim",             src = "ShinKage/idris2-nvim",                pack = "opt", ft = "idris",
     config = function() require("idris2-nvim").setup() end},
-    { name = "koka.nvim",               src = "syaiful6/koka.nvim",                  pack = "opt", ft = "koka" },  -- TODO: 确认仓库地址
+    { name = "koka.nvim",               src = "syaiful6/koka.nvim",                  pack = "opt", ft = "koka" },
     { name = "haskell-tools.nvim",      src = "mrcjkb/haskell-tools.nvim",           pack = "start",--[[  ft = { "haskell" }, ]]
     config = nil }, -- already lazyed
     { name = "lazydev.nvim",            src = "folke/lazydev.nvim",                  pack = "opt", ft = { "lua" },
