@@ -1,8 +1,4 @@
 return {
-    "folke/noice.nvim",
-    -- lazy = true,
-    -- cmd = "NoiceDisable",
-
     opts = {
         cmdline = {
             enabled = true,

@@ -106,11 +106,7 @@ M.plugins = {
         local spec = require("plugins.returned.bufferline")
         require("bufferline").setup(spec.opts or {})
     end },
-    { name = "hlchunk.nvim",            src = "shellRaining/hlchunk.nvim",           pack = "start",
-    config = function()
-        local spec = require("plugins.returned.hlchunk")
-        require("hlchunk").setup(spec.opts or {})
-    end },
+    { name = "hlchunk.nvim",            src = "shellRaining/hlchunk.nvim",           pack = "start"},
     { name = "noice.nvim",              src = "folke/noice.nvim",                    pack = "start",
     config = function()
         local spec = require("plugins.returned.noice")
@@ -155,11 +151,7 @@ M.plugins = {
     config = function()
         require("code_runner").setup(require("plugins.returned.code_runner").opts or {})
     end },
-    { name = "guess-indent.nvim",       src = "NMAC427/guess-indent.nvim",           pack = "opt", cmd = { "GuessIndent" },
-    config = function()
-        local spec = require("plugins.returned.guess-indent")
-        require("guess-indent").setup(spec.opts or {})
-    end },
+    { name = "guess-indent.nvim",       src = "NMAC427/guess-indent.nvim",           pack = "opt", cmd = { "GuessIndent" } },
     { name = "twilight.nvim",           src = "folke/twilight.nvim",                 pack = "opt", cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
     config = function()
         require("twilight").setup({})

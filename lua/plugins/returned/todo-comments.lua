@@ -1,5 +1,5 @@
 return {
-    "folke/todo-comments.nvim",
+    -- "folke/todo-comments.nvim",
     -- lazy = true,
     -- event = { "User FileOpened" },
     opts = {}

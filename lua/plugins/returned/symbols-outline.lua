@@ -1,8 +1,4 @@
 return {
-    "simrat39/symbols-outline.nvim",
-    lazy = true,
-    cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
-
     opts = {
         highlight_hovered_item = true,
         show_guides = true,

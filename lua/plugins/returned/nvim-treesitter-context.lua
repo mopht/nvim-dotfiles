@@ -1,7 +1,4 @@
 return {
-    "romgrk/nvim-treesitter-context",
-    -- lazy = true,
-    -- event = { "User FileOpened" },
     opts = {
         enable = true,
         throttle = true,

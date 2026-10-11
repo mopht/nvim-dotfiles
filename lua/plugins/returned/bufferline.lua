@@ -1,9 +1,4 @@
 return {
-    "akinsho/bufferline.nvim",
-    -- after = {"folke/tokyonight.nvim"},
-    lazy = true,
-    event = "VeryLazy",
-    -- cmd = {"colorscheme tokyonight"},
     opts = {
         options = {
             diagnostics = "nvim_lsp",

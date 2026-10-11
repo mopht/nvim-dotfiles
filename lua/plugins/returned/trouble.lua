@@ -1,7 +1,7 @@
 return {
-    "folke/trouble.nvim",
-    lazy = true,
-    cmd = { "Trouble" },
+    -- "folke/trouble.nvim",
+    -- lazy = true,
+    -- cmd = { "Trouble" },
     opts = {
         height = 6, -- height of the trouble list when position is top or bottom
         width = 30, -- width of the list when position is left or right
