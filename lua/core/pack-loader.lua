@@ -106,7 +106,11 @@ M.plugins = {
         local spec = require("plugins.returned.bufferline")
         require("bufferline").setup(spec.opts or {})
     end },
-    { name = "hlchunk.nvim",            src = "shellRaining/hlchunk.nvim",           pack = "start"},
+    { name = "hlchunk.nvim",            src = "shellRaining/hlchunk.nvim",           pack = "start",
+    config = function()
+        local spec = require("plugins.returned.hlchunk")
+        require("hlchunk").setup(spec.opts or {})
+    end },
     { name = "noice.nvim",              src = "folke/noice.nvim",                    pack = "start",
     config = function()
         local spec = require("plugins.returned.noice")
