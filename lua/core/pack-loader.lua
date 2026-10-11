@@ -184,7 +184,7 @@ M.plugins = {
     config = function() require("Comment").setup({}) end },
     { name = "goto-preview",            src = "rmagatti/goto-preview",               pack = "opt",
     keys = {
-        { "gpd", mode = "n", action = function() require("goto-preview").goto_preview_definition() end,       desc = "Preview Definition" },
+        { "gpd", mode = "n", action = function() require("goto-preview").goto_preview_definition() end,        desc = "Preview Definition" },
         { "gpt", mode = "n", action = function() require("goto-preview").goto_preview_type_definition() end,   desc = "Preview Type Def" },
         { "gpi", mode = "n", action = function() require("goto-preview").goto_preview_implementation() end,    desc = "Preview Impl" },
         { "gpD", mode = "n", action = function() require("goto-preview").goto_preview_declaration() end,       desc = "Preview Declaration" },
