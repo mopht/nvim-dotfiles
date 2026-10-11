@@ -25,7 +25,7 @@ vim.keymap.set("n", "<leader>bp", ":BufferLinePickClose<CR>", { noremap = true, 
 vim.keymap.set("n", "<S-F7>", "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
 
 -- vim.keymap.set("n", "<F7>", ":FloatermNew --height=0.8 --width=0.8 --wintype=float <CR>")
-vim.keymap.set("n", "<F8>", ":ToggleTerm size=10 <CR>")
+vim.keymap.set("n", "<F8>", ":ToggleTerm size=9 <CR>")
 
 vim.keymap.set("n", "<F11>", ":RunCode<CR>")
 

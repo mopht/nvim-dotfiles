@@ -1,7 +1,4 @@
 return {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-
     config = function()
         local npairs_ok, npairs = pcall(require, "nvim-autopairs")
         if not npairs_ok then

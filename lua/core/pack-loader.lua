@@ -79,14 +79,10 @@ M.plugins = {
                     'haskell',
                 },
                 auto_install = true,
-                languages = {
-                    haskell = {
-                        install_info = {
-                            revision = "98aedbd2d6947a168ba3ba3755d70b0cb6b78395",
-                            url = "https://github.com/tree-sitter-grammars/tree-sitter-haskell",
-                        },
-                    },
-                },
+                languages = { haskell = { install_info = {
+                    revision = "98aedbd2d6947a168ba3ba3755d70b0cb6b78395",
+                    url = "https://github.com/tree-sitter-grammars/tree-sitter-haskell",
+                }, }, },
             })
         end,
     },
@@ -150,11 +146,11 @@ M.plugins = {
         local spec = require("plugins.returned.trouble")
         require("trouble").setup(spec.opts or {})
     end },
-    { name = "symbols-outline.nvim",    src = "simrat39/symbols-outline.nvim",       pack = "opt", cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
-    config = function()
-        local spec = require("plugins.returned.symbols-outline")
-        require("symbols-outline").setup(spec.opts or {})
-    end },
+    -- { name = "symbols-outline.nvim",    src = "simrat39/symbols-outline.nvim",       pack = "opt", cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
+    -- config = function()
+    --     local spec = require("plugins.returned.symbols-outline")
+    --     require("symbols-outline").setup(spec.opts or {})
+    -- end },
     { name = "code_runner.nvim",        src = "CRAG666/code_runner.nvim",            pack = "opt", cmd = { "RunCode" },
     config = function()
         require("code_runner").setup(require("plugins.returned.code_runner").opts or {})

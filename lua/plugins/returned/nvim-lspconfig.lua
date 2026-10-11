@@ -1,18 +1,4 @@
 return {
-    'neovim/nvim-lspconfig',
-
-    dependencies = {
-        'saghen/blink.cmp',
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim"
-    },
-
-    opts = {
-        servers = {
-            lua_ls = {},
-            clangd = {}
-        }
-    },
     config = function()
         -- nvim-lspconfig 0.11+ API: use vim.lsp.enable() / vim.lsp.config()
         -- Old require('lspconfig').xxx.setup() is DEPRECATED
@@ -107,5 +93,12 @@ return {
             filetypes = { "scheme" },
         })
         vim.lsp.enable("scheme-lsp")
+
+        vim.lsp.config("tslsp", {
+            cmd = { "typescript-language-server", "--stdio" },
+            filetypes = { "typescript" },
+            root_dir = vim.fs.root(0, {'package.json', 'tsconfig.json', '.git'})
+        })
+        vim.lsp.enable("tslsp")
     end
 }
