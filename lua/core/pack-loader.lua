@@ -155,7 +155,8 @@ M.plugins = {
     config = function()
         require("code_runner").setup(require("plugins.returned.code_runner").opts or {})
     end },
-    { name = "guess-indent.nvim",       src = "NMAC427/guess-indent.nvim",           pack = "opt", cmd = { "GuessIndent" } },
+    { name = "guess-indent.nvim",       src = "NMAC427/guess-indent.nvim",           pack = "opt", cmd = { "GuessIndent" },
+    config = function() require('guess-indent').setup {} end },
     { name = "twilight.nvim",           src = "folke/twilight.nvim",                 pack = "opt", cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
     config = function()
         require("twilight").setup({})
