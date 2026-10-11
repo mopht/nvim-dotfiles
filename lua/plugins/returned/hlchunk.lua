@@ -1,6 +1,4 @@
 return {
-    "shellRaining/hlchunk.nvim",
-    event = { "BufReadPre", "BufNewFile" },
     opts = {
         line_num = {
             enable = true

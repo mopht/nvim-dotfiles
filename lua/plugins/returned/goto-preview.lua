@@ -1,6 +1,4 @@
 return {
-    "rmagatti/goto-preview",
-    event = "VeryLazy",
     key = { "gpt", "gpd", "gP", "gpi", "gpD" },
     opts = {
         width = 120, -- Width of the floating window

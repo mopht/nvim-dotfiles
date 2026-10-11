@@ -1,6 +1,6 @@
 return {
-    'akinsho/toggleterm.nvim',
-    version = "*",
+    -- 'akinsho/toggleterm.nvim',
+    -- version = "*",
     config = function()
         require("toggleterm").setup({
             float_opts = {

@@ -1,7 +1,4 @@
 return {
-    "CRAG666/code_runner.nvim",
-    -- event = "User FileOpened",
-    cmd = "RunCode",
     opts = {
         filetype = {
             java = {

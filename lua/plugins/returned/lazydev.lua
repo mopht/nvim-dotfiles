@@ -1,8 +1,4 @@
 return {
-    "folke/lazydev.nvim",
-    lazy = true,
-    dependencies = { "nvim-lua/plenary.nvim" },
-    ft = "lua", -- only load on lua files
     opts = {
         library = {
             -- See the configuration section for more details
