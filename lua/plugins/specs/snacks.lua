@@ -6,8 +6,8 @@ return {
             layout = {
                 preset = "default",
                 layout = {
-                    width = 0.8,
-                    min_width = 60,
+                    width = 0.85,
+                    min_width = 70,
                 },
             },
         },
