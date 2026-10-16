@@ -165,6 +165,10 @@
       "rev": "a968f5133b8b24f481de12f08cd79420d1ace559",
       "src": "https://github.com/mrcjkb/rustaceanvim"
     },
+    "snacks.nvim": {
+      "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
+      "src": "https://github.com/folke/snacks.nvim"
+    },
     "symbols-outline.nvim": {
       "rev": "564ee65dfc9024bdde73a6621820866987cbb256",
       "src": "https://github.com/simrat39/symbols-outline.nvim"

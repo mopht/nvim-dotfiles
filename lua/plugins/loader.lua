@@ -52,7 +52,7 @@ M.plugins = {
     -- Core
     { name = "nvim-lspconfig",          src = "neovim/nvim-lspconfig",               pack = "start",
     config = function()
-        local spec = require("plugins.returned.nvim-lspconfig")
+        local spec = require("plugins.specs.nvim-lspconfig")
         if spec.config then spec.config() end
     end },
     { name = "blink.cmp",               src = "saghen/blink.cmp",                    pack = "start",
@@ -62,13 +62,13 @@ M.plugins = {
         if not ok then
             vim.notify("blink.cmp: native build failed, using Lua fallback", vim.log.levels.WARN)
         end
-        local spec = require("plugins.returned.blink-cmp")
+        local spec = require("plugins.specs.blink-cmp")
         require("blink.cmp").setup(spec.opts or {})
     end },
     { name = "nvim-treesitter",         src = "nvim-treesitter/nvim-treesitter",     pack = "start",
     version = "main",
     config = function()
-        local spec = require("plugins.returned.nvim-treesitter")
+        local spec = require("plugins.specs.nvim-treesitter")
         require("nvim-treesitter.config").setup(spec.opts or {})
     end },
     {
@@ -93,33 +93,33 @@ M.plugins = {
     -- UI
     { name = "lualine.nvim",            src = "nvim-lualine/lualine.nvim",           pack = "start",
     config = function()
-        local spec = require("plugins.returned.lualine")
+        local spec = require("plugins.specs.lualine")
         require("lualine").setup(spec.opts or {})
     end },
     { name = "barbecue",                src = "utilyre/barbecue.nvim",               pack = "start",
     config = function()
-        local spec = require("plugins.returned.barbecue")
+        local spec = require("plugins.specs.barbecue")
         require("barbecue").setup(spec.opts or {})
     end },
-    { name = "bufferline.nvim",         src = "akinsho/bufferline.nvim",             pack = "start",
-    config = function()
-        local spec = require("plugins.returned.bufferline")
-        require("bufferline").setup(spec.opts or {})
-    end },
+    -- { name = "bufferline.nvim",         src = "akinsho/bufferline.nvim",             pack = "start",
+    -- config = function()
+    --     local spec = require("plugins.specs.bufferline")
+    --     require("bufferline").setup(spec.opts or {})
+    -- end },
     { name = "hlchunk.nvim",            src = "shellRaining/hlchunk.nvim",           pack = "start",
     config = function()
-        local spec = require("plugins.returned.hlchunk")
+        local spec = require("plugins.specs.hlchunk")
         require("hlchunk").setup(spec.opts or {})
     end },
     { name = "noice.nvim",              src = "folke/noice.nvim",                    pack = "start",
     config = function()
-        local spec = require("plugins.returned.noice")
+        local spec = require("plugins.specs.noice")
         require("noice").setup(spec.opts or {})
     end },
     { name = "rainbow-delimiters.nvim", src = "HiPhish/rainbow-delimiters.nvim",     pack = "start" },
     { name = "nvim-treesitter-context", src = "nvim-treesitter/nvim-treesitter-context", pack = "start",
     config = function()
-        local spec = require("plugins.returned.nvim-treesitter-context")
+        local spec = require("plugins.specs.nvim-treesitter-context")
         require("treesitter-context").setup(spec.opts or {})
     end },
 
@@ -133,27 +133,33 @@ M.plugins = {
     -- ── cmd-based ────────────────────────────────
     { name = "neo-tree.nvim",           src = "nvim-neo-tree/neo-tree.nvim",         pack = "opt", cmd = { "Neotree" },
     config = function()
-        require("plugins.required.neo-tree")
-        require("plugins.required.nui")
+        require("plugins.specs.neo-tree")
+        require("plugins.specs.nui")
     end },
-    { name = "fzf-lua",                 src = "ibhagwan/fzf-lua",                    pack = "opt", cmd = { "FzfLua" },
+    { name = "snacks.nvim",             src = "folke/snacks.nvim",                   pack = "opt",
+    keys = {
+        { "<leader>ff", action = function() require("snacks").picker.files() end,   desc = "Find Files" },
+        { "<leader>fg", action = function() require("snacks").picker.grep() end,    desc = "Live Grep" },
+        { "<leader>fb", action = function() require("snacks").picker.buffers() end, desc = "Find Buffers" },
+        { "<leader>fh", action = function() require("snacks").picker.help() end,    desc = "Help Tags" },
+    },
     config = function()
-        local spec = require("plugins.returned.fzf-lua")
-        require("fzf-lua").setup(spec.opts or {})
+        local spec = require("plugins.specs.snacks")
+        require("snacks").setup(spec.opts or {})
     end },
     { name = "trouble.nvim",            src = "folke/trouble.nvim",                  pack = "opt", cmd = { "Trouble" },
     config = function()
-        local spec = require("plugins.returned.trouble")
+        local spec = require("plugins.specs.trouble")
         require("trouble").setup(spec.opts or {})
     end },
     -- { name = "symbols-outline.nvim",    src = "simrat39/symbols-outline.nvim",       pack = "opt", cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
     -- config = function()
-    --     local spec = require("plugins.returned.symbols-outline")
+    --     local spec = require("plugins.specs.symbols-outline")
     --     require("symbols-outline").setup(spec.opts or {})
     -- end },
     { name = "code_runner.nvim",        src = "CRAG666/code_runner.nvim",            pack = "opt", cmd = { "RunCode" },
     config = function()
-        require("code_runner").setup(require("plugins.returned.code_runner").opts or {})
+        require("code_runner").setup(require("plugins.specs.code_runner").opts or {})
     end },
     { name = "guess-indent.nvim",       src = "NMAC427/guess-indent.nvim",           pack = "opt", cmd = { "GuessIndent" },
     config = function() require('guess-indent').setup {} end },
@@ -191,7 +197,7 @@ M.plugins = {
         { "gP",  mode = "n", action = function() require("goto-preview").close_all_win() end,                  desc = "Close All Previews" },
     },
     config = function()
-        require("goto-preview").setup(require("plugins.returned.goto-preview").opts or {})
+        require("goto-preview").setup(require("plugins.specs.goto-preview").opts or {})
     end },
     { name = "neoscroll.nvim",          src = "karb94/neoscroll.nvim",               pack = "opt",
     keys = {
@@ -210,36 +216,36 @@ M.plugins = {
     config = function() require("auto-save").setup({}) end },
     { name = "better-escape.nvim",      src = "max397574/better-escape.nvim",        pack = "opt", event = { "InsertEnter" },
     config = function()
-        require("better_escape").setup(require("plugins.returned.better-escape").opts)
+        require("better_escape").setup(require("plugins.specs.better-escape").opts)
     end },
     { name = "nvim-autopairs",          src = "windwp/nvim-autopairs",               pack = "opt", event = { "InsertEnter" },
     config = function()
-        local spec = require("plugins.returned.autopairs")
+        local spec = require("plugins.specs.autopairs")
         if spec.config then spec.config() end
     end },
     { name = "tabout.nvim",             src = "abecodes/tabout.nvim",                pack = "opt", event = { "InsertEnter" },
-    config = function() require("tabout").setup(require("plugins.returned.tabout").opts) end },
+    config = function() require("tabout").setup(require("plugins.specs.tabout").opts) end },
     { name = "lsp_signature.nvim",      src = "ray-x/lsp_signature.nvim",            pack = "opt", event = { "InsertEnter" },
-    config = function() require("lsp_signature").setup(require("plugins.returned.lsp_signature").opts) end },
+    config = function() require("lsp_signature").setup(require("plugins.specs.lsp_signature").opts) end },
     { name = "friendly-snippets",       src = "rafamadriz/friendly-snippets",        pack = "opt", event = { "InsertEnter" } },
     -- { name = "inlay-hints.nvim",        src = "MysticalDevil/inlay-hints.nvim", pack = "opt", event = { "LspAttach" },
     --     config = function() require("inlay-hints").setup({}) end },
     { name = "none-ls.nvim",            src = "nvimtools/none-ls.nvim",              pack = "opt", event = { "LspAttach" },
     config = function()
         vim.cmd("packadd none-ls-extras.nvim")
-        local spec = require("plugins.returned.none-ls")
+        local spec = require("plugins.specs.none-ls")
         if spec.config then spec.config() end
     end },
     { name = "vim-better-whitespace",   src = "ntpeters/vim-better-whitespace",      pack = "opt", event = { "BufEnter" },
     config = nil },
     { name = "toggleterm.nvim",         src = "akinsho/toggleterm.nvim",             pack = "opt", event = { "BufEnter" },
     config = function()
-        local spec = require("plugins.returned.toggleterm")
+        local spec = require("plugins.specs.toggleterm")
         if spec.config then spec.config() end
     end },
     { name = "todo-comments.nvim",      src = "folke/todo-comments.nvim",            pack = "opt", event = { "BufEnter" },
     config = function()
-        local spec = require("plugins.returned.todo-comments")
+        local spec = require("plugins.specs.todo-comments")
         require("todo-comments").setup(spec.opts or {})
     end },
 
@@ -279,7 +285,7 @@ M.plugins = {
     { name = "haskell-tools.nvim",      src = "mrcjkb/haskell-tools.nvim",           pack = "start",--[[  ft = { "haskell" }, ]]
     config = nil }, -- already lazyed
     { name = "lazydev.nvim",            src = "folke/lazydev.nvim",                  pack = "opt", ft = { "lua" },
-    config = function() require("lazydev").setup(require("plugins.returned.lazydev").opts) end },
+    config = function() require("lazydev").setup(require("plugins.specs.lazydev").opts) end },
     -- { name = "zig-lamp",                src = "...", pack = "opt", ft = { "zig", "zon" },
     -- pre = function()
     --     vim.g.zig_lamp_zls_auto_install = nil
