@@ -55,7 +55,7 @@ nvim
 ├── nvim-pack-lock.json  # pinned vim.pack versions
 └── lua/
     ├── config/          # options, keymaps, autocmds, neovide
-    └── plugins/         # loader.lua, registry.lua, specs/
+    └── plugins/         # loader.lua, registry.lua, <category>/, specs/
 ```
 
 <!-- ## Key Notes -->
