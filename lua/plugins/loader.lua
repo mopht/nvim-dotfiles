@@ -5,6 +5,7 @@
 
 local M = {}
 local api = vim.api
+local loaded = {}
 local registry = require("plugins.registry")
 
 M.plugins = registry.plugins
@@ -44,9 +45,12 @@ local function hook_key(plugin_name, config_fn, key_specs, pre_fn)
         local opts  = vim.tbl_extend("keep", ks.opts or {}, { desc = desc })
 
         vim.keymap.set(mode, lhs, function()
-            if pre_fn then pcall(pre_fn) end
-            vim.cmd("packadd " .. plugin_name)
-            if config_fn then config_fn() end
+            if not loaded[plugin_name] then
+                if pre_fn then pcall(pre_fn) end
+                vim.cmd("packadd " .. plugin_name)
+                if config_fn then config_fn() end
+                loaded[plugin_name] = true
+            end
             if action then
                 action()
             else
