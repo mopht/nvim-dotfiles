@@ -1,8 +1,9 @@
 return {
     opts = {
         -- explorer = { enabled = true },
-        bigfile = { enabled = true };
-        quickfile = { enabled = true };
+        bigfile = { enabled = true },
+        quickfile = { enabled = true },
+        image = { enabled = true },
         picker = {
             enabled = true,
             layout = {
