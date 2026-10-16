@@ -117,7 +117,7 @@ M.plugins = {
         { "<leader>hh", action = function() require("snacks").picker.help() end,    desc = "Help Tags" },
         { "<F8>",       action = function() require("snacks").terminal.toggle(nil, { win = { position = "bottom", height = 9 } }) end, desc = "Toggle terminal" },
         { "<leader>tn", action = function() require("snacks").terminal.toggle("nu", { win = { position = "float", width = 0.8, height = 0.8 } }) end, desc = "Nushell" },
-        { "<leader>tm", action = function() require("snacks").terminal.toggle("lazygit", { win = { position = "float", width = 0.9, height = 0.9 } }) end, desc = "Lazygit" },
+        { "<leader>tm", action = function() require("snacks").lazygit() end, desc = "Lazygit" },
     },
     config = function()
         local spec = require("plugins.specs.snacks")

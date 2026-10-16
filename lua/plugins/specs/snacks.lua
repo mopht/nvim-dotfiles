@@ -4,6 +4,7 @@ return {
         bigfile = { enabled = true },
         quickfile = { enabled = true },
         image = { enabled = true },
+        lazygit = {enabled = true },
         picker = {
             enabled = true,
             layout = {
