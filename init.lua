@@ -7,20 +7,31 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Auto cmd
-require("autocmd.italicize")
 
--- General options (no plugin dependencies)
-require("core.options")
+-- One-time migration to the new layout. After it succeeds, the sentinel file
+-- exists and this block becomes a no-op.
+local nvim_config_root = vim.fn.stdpath("config") .. "/lua"
+local migrated = nvim_config_root .. "/config/.migrated"
+if vim.fn.filereadable(migrated) == 0 then
+    pcall(require, "bootstrap")
+end
 
--- Plugin loader: adds start/ plugins to rtp, runs configs, sets up lazy-loading
-require("core.pack-loader").setup()
+if vim.fn.filereadable(migrated) == 1 then
+    require("config.autocmds")
+    require("config.options")
+    require("plugins.loader").setup()
+    require("config.keymaps")
+    require("config.neovide")
+else
+    -- Fallback for a failed migration.
+    require("autocmd.italicize")
+    require("core.options")
+    require("core.pack-loader").setup()
+    require("core.keymap")
+    require("core.neovide")
+end
 
--- Keymaps (cmd-based mappings work through pack-loader's command shadowing)
-require("core.keymap")
 
--- Neovide GUI settings
-require("core.neovide")
 
 vim.filetype.add({
   extension = {

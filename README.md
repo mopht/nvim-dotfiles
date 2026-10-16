@@ -8,7 +8,7 @@ Personal Neovim configuration.
 - LSP setup: nvim-lspconfig + mason.nvim
 - Completion: blink.cmp
 - Syntax highlighting: nvim-treesitter
-- Fuzzy finder: fzf-lua
+- Fuzzy finder: snacks.nvim (picker)
 - File explorer: neo-tree.nvim
 - Statusline: lualine.nvim
 - Colorscheme: everforest
@@ -52,10 +52,10 @@ nvim
 ```
 ~/.config/nvim
 ├── init.lua
-├── lua/
-│   ├── config/       # core options, keymaps, autocmds
-│   └── plugins/      # plugin specs
-└── lazy-lock.json    # pinned plugin versions
+├── nvim-pack-lock.json  # pinned vim.pack versions
+└── lua/
+    ├── config/          # options, keymaps, autocmds, neovide
+    └── plugins/         # loader.lua + specs/
 ```
 
 <!-- ## Key Notes -->
