@@ -25,7 +25,7 @@ vim.keymap.set("n", "<leader>bp", ":BufferLinePickClose<CR>", { noremap = true, 
 vim.keymap.set("n", "<S-F7>", "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
 
 -- vim.keymap.set("n", "<F7>", ":FloatermNew --height=0.8 --width=0.8 --wintype=float <CR>")
-vim.keymap.set("n", "<F8>", ":ToggleTerm size=9 <CR>")
+-- <F8> is lazily registered by plugins/registry.lua (snacks.terminal)
 
 vim.keymap.set("n", "<F11>", ":RunCode<CR>")
 
@@ -38,7 +38,7 @@ vim.keymap.set("n", "xQ", "<cmd>Trouble qflist toggle<cr>")
 
 vim.keymap.set("n", "<leader>oo", "<cmd>SymbolsOutline<cr>")
 
--- Fuzzy finder keymaps are lazily registered by pack-loader.lua (snacks.nvim)
+-- Fuzzy finder keymaps are lazily registered by plugins/registry.lua (snacks.nvim)
 
 
 
@@ -47,9 +47,7 @@ vim.keymap.set("n", "<leader>oo", "<cmd>SymbolsOutline<cr>")
 -- vim.keymap.set("n", "<leader>fd", "<cmd>TodoTelescope<cr>")
 
 -- vim.keymap.set("n", "<leader>fm", "<cmd>FloatermNew --height=0.8 --width=0.8 --wintype=float<cr>")
--- vim.keymap.set("n", "<leader>fn", "<cmd>ToggleTerm direction=float<cr>")
-vim.keymap.set("n", "<leader>fn", "<cmd>lua _NUSHELL_TOGGLE()<cr>")
-vim.keymap.set("n", "<leader>fm", "<cmd>lua _LAZYGIT_TOGGLE()<cr>");
+-- <leader>fn / <leader>fm are lazily registered by plugins/registry.lua (snacks.terminal)
 
 vim.keymap.set("n", "<leader>he", "<cmd>Haskell hls evalAll<cr>")
 

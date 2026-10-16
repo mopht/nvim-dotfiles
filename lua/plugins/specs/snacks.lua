@@ -11,5 +11,10 @@ return {
                 },
             },
         },
+        terminal = {
+            win = {
+                style = "terminal",
+            },
+        },
     },
 }

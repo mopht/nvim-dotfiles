@@ -114,6 +114,9 @@ M.plugins = {
         { "<leader>fg", action = function() require("snacks").picker.grep() end,    desc = "Live Grep" },
         { "<leader>fb", action = function() require("snacks").picker.buffers() end, desc = "Find Buffers" },
         { "<leader>fh", action = function() require("snacks").picker.help() end,    desc = "Help Tags" },
+        { "<F8>",       action = function() require("snacks").terminal.toggle(nil, { win = { position = "bottom", height = 9 } }) end, desc = "Toggle terminal" },
+        { "<leader>fn", action = function() require("snacks").terminal.toggle("nu", { win = { position = "float", width = 0.8, height = 0.8 } }) end, desc = "Nushell" },
+        { "<leader>fm", action = function() require("snacks").terminal.toggle("lazygit", { win = { position = "float", width = 0.9, height = 0.9 } }) end, desc = "Lazygit" },
     },
     config = function()
         local spec = require("plugins.specs.snacks")
@@ -210,11 +213,6 @@ M.plugins = {
     end },
     { name = "vim-better-whitespace",   src = "ntpeters/vim-better-whitespace",      pack = "opt", event = { "BufEnter" },
     config = nil },
-    { name = "toggleterm.nvim",         src = "akinsho/toggleterm.nvim",             pack = "opt", event = { "BufEnter" },
-    config = function()
-        local spec = require("plugins.specs.toggleterm")
-        if spec.config then spec.config() end
-    end },
     { name = "todo-comments.nvim",      src = "folke/todo-comments.nvim",            pack = "opt", event = { "BufEnter" },
     config = function()
         local spec = require("plugins.specs.todo-comments")
