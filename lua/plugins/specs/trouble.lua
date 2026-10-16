@@ -3,7 +3,7 @@ return {
     -- lazy = true,
     -- cmd = { "Trouble" },
     opts = {
-        height = 6, -- height of the trouble list when position is top or bottom
+        height = 5, -- height of the trouble list when position is top or bottom
         width = 30, -- width of the list when position is left or right
         mode = "workspace_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
         severity = nil, -- nil (ALL) or vim.diagnostic.severity.ERROR | WARN | INFO | HINT
