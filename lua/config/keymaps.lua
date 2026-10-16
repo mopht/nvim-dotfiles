@@ -1,54 +1,45 @@
--- local keymap = vim.keymap
-
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>=", ":lua vim.lsp.buf.format { async = true }<CR>")
+-- Formatting
+vim.keymap.set("n", "<leader>=", ":lua vim.lsp.buf.format { async = true }<CR>", { desc = "Format buffer" })
 
-vim.keymap.set("n", "K", vim.lsp.buf.hover)
+-- LSP
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+vim.keymap.set("n", "<C-o>", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Diagnostics float" })
 
-vim.keymap.set("n", "<C-o>", "<cmd>lua vim.diagnostic.open_float()<CR>")
+-- Movement
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+-- Splits
+vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split vertical" })
+vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split horizontal" })
 
-vim.keymap.set("n", "<leader>sv", "<C-w>v")
-vim.keymap.set("n", "<leader>sh", "<C-w>s")
+-- Buffers / search
+vim.keymap.set("n", "sl", ":bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "sh", ":bprevious<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "nl", ":nohl<CR>", { desc = "Clear search highlight" })
+vim.keymap.set("n", "<leader>bp", ":BufferLinePickClose<CR>", { noremap = true, silent = true, desc = "Close buffer pick" })
 
-vim.keymap.set("n", "tl", "<cmd>TodoLocList toggle<cr>")
+-- Explorer / outline
+vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Toggle explorer" })
+vim.keymap.set("n", "<leader>oo", "<cmd>SymbolsOutline<cr>", { desc = "Symbols outline" })
 
-vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>")
-vim.keymap.set("n", "sl", ":bnext<CR>")
-vim.keymap.set("n", "sh", ":bprevious<CR>")
+-- Todo
+vim.keymap.set("n", "tl", "<cmd>TodoLocList toggle<cr>", { desc = "Todo location list" })
 
-vim.keymap.set("n", "nl", ":nohl<CR>")
-vim.keymap.set("n", "<leader>bp", ":BufferLinePickClose<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<S-F7>", "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
+-- Trouble
+vim.keymap.set("n", "xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble diagnostics" })
+vim.keymap.set("n", "xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Trouble buffer diagnostics" })
+vim.keymap.set("n", "cs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Trouble symbols" })
+vim.keymap.set("n", "cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "Trouble LSP" })
+vim.keymap.set("n", "xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Trouble location list" })
+vim.keymap.set("n", "xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Trouble quickfix" })
 
--- vim.keymap.set("n", "<F7>", ":FloatermNew --height=0.8 --width=0.8 --wintype=float <CR>")
--- <F8> is lazily registered by plugins/registry.lua (snacks.terminal)
-
-vim.keymap.set("n", "<F11>", ":RunCode<CR>")
-
-vim.keymap.set("n", "xx", "<cmd>Trouble diagnostics toggle<cr>")
-vim.keymap.set("n", "xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>")
-vim.keymap.set("n", "cs", "<cmd>Trouble symbols toggle focus=false<cr>")
-vim.keymap.set("n", "cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>")
-vim.keymap.set("n", "xL", "<cmd>Trouble loclist toggle<cr>")
-vim.keymap.set("n", "xQ", "<cmd>Trouble qflist toggle<cr>")
-
-vim.keymap.set("n", "<leader>oo", "<cmd>SymbolsOutline<cr>")
-
--- Fuzzy finder keymaps are lazily registered by plugins/registry.lua (snacks.nvim)
-
-
-
-
--- vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>")
--- vim.keymap.set("n", "<leader>fd", "<cmd>TodoTelescope<cr>")
-
--- vim.keymap.set("n", "<leader>fm", "<cmd>FloatermNew --height=0.8 --width=0.8 --wintype=float<cr>")
--- <leader>fn / <leader>fm are lazily registered by plugins/registry.lua (snacks.terminal)
-
-vim.keymap.set("n", "<leader>he", "<cmd>Haskell hls evalAll<cr>")
-
+-- Runner / tools
+vim.keymap.set("n", "<S-F7>", "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true, desc = "Toggle compiler results" })
+vim.keymap.set("n", "<F11>", ":RunCode<CR>", { desc = "Run code" })
+vim.keymap.set("n", "<leader>he", "<cmd>Haskell hls evalAll<cr>", { desc = "Haskell evaluate all" })
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+-- Fuzzy finder and terminal keymaps are lazily registered by plugins/registry.lua (snacks.nvim)

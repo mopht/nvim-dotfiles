@@ -19,7 +19,7 @@ M.plugins = {
 
     { name = "which-key.nvim",          src = "folke/which-key.nvim",                pack = "start",
     config = function()
-        require("which-key").setup({})
+        require("which-key").setup(require("plugins.specs.which-key").opts or {})
     end},
     -- Core
     { name = "nvim-lspconfig",          src = "neovim/nvim-lspconfig",               pack = "start",
@@ -159,8 +159,8 @@ M.plugins = {
     config = function() require("flash").setup({}) end },
     { name = "Comment.nvim",            src = "numToStr/Comment.nvim",               pack = "opt",
     keys = {
-        { "gc",  mode = { "n", "v" } },
-        { "gcc", mode = "n" },
+        { "gc",  mode = { "n", "v" }, desc = "Comment operator" },
+        { "gcc", mode = "n",          desc = "Comment line" },
     },
     config = function() require("Comment").setup({}) end },
     { name = "goto-preview",            src = "rmagatti/goto-preview",               pack = "opt",
@@ -176,13 +176,23 @@ M.plugins = {
     end },
     { name = "neoscroll.nvim",          src = "karb94/neoscroll.nvim",               pack = "opt",
     keys = {
-        { "<C-u>" }, { "<C-d>" }, { "<C-b>" }, { "<C-f>" },
-        { "<C-y>" }, { "<C-e>" }, { "zz" }, { "zt" }, { "zb" },
+        { "<C-u>", desc = "Scroll up half page" },
+        { "<C-d>", desc = "Scroll down half page" },
+        { "<C-b>", desc = "Scroll up page" },
+        { "<C-f>", desc = "Scroll down page" },
+        { "<C-y>", desc = "Scroll line up" },
+        { "<C-e>", desc = "Scroll line down" },
+        { "zz",    desc = "Center cursor line" },
+        { "zt",    desc = "Cursor line to top" },
+        { "zb",    desc = "Cursor line to bottom" },
     },
     config = function() require("neoscroll").setup({}) end },
     { name = "vim-tmux-navigator",      src = "christoomey/vim-tmux-navigator",      pack = "opt",
     keys = {
-        { "<C-h>" }, { "<C-j>" }, { "<C-k>" }, { "<C-l>" },
+        { "<C-h>", desc = "Window left" },
+        { "<C-j>", desc = "Window down" },
+        { "<C-k>", desc = "Window up" },
+        { "<C-l>", desc = "Window right" },
     },
     config = nil },
 
