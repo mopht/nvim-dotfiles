@@ -70,8 +70,8 @@ local M = {
         -- end
         require("blink.cmp").setup(blink_opts)
     end },
-    { name = "lsp_signature.nvim", src = "ray-x/lsp_signature.nvim", pack = "opt", event = { "InsertEnter" },
-    config = function() require("lsp_signature").setup({ hint_prefix = " ", }) end},
+    -- { name = "lsp_signature.nvim", src = "ray-x/lsp_signature.nvim", pack = "opt", event = { "InsertEnter" },
+    -- config = function() require("lsp_signature").setup({ hint_prefix = " ", }) end},
     { name = "friendly-snippets", src = "rafamadriz/friendly-snippets", pack = "opt", event = { "InsertEnter" } },
 }
 
