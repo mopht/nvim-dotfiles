@@ -49,6 +49,7 @@ local snacks_opts = {
                 layout = {
                     preset = "sidebar",
                     preview = false,
+                    cycle = false,
                     layout = {
                         width = 19,
                         min_width = 19,
