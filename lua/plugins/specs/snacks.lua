@@ -5,6 +5,17 @@ return {
         quickfile = { enabled = true },
         image = { enabled = true },
         lazygit = {enabled = true },
+        indent = {
+            enabled = true,
+            scope = { enabled = true, },
+            chunk = {
+                enabled = true,
+                char = {
+                    corner_top = "╭",
+                    corner_bottom = "╰",
+                }
+            },
+        },
         picker = {
             enabled = true,
             layout = {
