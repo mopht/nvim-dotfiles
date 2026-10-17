@@ -1,4 +1,4 @@
-local M = {
+return {
     { name = "lz.n",              src = "nvim-neorocks/lz.n",           pack = "start" },
     { name = "_blink.lib",        src = "saghen/blink.lib",             pack = "start" },
     -- { name = "plenary.nvim",      src = "nvim-lua/plenary.nvim",        pack = "start" },
@@ -11,5 +11,3 @@ local M = {
         icons.mock_nvim_web_devicons()
     end},
 }
-
-return M

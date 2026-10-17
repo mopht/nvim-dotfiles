@@ -70,7 +70,7 @@ local statusline_opts = {
     },
 }
 
-local M = {
+return {
     -- Uncomment this if you want the Git branch section.
     -- { name = "mini.git", src = "nvim-mini/mini.git", pack = "start",
     -- config = function() require("mini.git").setup() end },
@@ -87,5 +87,3 @@ local M = {
     { name = "barbecue", src = "utilyre/barbecue.nvim", pack = "start",
     config = function() require("barbecue").setup({}) end },
 }
-
-return M

@@ -73,7 +73,7 @@ local snacks_opts = {
     },
 }
 
-local M = {
+return {
     { name = "snacks.nvim", src = "folke/snacks.nvim", pack = "opt",
     event = { "BufReadPre" };
     keys = {
@@ -89,5 +89,3 @@ local M = {
     },
     config = function() require("snacks").setup(snacks_opts) end },
 }
-
-return M

@@ -1,4 +1,4 @@
-local M = {
+return {
     { name = "vim-tmux-navigator", src = "christoomey/vim-tmux-navigator", pack = "opt",
     keys = {
         { "<C-h>", desc = "Window left" },
@@ -8,5 +8,3 @@ local M = {
     },
     config = nil },
 }
-
-return M

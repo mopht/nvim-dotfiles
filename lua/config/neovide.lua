@@ -1,4 +1,5 @@
 if not vim.g.neovide then return end
+
 -- vim.o.guifont = "Cascadia Code, Maple Mono NF:h19:#e-subpixelantialias"     -- NF = Nerd Font glyphs
 vim.opt.linespace = 10
 -- vim.o.guifont = "Maple_Mono:h16:#e-subpixelantialias"     -- text below applies for VimScript

@@ -32,9 +32,7 @@ local noice_opts = {
     -- vim.cmd [[NoiceDisable]]
 }
 
-local M = {
+return {
     { name = "noice.nvim", src = "folke/noice.nvim", pack = "start",
     config = function() require("noice").setup(noice_opts) end },
 }
-
-return M

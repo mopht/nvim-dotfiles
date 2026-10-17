@@ -1,4 +1,4 @@
-local M = {
+return {
     { name = "conform.nvim", src = "stevearc/conform.nvim", pack = "start",
     config = function()
         require("conform").setup({
@@ -16,5 +16,3 @@ local M = {
         })
     end },
 }
-
-return M

@@ -71,7 +71,7 @@ local blink_opts = {
     fuzzy = { implementation = "prefer_rust_with_warning" }
 }
 
-local M = {
+return {
     { name = "blink.cmp", src = "saghen/blink.cmp", pack = "start",
     config = function()
         -- v2: build/download native fuzzy matcher (one-time, caches after)
@@ -85,5 +85,3 @@ local M = {
     -- config = function() require("lsp_signature").setup({ hint_prefix = " ", }) end},
     { name = "friendly-snippets", src = "rafamadriz/friendly-snippets", pack = "opt", event = { "InsertEnter" } },
 }
-
-return M

@@ -31,7 +31,7 @@ local tabout_opts = {
     exclude = {}, -- tabout will ignore these filetypes
 }
 
-local M = {
+return {
     { name = "better-escape.nvim", src = "max397574/better-escape.nvim", pack = "opt", event = { "InsertEnter" },
     config = function() require("better_escape").setup(better_escape_opts) end },
     { name = "tabout.nvim", src = "abecodes/tabout.nvim", pack = "opt", event = { "InsertEnter" },
@@ -62,5 +62,3 @@ local M = {
         }
     end },
 }
-
-return M

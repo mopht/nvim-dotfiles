@@ -41,5 +41,3 @@ vim.keymap.set("n", "<S-F7>", "<cmd>CompilerToggleResults<cr>", { noremap = true
 vim.keymap.set("n", "<F11>", ":RunCode<CR>", { desc = "Run code" })
 vim.keymap.set("n", "<leader>he", "<cmd>Haskell hls evalAll<cr>", { desc = "Haskell evaluate all" })
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-
--- Fuzzy finder and terminal keymaps are lazily registered by plugins/registry.lua (snacks.nvim)
