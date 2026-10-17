@@ -141,10 +141,8 @@ function M.setup()
             return
         end
         vim.pack.del(stale)
-        vim.notify(
-            "pack-loader: removed " .. table.concat(stale, ", "),
-            vim.log.levels.INFO
-        )
+        vim.notify("pack-loader: removed " .. table.concat(stale, ", "),
+                   vim.log.levels.INFO)
     end, { desc = "Remove plugins not listed in the registry" })
 end
 

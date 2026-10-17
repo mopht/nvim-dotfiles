@@ -1,5 +1,6 @@
 local M = {
     { name = "snacks.nvim", src = "folke/snacks.nvim", pack = "opt",
+    event = { "BufReadPre" };
     keys = {
         { "<leader><space>", action = function() require("snacks").picker.smart() end,   desc = "Smart Find Files" },
         { "<leader>f",       action = function() require("snacks").picker.files() end,   desc = "Find Files" },
