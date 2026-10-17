@@ -4,41 +4,37 @@ local M = {
         -- nvim-lspconfig 0.11+ API: use vim.lsp.enable() / vim.lsp.config()
         -- Old require('lspconfig').xxx.setup() is DEPRECATED
 
-        require("mason").setup({
-            ui = {
-                icons = {
-                    package_installed = "✓",
-                    package_pending = "➜",
-                    package_uninstalled = "✗",
-                },
-            },
-        })
-
-        require("mason-lspconfig").setup({
-            ensure_installed = {
-                -- "lua_ls",
-                -- "clangd",
-                -- "hls"
-            },
-            handlers = {
-                -- Default: auto-enable all installed servers
-                function(server_name)
-                    vim.lsp.enable(server_name)
-                end,
-                -- Custom: clangd uses specific path
-                -- ["clangd"] = function()
-                --     vim.lsp.config("clangd", {
-                --         cmd = {
-                --             "E:/apps/apps/mingw-mstorsjo-llvm-ucrt/current/bin/clangd.exe",
-                --             "--background-index",
-                --             "--query-driver=clang++",
-                --         },
-                --         filetypes = { "cc", "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-                --     })
-                --     vim.lsp.enable("clangd")
-                -- end,
-            },
-        })
+        -- require("mason").setup({
+        --     ui = {
+        --         icons = {
+        --             package_installed = "✓",
+        --             package_pending = "➜",
+        --             package_uninstalled = "✗",
+        --         },
+        --     },
+        -- })
+        --
+        -- require("mason-lspconfig").setup({
+        --     ensure_installed = { },
+        --     handlers = {
+        --         -- Default: auto-enable all installed servers
+        --         function(server_name)
+        --             vim.lsp.enable(server_name)
+        --         end,
+        --         -- Custom: clangd uses specific path
+        --         -- ["clangd"] = function()
+        --         --     vim.lsp.config("clangd", {
+        --         --         cmd = {
+        --         --             "E:/apps/apps/mingw-mstorsjo-llvm-ucrt/current/bin/clangd.exe",
+        --         --             "--background-index",
+        --         --             "--query-driver=clang++",
+        --         --         },
+        --         --         filetypes = { "cc", "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+        --         --     })
+        --         --     vim.lsp.enable("clangd")
+        --         -- end,
+        --     },
+        -- })
 
         vim.diagnostic.config({
             virtual_text = {
@@ -46,7 +42,7 @@ local M = {
             },
             severity_sort = true,
             float = {
-                source = "always",
+                source = true,
             },
         })
 
@@ -76,7 +72,7 @@ local M = {
             root_markers = { '.git' },
         })
         vim.lsp.enable('prolog_ls')
-        -- vim.lsp.inlay_hint.enable()
+
         vim.lsp.config("nixd", {
             cmd = { "nixd" },
             filetypes = { "nix" },
@@ -101,6 +97,12 @@ local M = {
             root_dir = vim.fs.root(0, {'package.json', 'tsconfig.json', '.git'})
         })
         vim.lsp.enable("tslsp")
+
+        vim.lsp.config("lua_ls", {
+            cmd = { "lua-language-server" },
+            filetypes = { "lua" },
+        })
+        vim.lsp.enable("lua_ls")
     end },
 }
 
