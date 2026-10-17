@@ -39,7 +39,14 @@ local blink_opts = {
     completion = {
         documentation = { auto_show = true },
         accept = {
-            auto_brackets = { enabled = true },
+            -- auto_brackets = {
+                -- enabled = true,
+                -- semantic_token_types = {
+                --     "function",
+                --     "method",
+                --     "constructor",
+                -- }
+            -- },
         },
     },
 

@@ -10,12 +10,6 @@ vim.loader.enable()
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-require("config.autocmds")
-require("config.options")
-require("plugins.loader").setup()
-require("config.keymaps")
-require("config.neovide")
-
 vim.filetype.add({
     extension = {
         kk = "koka",
@@ -24,6 +18,13 @@ vim.filetype.add({
         mbt = "moonbit"
     },
 })
+
+require("config.options")
+require("plugins.loader").setup()
+
+require("config.autocmds")
+require("config.keymaps")
+require("config.neovide")
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "koka",
