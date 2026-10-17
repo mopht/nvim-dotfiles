@@ -133,19 +133,17 @@ Useful commands:
 
 ```lua
 -- A single plugin
-local M = {
+return {
     { name = "mini.icons", src = "echasnovski/mini.icons", pack = "start" },
 }
-return M
 ```
 
 ```lua
 -- Multiple plugins in one file
-local M = {
+return {
     { name = "flash.nvim", src = "folke/flash.nvim", pack = "opt", keys = { ... } },
     { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", pack = "opt", keys = { ... } },
 }
-return M
 ```
 
 - `pack = "start"`: load at startup
