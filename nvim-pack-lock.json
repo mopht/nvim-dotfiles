@@ -1,9 +1,5 @@
 {
   "plugins": {
-    "Comment.nvim": {
-      "rev": "e30b7f2008e52442154b66f7c519bfd2f1e32acb",
-      "src": "https://github.com/numToStr/Comment.nvim"
-    },
     "_blink.lib": {
       "rev": "fd9a48ebbe6ec30d5dfcc5b42c243941ccdca1aa",
       "src": "https://github.com/saghen/blink.lib"
@@ -56,10 +52,6 @@
       "rev": "705f7cd1108d5fb626a3660d6d1177953adef57f",
       "src": "https://github.com/mrcjkb/haskell-tools.nvim"
     },
-    "hlchunk.nvim": {
-      "rev": "4ddc056e4ca45f1c7dc6aa21935df710b263b1aa",
-      "src": "https://github.com/shellRaining/hlchunk.nvim"
-    },
     "idris2-nvim": {
       "rev": "ec0fb7f22feeaa8d454e2b11675ae4c493228833",
       "src": "https://github.com/ShinKage/idris2-nvim"
@@ -83,14 +75,6 @@
     "lz.n": {
       "rev": "a5be3da63d4fc3b9243d54961e28d02e97deb65d",
       "src": "https://github.com/nvim-neorocks/lz.n"
-    },
-    "mason-lspconfig.nvim": {
-      "rev": "00b5473cca4db5b410ff4bae724e3b6e21f2687f",
-      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
-    },
-    "mason.nvim": {
-      "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
-      "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.icons": {
       "rev": "f916635dc5ae2f479fbb9ab8184bb9444b62e86c",
