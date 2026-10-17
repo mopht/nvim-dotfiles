@@ -9,12 +9,12 @@ Personal Neovim configuration. Plugins are installed and managed by Neovim's bui
 - **Plugin management**: `vim.pack` + `lz.n`
 - **LSP**: `nvim-lspconfig`, `mason.nvim`, `mason-lspconfig.nvim`, `lazydev.nvim`
 - **Completion**: `blink.cmp`
-- **Formatting / diagnostics**: `none-ls.nvim` + `none-ls-extras`
+- **Formatting**: `conform.nvim`
 - **Treesitter**: `nvim-treesitter`, `tree-sitter-manager.nvim`, `rainbow-delimiters.nvim`
 - **Picker / terminal**: `snacks.nvim` (smart/files/grep/buffers/help, terminal, lazygit)
 - **UI**: `which-key.nvim` (Helix preset), `mini.statusline`, `barbecue`, `noice.nvim`
 - **Explorer / navigation**: `snacks.nvim` explorer, `vim-tmux-navigator`
-- **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `todo-comments.nvim`
+- **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `better-escape`, `tabout`, `auto-save`, `todo-comments.nvim`, blink.cmp auto brackets
 - **Diagnostics panel**: `trouble.nvim`
 - **Code runner**: `code_runner.nvim`
 - **Colorschemes**: `everforest` by default, with `tokyonight` and `catppuccin` available

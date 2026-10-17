@@ -9,12 +9,12 @@
 - **插件管理**：`vim.pack` + `lz.n`
 - **LSP**：`nvim-lspconfig`、`mason.nvim`、`mason-lspconfig.nvim`、`lazydev.nvim`
 - **补全**：`blink.cmp`
-- **格式化 / 诊断**：`none-ls.nvim` + `none-ls-extras`
+- **格式化**：`conform.nvim`
 - **Treesitter**：`nvim-treesitter`、`tree-sitter-manager.nvim`、`rainbow-delimiters.nvim`
 - **Picker / 终端**：`snacks.nvim`（smart/files/grep/buffers/help、terminal、lazygit）
 - **UI**：`which-key.nvim`（Helix 风格）、`mini.statusline`、`barbecue`、`noice.nvim`
 - **文件树 / 窗口导航**：`snacks.nvim` explorer、`vim-tmux-navigator`
-- **编辑增强**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`todo-comments.nvim`
+- **编辑增强**：`flash.nvim`、`goto-preview`、`neoscroll`、`better-escape`、`tabout`、`auto-save`、`todo-comments.nvim`、blink.cmp 自动括号
 - **诊断面板**：`trouble.nvim`
 - **运行代码**：`code_runner.nvim`
 - **主题**：默认 `everforest`，可选 `tokyonight`、`catppuccin`
