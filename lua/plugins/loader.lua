@@ -35,7 +35,7 @@ function M.setup()
             and (d.kind == "install" or d.kind == "update")) then return end
 
         if not d.active then vim.cmd.packadd("nvim-treesitter") end
-        pcall(vim.cmd, "TSUpdate")
+        pcall(vim.cmd.fun, "TSUpdate")
     end,})
 
     -- Phase 0: pre-init hooks
