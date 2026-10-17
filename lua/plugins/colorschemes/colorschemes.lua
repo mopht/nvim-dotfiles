@@ -4,14 +4,7 @@ local M = {
     { name = "catppuccin",      src = "catppuccin/nvim",         pack = "opt" },
     { name = "tokyonight.nvim", src = "folke/tokyonight.nvim",   pack = "opt",
     colorscheme = "tokyonight",
-    config = function () require("tokyonight").setup({
-        transparent = true,
-        styles = {
-            sidebars = "transparent",
-            floats = "transparent",
-            -- lualine = "transparent"
-        }
-    })
+    config = function () require("tokyonight").setup()
     end, },
 }
 

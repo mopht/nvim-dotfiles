@@ -12,7 +12,7 @@ local M = {
             },
             lsp = {
                 native = true,
-                on_attach = function(client, bufnr) end,
+                on_attach = function() end,
                 capabilities = vim.lsp.protocol.make_client_capabilities(),
             },
             jsonls = {

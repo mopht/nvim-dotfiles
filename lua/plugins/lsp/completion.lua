@@ -64,10 +64,10 @@ local M = {
     { name = "blink.cmp", src = "saghen/blink.cmp", pack = "start",
     config = function()
         -- v2: build/download native fuzzy matcher (one-time, caches after)
-        local ok, _ = pcall(function() require("blink.cmp").build():pwait() end)
-        if not ok then
-            vim.notify("blink.cmp: native build failed, using Lua fallback", vim.log.levels.WARN)
-        end
+        -- local ok, _ = pcall(function() require("blink.cmp").build():pwait() end)
+        -- if not ok then
+        --     vim.notify("blink.cmp: native build failed, using Lua fallback", vim.log.levels.WARN)
+        -- end
         require("blink.cmp").setup(blink_opts)
     end },
     { name = "lsp_signature.nvim", src = "ray-x/lsp_signature.nvim", pack = "opt", event = { "InsertEnter" },
