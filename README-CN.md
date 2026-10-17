@@ -133,19 +133,17 @@ nvim
 
 ```lua
 -- 单个插件
-local M = {
+return {
     { name = "mini.icons", src = "echasnovski/mini.icons", pack = "start" },
 }
-return M
 ```
 
 ```lua
 -- 一个文件里放多个插件
-local M = {
+return {
     { name = "flash.nvim", src = "folke/flash.nvim", pack = "opt", keys = { ... } },
     { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", pack = "opt", keys = { ... } },
 }
-return M
 ```
 
 - `pack = "start"`：启动时加载
