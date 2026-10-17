@@ -19,7 +19,7 @@ vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split horizontal" })
 vim.keymap.set("n", "sl", ":bnext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "sh", ":bprevious<CR>", { desc = "Previous buffer" })
 vim.keymap.set("n", "nl", ":nohl<CR>", { desc = "Clear search highlight" })
-vim.keymap.set("n", "<leader>bp", ":BufferLinePickClose<CR>", { noremap = true, silent = true, desc = "Close buffer pick" })
+-- vim.keymap.set("n", "<leader>bp", ":BufferLinePickClose<CR>", { noremap = true, silent = true, desc = "Close buffer pick" })
 
 -- Explorer
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Toggle explorer" })
