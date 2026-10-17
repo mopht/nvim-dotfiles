@@ -7,7 +7,8 @@ local M = {
         { "R",     mode = { "o", "x" },      action = function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
         { "<c-s>", mode = "c",               action = function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
     },
-    config = function() require("flash").setup({}) end },
+    config = function() require("flash").setup({}) 
+    end },
     { name = "goto-preview", src = "rmagatti/goto-preview", pack = "opt",
     keys = {
         { "gpd", mode = "n", action = function() require("goto-preview").goto_preview_definition() end,      desc = "Preview Definition" },

@@ -29,23 +29,18 @@ end
 
 function M.setup()
     -- PackChanged: 插件安装/更新后的构建步骤
-    api.nvim_create_autocmd("PackChanged", {
-        callback = function(ev)
-            local d = ev.data
-            if d.spec.name == "nvim-treesitter"
-                and (d.kind == "install" or d.kind == "update")
-            then
-                if not d.active then vim.cmd.packadd("nvim-treesitter") end
-                pcall(vim.cmd, "TSUpdate")
-            end
-        end,
-    })
+    api.nvim_create_autocmd("PackChanged", { callback = function(ev)
+        local d = ev.data
+        if not (d.spec.name == "nvim-treesitter"
+            and (d.kind == "install" or d.kind == "update")) then return end
+
+        if not d.active then vim.cmd.packadd("nvim-treesitter") end
+        pcall(vim.cmd, "TSUpdate")
+    end,})
 
     -- Phase 0: pre-init hooks
     for _, p in ipairs(M.plugins) do
-        if p.pack == "start" and p.pre then
-            pcall(p.pre)
-        end
+        if p.pack == "start" and p.pre then pcall(p.pre) end
     end
 
     -- Phase 1: 安装 / 注册插件
@@ -78,19 +73,38 @@ function M.setup()
         end,
     })
 
-    -- Phase 3: lz.n 接管所有 opt 插件的懒加载
     local lazy_specs = {}
     for _, p in ipairs(M.plugins) do
-        if p.pack == "opt" then
-            local spec = { p.name }
-            if p.event  then spec.event  = p.event  end
-            if p.ft     then spec.ft     = p.ft     end
-            if p.keys   then spec.keys   = p.keys   end
-            if p.cmd    then spec.cmd    = p.cmd    end
-            if p.config then spec.after  = p.config end
-            if p.pre    then spec.before = p.pre    end
-            table.insert(lazy_specs, spec)
+        if p.pack ~= "opt" then goto continue end
+
+        local spec = { p.name }
+        if p.event then spec.event = p.event end
+        if p.ft    then spec.ft    = p.ft    end
+        if p.cmd   then spec.cmd   = p.cmd   end
+        if p.pre   then spec.before = p.pre  end
+
+        -- keys：过滤掉 action，只传 lhs/mode/desc 给 lz.n
+        if p.keys then
+            local lzn_keys = {}
+            for _, k in ipairs(p.keys) do
+                table.insert(lzn_keys, {k[1], mode = k.mode, desc = k.desc,})
+            end
+            spec.keys = lzn_keys
         end
+
+        -- after：先执行原 config，再绑定有 action 的按键
+        spec.after = function()
+            if p.config then pcall(p.config) end
+            if not p.keys then return end
+            for _, k in ipairs(p.keys) do
+                if not k.action then goto continue end
+                vim.keymap.set(k.mode or "n", k[1], k.action, { desc = k.desc } )
+                ::continue::
+            end
+        end
+        table.insert(lazy_specs, spec)
+
+        ::continue::
     end
     require("lz.n").load(lazy_specs)
 
@@ -99,10 +113,10 @@ function M.setup()
         callback = function(ev)
             if vim.treesitter.highlighter.active[ev.buf] then return end
             local ft = vim.bo[ev.buf].filetype
-            if ft and ft ~= "" then
-                local lang = vim.treesitter.language.get_lang(ft)
-                if lang then pcall(vim.treesitter.start, ev.buf, lang) end
-            end
+            if not (ft and ft ~= "") then return end
+
+            local lang = vim.treesitter.language.get_lang(ft)
+            if lang then pcall(vim.treesitter.start, ev.buf, lang) end
         end,
         desc = "auto-start treesitter highlighting",
     })

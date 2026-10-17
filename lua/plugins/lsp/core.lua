@@ -1,6 +1,4 @@
 local M = {
-    { name = "mason.nvim",           src = "mason-org/mason.nvim",           pack = "start" },
-    { name = "mason-lspconfig.nvim", src = "mason-org/mason-lspconfig.nvim", pack = "start" },
     { name = "nvim-lspconfig", src = "neovim/nvim-lspconfig", pack = "start",
     config = function()
         local spec = require("plugins.specs.nvim-lspconfig")
