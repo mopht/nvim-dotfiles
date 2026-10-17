@@ -1,5 +1,8 @@
 local snacks_opts = {
-    -- explorer = { enabled = true },
+    explorer = {
+        enabled = true,
+        replace_netrw = true,
+    },
     bigfile = { enabled = true },
     quickfile = { enabled = true },
     image = { enabled = true },
@@ -24,6 +27,21 @@ local snacks_opts = {
                 min_width = 70,
             },
         },
+        sources = {
+            explorer = {
+                layout = {
+                    preset = "sidebar",
+                    preview = false,
+                    layout = {
+                        width = 19,
+                        min_width = 19,
+                        max_width = 19,
+                        height = 0,
+                        position = "left",
+                    },
+                },
+            },
+        },
     },
     terminal = {
         win = {
@@ -36,6 +54,7 @@ local M = {
     { name = "snacks.nvim", src = "folke/snacks.nvim", pack = "opt",
     event = { "BufReadPre" };
     keys = {
+        { "<leader>e",       action = function() require("snacks").explorer() end,        desc = "Toggle explorer" },
         { "<leader><space>", action = function() require("snacks").picker.smart() end,   desc = "Smart Find Files" },
         { "<leader>f",       action = function() require("snacks").picker.files() end,   desc = "Find Files" },
         { "<leader>g",       action = function() require("snacks").picker.grep() end,    desc = "Live Grep" },

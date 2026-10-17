@@ -13,7 +13,7 @@
 - **Treesitter**：`nvim-treesitter`、`tree-sitter-manager.nvim`、`rainbow-delimiters.nvim`
 - **Picker / 终端**：`snacks.nvim`（smart/files/grep/buffers/help、terminal、lazygit）
 - **UI**：`which-key.nvim`（Helix 风格）、`mini.statusline`、`barbecue`、`noice.nvim`
-- **文件树 / 窗口导航**：`neo-tree.nvim`、`vim-tmux-navigator`
+- **文件树 / 窗口导航**：`snacks.nvim` explorer、`vim-tmux-navigator`
 - **编辑增强**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`todo-comments.nvim`
 - **诊断面板**：`trouble.nvim`
 - **运行代码**：`code_runner.nvim`
@@ -109,7 +109,7 @@ nvim
         │   ├── formatting.lua
         │   └── lazydev.lua
         ├── navigation/
-        │   ├── neo-tree.lua
+        │   ├── neo-tree.lua   # 已禁用；使用 snacks.explorer
         │   └── tmux.lua
         ├── tools/
         │   ├── snacks.lua
@@ -179,7 +179,7 @@ Leader 是 `<Space>`。
 | `<leader>=` | 格式化当前 buffer |
 | `K` | Hover |
 | `<C-o>` | 显示诊断浮窗 |
-| `<leader>e` | 切换 Neo-tree |
+| `<leader>e` | 切换 snacks explorer |
 | `<leader>sv` / `<leader>sh` | 垂直 / 水平分屏 |
 | `sl` / `sh` | 下一个 / 上一个 buffer |
 | `nl` | 清除搜索高亮 |
