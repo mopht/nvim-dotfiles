@@ -15,6 +15,7 @@ local function explorer_resize_to_widest(picker)
     pcall(vim.api.nvim_win_set_width, snack_win.win, width)
 end
 
+
 local snacks_opts = {
     explorer = {
         enabled = true,
