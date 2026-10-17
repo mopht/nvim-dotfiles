@@ -1,4 +1,6 @@
-local M = {
+--[==[
+-- Neo-tree disabled: explorer migrated to snacks.explorer.
+-- This file is kept as a disabled reference and can be deleted.
     { name = "neo-tree.nvim", src = "nvim-neo-tree/neo-tree.nvim", pack = "opt", cmd = { "Neotree" },
     config = function()
         vim.g.loaded_netrw = 1
@@ -272,4 +274,6 @@ local M = {
     end },
 }
 
-return M
+]==]
+
+return {}

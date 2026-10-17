@@ -13,7 +13,7 @@ Personal Neovim configuration. Plugins are installed and managed by Neovim's bui
 - **Treesitter**: `nvim-treesitter`, `tree-sitter-manager.nvim`, `rainbow-delimiters.nvim`
 - **Picker / terminal**: `snacks.nvim` (smart/files/grep/buffers/help, terminal, lazygit)
 - **UI**: `which-key.nvim` (Helix preset), `mini.statusline`, `barbecue`, `noice.nvim`
-- **Explorer / navigation**: `neo-tree.nvim`, `vim-tmux-navigator`
+- **Explorer / navigation**: `snacks.nvim` explorer, `vim-tmux-navigator`
 - **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `todo-comments.nvim`
 - **Diagnostics panel**: `trouble.nvim`
 - **Code runner**: `code_runner.nvim`
@@ -109,7 +109,7 @@ Useful commands:
         │   ├── formatting.lua
         │   └── lazydev.lua
         ├── navigation/
-        │   ├── neo-tree.lua
+        │   ├── neo-tree.lua   # disabled; snacks.explorer is used
         │   └── tmux.lua
         ├── tools/
         │   ├── snacks.lua
@@ -179,7 +179,7 @@ Leader is `<Space>`.
 | `<leader>=` | Format buffer |
 | `K` | Hover |
 | `<C-o>` | Diagnostics float |
-| `<leader>e` | Toggle Neo-tree |
+| `<leader>e` | Toggle snack explorer |
 | `<leader>sv` / `<leader>sh` | Vertical / horizontal split |
 | `sl` / `sh` | Next / previous buffer |
 | `nl` | Clear search highlight |
