@@ -1,10 +1,11 @@
 -- ============================================================================
 -- init.lua — Entry point for native Vim packages (pack/*/start/ + opt/)
--- Migrated from lazy.nvim to Neovim's built-in :h packages
+-- Migrated from lazy.nvim to Neovim's built-in :h vim.pack
 -- ============================================================================
 
--- Leader keys (must be set before any mappings)
 vim.loader.enable()
+
+-- Leader keys (must be set before any mappings)
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
