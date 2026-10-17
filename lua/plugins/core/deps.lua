@@ -1,4 +1,5 @@
 local M = {
+    { name = "lz.n",              src = "nvim-neorocks/lz.n",           pack = "start" },
     { name = "_blink.lib",        src = "saghen/blink.lib",             pack = "start" },
     { name = "plenary.nvim",      src = "nvim-lua/plenary.nvim",        pack = "start" },
     { name = "nvim-web-devicons", src = "nvim-tree/nvim-web-devicons",  pack = "start" },
