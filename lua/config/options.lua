@@ -40,8 +40,6 @@ vim.opt.background = "dark"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- vim.cmd('autocmd!')
-
 vim.scriptencoding = "utf-8"
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
@@ -49,11 +47,8 @@ vim.opt.fileencoding = "utf-8"
 vim.opt.backup = false
 
 vim.opt.laststatus = 2
-
 vim.opt.fillchars = { vert = " ", eob = " " }
 
--- Treesitter fold settings apply at VimEnter (after treesitter is loaded)
--- Default foldlevel is set here; foldmethod and foldexpr are set in pack-loader
 vim.wo.foldlevel = 99
 
 vim.g.everforest_enable_italic = true

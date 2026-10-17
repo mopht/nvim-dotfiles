@@ -21,12 +21,6 @@ vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split horizontal" })
 vim.keymap.set("n", "sl", ":bnext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "sh", ":bprevious<CR>", { desc = "Previous buffer" })
 vim.keymap.set("n", "nl", ":nohl<CR>", { desc = "Clear search highlight" })
--- vim.keymap.set("n", "<leader>bp", ":BufferLinePickClose<CR>", { noremap = true, silent = true, desc = "Close buffer pick" })
-
--- Explorer: lazily registered in lua/plugins/tools/snacks.lua (snacks.explorer)
-
--- Todo
-vim.keymap.set("n", "tl", "<cmd>TodoLocList toggle<cr>", { desc = "Todo location list" })
 
 -- Trouble
 vim.keymap.set("n", "xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble diagnostics" })
