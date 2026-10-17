@@ -13,15 +13,13 @@ require("plugins.loader").setup()
 require("config.keymaps")
 require("config.neovide")
 
-
-
 vim.filetype.add({
-  extension = {
-    kk = "koka",
-    pl = 'prolog',
-    idr = "idris2",
-    mbt = "moonbit"
-  },
+    extension = {
+        kk = "koka",
+        pl = 'prolog',
+        idr = "idris2",
+        mbt = "moonbit"
+    },
 })
 
 vim.api.nvim_create_autocmd("FileType", {
