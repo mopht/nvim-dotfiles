@@ -13,6 +13,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
             local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
             if ok then
                 hl.italic = true
+                ---@diagnostic disable-next-line: param-type-mismatch
                 vim.api.nvim_set_hl(0, group, hl)
             end
         end
