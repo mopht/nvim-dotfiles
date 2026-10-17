@@ -52,9 +52,7 @@ local trouble_opts = {
     use_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
 }
 
-local M = {
+return {
     { name = "trouble.nvim", src = "folke/trouble.nvim", pack = "opt", cmd = { "Trouble" },
     config = function() require("trouble").setup(trouble_opts) end },
 }
-
-return M

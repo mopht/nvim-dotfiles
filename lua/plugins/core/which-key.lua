@@ -12,9 +12,7 @@ local which_key_opts = {
     show_keys = false,
 }
 
-local M = {
+return {
     { name = "which-key.nvim",    src = "folke/which-key.nvim",         pack = "start",
     config = function() require("which-key").setup(which_key_opts) end },
 }
-
-return M

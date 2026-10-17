@@ -1,4 +1,4 @@
-local M = {
+return {
     -- Keep lazydev loaded at startup: blink.cmp resolves the provider module
     -- eagerly, so lazy-loading it on ft=lua can make the module unavailable.
     { name = "lazydev.nvim", src = "folke/lazydev.nvim", pack = "start",
@@ -8,5 +8,3 @@ local M = {
         },
     }) end },
 }
-
-return M

@@ -1,5 +1,1 @@
-local M = {
-    { name = "rustaceanvim", src = "mrcjkb/rustaceanvim", pack = "start" },
-}
-
-return M
+return { { name = "rustaceanvim", src = "mrcjkb/rustaceanvim", pack = "start" }, }

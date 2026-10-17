@@ -22,7 +22,7 @@ local goto_preview_opts = {
     zindex = 1,                                                -- Starting zindex for the stack of floating windows
 }
 
-local M = {
+return {
     { name = "flash.nvim", src = "folke/flash.nvim", pack = "opt",
     keys = {
         { "s",     mode = { "n", "x", "o" }, action = function() require("flash").jump() end,              desc = "Flash" },
@@ -59,4 +59,4 @@ local M = {
     config = function() require("neoscroll").setup({}) end },
 }
 
-return M
+-- return M

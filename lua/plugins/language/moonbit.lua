@@ -1,4 +1,4 @@
-local M = {
+return {
     { name = "moonbit.nvim", src = "moonbit-community/moonbit.nvim", pack = "opt", ft = "moonbit",
     config = function()
         require("moonbit").setup({
@@ -21,5 +21,3 @@ local M = {
         })
     end },
 }
-
-return M

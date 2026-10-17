@@ -1,4 +1,4 @@
-local M = {
+return {
     { name = "nvim-lspconfig", src = "neovim/nvim-lspconfig", pack = "start",
     config = function()
         -- nvim-lspconfig 0.11+ API: use vim.lsp.enable() / vim.lsp.config()
@@ -105,5 +105,3 @@ local M = {
         vim.lsp.enable("lua_ls")
     end },
 }
-
-return M

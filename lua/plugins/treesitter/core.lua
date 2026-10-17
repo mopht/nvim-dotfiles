@@ -26,7 +26,7 @@ local nvim_treesitter_opts = {
 
 }
 
-local M = {
+return {
     { name = "nvim-treesitter", src = "nvim-treesitter/nvim-treesitter", pack = "start",
     config = function() require("nvim-treesitter.config").setup(nvim_treesitter_opts) end },
     { name = "tree-sitter-manager.nvim", src = "romus204/tree-sitter-manager.nvim", pack = "start",
@@ -47,5 +47,3 @@ local M = {
         })
     end },
 }
-
-return M
