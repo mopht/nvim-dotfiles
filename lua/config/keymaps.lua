@@ -21,9 +21,8 @@ vim.keymap.set("n", "sh", ":bprevious<CR>", { desc = "Previous buffer" })
 vim.keymap.set("n", "nl", ":nohl<CR>", { desc = "Clear search highlight" })
 vim.keymap.set("n", "<leader>bp", ":BufferLinePickClose<CR>", { noremap = true, silent = true, desc = "Close buffer pick" })
 
--- Explorer / outline
+-- Explorer
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Toggle explorer" })
-vim.keymap.set("n", "<leader>oo", "<cmd>SymbolsOutline<cr>", { desc = "Symbols outline" })
 
 -- Todo
 vim.keymap.set("n", "tl", "<cmd>TodoLocList toggle<cr>", { desc = "Todo location list" })
