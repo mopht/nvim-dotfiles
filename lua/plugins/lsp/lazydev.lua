@@ -1,6 +1,10 @@
 local M = {
     { name = "lazydev.nvim", src = "folke/lazydev.nvim", pack = "start",  ft = { "lua" },
-    config = function() require("lazydev").setup(require("plugins.specs.lazydev").opts) end },
+    config = function() require("lazydev").setup({
+        library = {
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        },
+    }) end },
 }
 
 return M

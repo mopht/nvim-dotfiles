@@ -1,14 +1,46 @@
+local lualine_opts = {
+    options = {
+        icons_enabled = true,
+        theme = "auto",
+        section_separators = { left = "", right = "" },
+        component_separators = { left = "|", right = "|" },
+        disabled_filetypes = {},
+    },
+    sections = {
+        lualine_a = { "mode" },
+        lualine_b = { "branch" },
+        lualine_c = {
+            {
+                "filename",
+                file_status = true, -- display file status
+                path = 1, -- 0 = just filename
+            },
+        },
+        lualine_x = {
+            {
+                "diagnostics", --显示诊断信息，这里相关插件还未配置
+                source = { "nvim_diagnostics" },
+                symbols = {
+                    error = " ",
+                    warn = " ",
+                    info = " ",
+                    hint = " ",
+                },
+            },
+            "encoding",
+            "filetype",
+        },
+        lualine_y = { "progress" },
+        lualine_z = { "location" },
+    },
+    extensions = { "neo-tree", "trouble" }, -- Lualine会根据不同的窗口显示不同的插件
+}
+
 local M = {
     { name = "lualine.nvim", src = "nvim-lualine/lualine.nvim", pack = "start",
-    config = function()
-        local spec = require("plugins.specs.lualine")
-        require("lualine").setup(spec.opts or {})
-    end },
+    config = function() require("lualine").setup(lualine_opts) end },
     { name = "barbecue", src = "utilyre/barbecue.nvim", pack = "start",
-    config = function()
-        local spec = require("plugins.specs.barbecue")
-        require("barbecue").setup(spec.opts or {})
-    end },
+    config = function() require("barbecue").setup({}) end },
 }
 
 return M
