@@ -1,10 +1,35 @@
+local nvim_treesitter_opts = {
+    ensure_installed = {
+        "c",
+        "lua",
+        "zig",
+        "vim",
+        "vimdoc",
+        "kotlin",
+        "query",
+        "rust",
+        "cpp",
+        "javascript",
+        "python",
+        "haskell",
+        "typescript",
+    },
+
+    highlight = { enable = true },
+    indent = { enable = true },
+
+    rainbow = {
+        enable = true,
+        extended_more = true,
+        max_file_lines = nil,
+    },
+
+}
+
 local M = {
     { name = "nvim-treesitter", src = "nvim-treesitter/nvim-treesitter", pack = "start",
     version = "main",
-    config = function()
-        local spec = require("plugins.specs.nvim-treesitter")
-        require("nvim-treesitter.config").setup(spec.opts or {})
-    end },
+    config = function() require("nvim-treesitter.config").setup(nvim_treesitter_opts) end },
     { name = "tree-sitter-manager.nvim", src = "romus204/tree-sitter-manager.nvim", pack = "start",
     config = function()
         require("tree-sitter-manager").setup({

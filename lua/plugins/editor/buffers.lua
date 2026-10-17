@@ -4,10 +4,7 @@ local M = {
     { name = "vim-better-whitespace", src = "ntpeters/vim-better-whitespace", pack = "opt", event = { "BufEnter" },
     config = nil },
     { name = "todo-comments.nvim", src = "folke/todo-comments.nvim", pack = "opt", event = { "BufEnter" },
-    config = function()
-        local spec = require("plugins.specs.todo-comments")
-        require("todo-comments").setup(spec.opts or {})
-    end },
+    config = function() require("todo-comments").setup({}) end },
 }
 
 return M

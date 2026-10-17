@@ -1,8 +1,20 @@
+local which_key_opts = {
+    preset = "helix",
+    delay = 120,
+    layout = {
+        spacing = 2,
+    },
+    icons = {
+        mappings = true,
+        colors = true,
+    },
+    show_help = false,
+    show_keys = false,
+}
+
 local M = {
     { name = "which-key.nvim",    src = "folke/which-key.nvim",         pack = "start",
-    config = function()
-        require("which-key").setup(require("plugins.specs.which-key").opts or {})
-    end },
+    config = function() require("which-key").setup(which_key_opts) end },
 }
 
 return M
