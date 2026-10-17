@@ -82,6 +82,7 @@ function M.setup()
         if p.ft    then spec.ft    = p.ft    end
         if p.cmd   then spec.cmd   = p.cmd   end
         if p.pre   then spec.before = p.pre  end
+        if p.colorscheme then spec.colorscheme = p.colorscheme end
 
         -- keys：过滤掉 action，只传 lhs/mode/desc 给 lz.n
         if p.keys then
