@@ -12,7 +12,7 @@
 - **格式化 / 诊断**：`none-ls.nvim` + `none-ls-extras`
 - **Treesitter**：`nvim-treesitter`、`tree-sitter-manager.nvim`、`rainbow-delimiters.nvim`
 - **Picker / 终端**：`snacks.nvim`（smart/files/grep/buffers/help、terminal、lazygit）
-- **UI**：`which-key.nvim`（Helix 风格）、`lualine.nvim`、`barbecue`、`noice.nvim`
+- **UI**：`which-key.nvim`（Helix 风格）、`mini.statusline`、`barbecue`、`noice.nvim`
 - **文件树 / 窗口导航**：`neo-tree.nvim`、`vim-tmux-navigator`
 - **编辑增强**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`todo-comments.nvim`
 - **诊断面板**：`trouble.nvim`

@@ -12,7 +12,7 @@ Personal Neovim configuration. Plugins are installed and managed by Neovim's bui
 - **Formatting / diagnostics**: `none-ls.nvim` + `none-ls-extras`
 - **Treesitter**: `nvim-treesitter`, `tree-sitter-manager.nvim`, `rainbow-delimiters.nvim`
 - **Picker / terminal**: `snacks.nvim` (smart/files/grep/buffers/help, terminal, lazygit)
-- **UI**: `which-key.nvim` (Helix preset), `lualine.nvim`, `barbecue`, `noice.nvim`
+- **UI**: `which-key.nvim` (Helix preset), `mini.statusline`, `barbecue`, `noice.nvim`
 - **Explorer / navigation**: `neo-tree.nvim`, `vim-tmux-navigator`
 - **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `todo-comments.nvim`
 - **Diagnostics panel**: `trouble.nvim`
