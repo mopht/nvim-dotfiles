@@ -1,18 +1,20 @@
 local M = {
-    { name = "none-ls.nvim", src = "nvimtools/none-ls.nvim", pack = "opt", event = { "LspAttach" },
+    { name = "conform.nvim", src = "stevearc/conform.nvim", pack = "start",
     config = function()
-        vim.cmd("packadd none-ls-extras.nvim")
-        local null_ls = require("null-ls")
-
-        null_ls.setup({
-            sources = {
-                -- null_ls.builtins.formatting.stylua,
-                -- null_ls.builtins.completion.spell,
-                require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
+        require("conform").setup({
+            -- Add formatters per filetype when the binaries are available, e.g.:
+            -- lua = { "stylua" },
+            -- nix = { "nixfmt" },
+            -- typescript = { "prettierd", "prettier", stop_after_first = true },
+            formatters_by_ft = {
+                lua = { "stylua" },
+                nix = { "nixfmt" },
+            },
+            default_format_opts = {
+                lsp_format = "fallback",
             },
         })
     end },
-    { name = "none-ls-extras.nvim", src = "nvimtools/none-ls-extras.nvim", pack = "opt" },
 }
 
 return M

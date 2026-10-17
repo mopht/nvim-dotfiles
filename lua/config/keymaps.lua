@@ -1,7 +1,9 @@
 vim.g.mapleader = " "
 
 -- Formatting
-vim.keymap.set("n", "<leader>=", ":lua vim.lsp.buf.format { async = true }<CR>", { desc = "Format buffer" })
+vim.keymap.set("n", "<leader>=", function()
+    require("conform").format({ async = true, lsp_format = "fallback" })
+end, { desc = "Format buffer" })
 
 -- LSP
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
