@@ -1,2 +1,0 @@
-return {
-    cmd = "GuessIndent", }
