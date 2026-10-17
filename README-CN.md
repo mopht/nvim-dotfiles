@@ -7,14 +7,14 @@
 ## ✨ 功能
 
 - **插件管理**：`vim.pack` + `lz.n`
-- **LSP**：`nvim-lspconfig`、`mason.nvim`、`mason-lspconfig.nvim`、`lazydev.nvim`
-- **补全**：`blink.cmp`
-- **格式化**：`conform.nvim`
+- **LSP**：`nvim-lspconfig` 使用手动 `vim.lsp.config` / `vim.lsp.enable` 配置，搭配 `lazydev.nvim`
+- **补全**：`blink.cmp`，带 lazydev source
+- **格式化**：`conform.nvim`（`stylua`、`nixfmt`，并回退到 LSP 格式化）
 - **Treesitter**：`nvim-treesitter`、`tree-sitter-manager.nvim`、`rainbow-delimiters.nvim`
 - **Picker / 终端**：`snacks.nvim`（smart/files/grep/buffers/help、terminal、lazygit）
 - **UI**：`which-key.nvim`（Helix 风格）、`mini.statusline`、`barbecue`、`noice.nvim`
-- **文件树 / 窗口导航**：`snacks.nvim` explorer、`vim-tmux-navigator`
-- **编辑增强**：`flash.nvim`、`goto-preview`、`neoscroll`、`better-escape`、`tabout`、`auto-save`、`todo-comments.nvim`、blink.cmp 自动括号
+- **文件树 / 窗口导航**：`snacks.nvim` explorer、`oil.nvim`、`vim-tmux-navigator`
+- **编辑增强**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`vim-better-whitespace`、`todo-comments.nvim`
 - **诊断面板**：`trouble.nvim`
 - **运行代码**：`code_runner.nvim`
 - **主题**：默认 `everforest`，可选 `tokyonight`、`catppuccin`
@@ -28,6 +28,8 @@
 - 一个 Nerd Font
 - 可选：`lazygit`、`nushell`
 
+LSP 在 `lua/plugins/lsp/core.lua` 里手动配置，需要把对应 server 的可执行文件放到 `PATH`。
+
 按需安装语言工具链：
 
 - Haskell：`ghcup` + `haskell-language-server`
@@ -38,6 +40,8 @@
 - MoonBit：`moon` / `moon-lsp`
 - Scheme：`guile-lsp-server`
 - TypeScript：`typescript-language-server`
+- Lua / lazydev：`lua-language-server`
+- 格式化：`stylua`、`nixfmt`
 - `code_runner.nvim`：`python3`、`deno`、`gcc`、`clang++`、`rustc`、`javac` 等
 
 ## 📦 安装
@@ -112,6 +116,7 @@ nvim
         │   ├── neo-tree.lua   # 已禁用；使用 snacks.explorer
         │   └── tmux.lua
         ├── tools/
+        │   ├── oil.lua
         │   ├── snacks.lua
         │   └── trouble.lua
         ├── treesitter/
@@ -180,6 +185,7 @@ Leader 是 `<Space>`。
 | `K` | Hover |
 | `<C-o>` | 显示诊断浮窗 |
 | `<leader>e` | 切换 snacks explorer |
+| `-` | 用 Oil 打开父目录 |
 | `<leader>sv` / `<leader>sh` | 垂直 / 水平分屏 |
 | `sl` / `sh` | 下一个 / 上一个 buffer |
 | `nl` | 清除搜索高亮 |
@@ -214,6 +220,8 @@ Leader 是 `<Space>`。
 - 快捷键：`lua/config/keymaps.lua`
 - 自动命令：`lua/config/autocmds.lua`
 - Neovide 设置：`lua/config/neovide.lua`
+- LSP server：`lua/plugins/lsp/core.lua`
+- 格式化器：`lua/plugins/lsp/formatting.lua`
 - 添加插件：在 `lua/plugins/<category>/` 下新增或修改 `.lua` 文件
 - 切换主题：修改 `lua/plugins/loader.lua` 里的 `everforest` / `colorscheme` 配置
 

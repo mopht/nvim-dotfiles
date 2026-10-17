@@ -7,14 +7,14 @@ Personal Neovim configuration. Plugins are installed and managed by Neovim's bui
 ## ✨ Features
 
 - **Plugin management**: `vim.pack` + `lz.n`
-- **LSP**: `nvim-lspconfig`, `mason.nvim`, `mason-lspconfig.nvim`, `lazydev.nvim`
-- **Completion**: `blink.cmp`
-- **Formatting**: `conform.nvim`
+- **LSP**: `nvim-lspconfig` with manual `vim.lsp.config` / `vim.lsp.enable`, plus `lazydev.nvim`
+- **Completion**: `blink.cmp` with lazydev source
+- **Formatting**: `conform.nvim` (`stylua`, `nixfmt`, and LSP fallback)
 - **Treesitter**: `nvim-treesitter`, `tree-sitter-manager.nvim`, `rainbow-delimiters.nvim`
 - **Picker / terminal**: `snacks.nvim` (smart/files/grep/buffers/help, terminal, lazygit)
 - **UI**: `which-key.nvim` (Helix preset), `mini.statusline`, `barbecue`, `noice.nvim`
-- **Explorer / navigation**: `snacks.nvim` explorer, `vim-tmux-navigator`
-- **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `better-escape`, `tabout`, `auto-save`, `todo-comments.nvim`, blink.cmp auto brackets
+- **Explorer / navigation**: `snacks.nvim` explorer, `oil.nvim`, `vim-tmux-navigator`
+- **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `vim-better-whitespace`, `todo-comments.nvim`
 - **Diagnostics panel**: `trouble.nvim`
 - **Code runner**: `code_runner.nvim`
 - **Colorschemes**: `everforest` by default, with `tokyonight` and `catppuccin` available
@@ -28,6 +28,8 @@ Personal Neovim configuration. Plugins are installed and managed by Neovim's bui
 - A Nerd Font
 - Optional: `lazygit`, `nushell`
 
+LSP servers are configured manually in `lua/plugins/lsp/core.lua`; make sure their executables are on `PATH`.
+
 Install language toolchains as needed:
 
 - Haskell: `ghcup` + `haskell-language-server`
@@ -38,6 +40,8 @@ Install language toolchains as needed:
 - MoonBit: `moon` / `moon-lsp`
 - Scheme: `guile-lsp-server`
 - TypeScript: `typescript-language-server`
+- Lua / lazydev: `lua-language-server`
+- Formatting: `stylua`, `nixfmt`
 - `code_runner.nvim`: `python3`, `deno`, `gcc`, `clang++`, `rustc`, `javac`, etc.
 
 ## 📦 Installation
@@ -112,6 +116,7 @@ Useful commands:
         │   ├── neo-tree.lua   # disabled; snacks.explorer is used
         │   └── tmux.lua
         ├── tools/
+        │   ├── oil.lua
         │   ├── snacks.lua
         │   └── trouble.lua
         ├── treesitter/
@@ -179,7 +184,8 @@ Leader is `<Space>`.
 | `<leader>=` | Format buffer |
 | `K` | Hover |
 | `<C-o>` | Diagnostics float |
-| `<leader>e` | Toggle snack explorer |
+| `<leader>e` | Toggle snacks explorer |
+| `-` | Open parent directory with Oil |
 | `<leader>sv` / `<leader>sh` | Vertical / horizontal split |
 | `sl` / `sh` | Next / previous buffer |
 | `nl` | Clear search highlight |
@@ -214,6 +220,8 @@ Leader is `<Space>`.
 - Keymaps: `lua/config/keymaps.lua`
 - Autocmds: `lua/config/autocmds.lua`
 - Neovide settings: `lua/config/neovide.lua`
+- LSP servers: `lua/plugins/lsp/core.lua`
+- Formatters: `lua/plugins/lsp/formatting.lua`
 - Add plugins: create or edit a `.lua` file under `lua/plugins/<category>/`
 - Change colorscheme: edit the `everforest` / `colorscheme` setup in `lua/plugins/loader.lua`
 

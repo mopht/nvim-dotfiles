@@ -36,8 +36,31 @@ local M = {
     config = function() require("better_escape").setup(better_escape_opts) end },
     { name = "tabout.nvim", src = "abecodes/tabout.nvim", pack = "opt", event = { "InsertEnter" },
     config = function() require("tabout").setup(tabout_opts) end },
-    -- nvim-autopairs removed: use Neovim's built-in editing behavior and
-    -- blink.cmp completion.accept.auto_brackets instead.
+    { name = "nvim-autopairs", src = "windwp/nvim-autopairs", pack = "opt", event = { "InsertEnter" },
+    config = function()
+        local npairs_ok, npairs = pcall(require, "nvim-autopairs")
+        if not npairs_ok then
+            return
+        end
+
+        npairs.setup {
+            check_ts = true,
+            ts_config = {
+                lua = { "string", "source" },
+                javascript = { "string", "template_string" },
+            },
+            fast_wrap = {
+                map = "<M-e>",
+                chars = { "{", "[", "(", '"', "'" },
+                pattern = [=[[%'%"%)%>%]%)%}%,]]=],
+                end_key = "$",
+                keys = "qwertyuiopzxcvbnmasdfghjkl",
+                check_comma = true,
+                highlight = "Search",
+                highlight_grey = "Comment",
+            },
+        }
+    end },
 }
 
 return M
