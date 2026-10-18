@@ -1,13 +1,13 @@
 -- ============================================================================
--- loader.lua — assembly entry point
+-- pack/init.lua — assembly entry point
 -- registry specs → vim.pack install → start configs + colorscheme → lz.n lazy
 -- ============================================================================
 
 local M = {}
 local api = vim.api
 
-local registry = require("plugins.registry")
-local pack = require("plugins.pack")
+local registry = require("pack.registry")
+local install = require("pack.install")
 local colorscheme = require("config.colorscheme")
 local treesitter = require("config.treesitter")
 
@@ -78,7 +78,7 @@ function M.setup()
     end
 
     -- Phase 1: install / register plugins
-    pack.setup(M.plugins)
+    install.setup(M.plugins)
 
     -- Phase 2: start plugin configs + colorscheme (runs after VimEnter)
     api.nvim_create_autocmd("VimEnter", { once = true, callback = on_vim_enter })

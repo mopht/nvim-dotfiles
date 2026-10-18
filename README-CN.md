@@ -86,21 +86,19 @@ nvim
 │   └── haskell.lua
 └── lua/
     ├── config/
-    │   ├── autocmds.lua
     │   ├── colorscheme.lua
+    │   ├── highlights.lua
     │   ├── keymaps.lua
     │   ├── neovide.lua
     │   ├── options.lua
     │   └── treesitter.lua
+    ├── pack/
+    │   ├── init.lua
+    │   ├── install.lua
+    │   └── registry.lua
     └── plugins/
-        ├── loader.lua
-        ├── pack.lua
-        ├── registry.lua
-        ├── colorschemes/
-        │   └── colorschemes.lua
-        ├── core/
-        │   ├── deps.lua
-        │   └── which-key.lua
+        ├── lib/
+        │   └── deps.lua
         ├── editor/
         │   ├── buffers.lua
         │   ├── edit.lua
@@ -125,13 +123,15 @@ nvim
         │   ├── context.lua
         │   └── core.lua
         └── ui/
+            ├── colorscheme.lua
             ├── effects.lua
-            └── status.lua
+            ├── status.lua
+            └── which-key.lua
 ```
 
 ## 🧩 插件组织方式
 
-`lua/plugins/registry.lua` 会自动扫描 `lua/plugins/<category>/*.lua`。每个文件可以返回单个 plugin spec，也可以返回一个 spec 列表：
+`lua/pack/registry.lua` 会自动扫描 `lua/plugins/<category>/*.lua`。每个文件可以返回单个 plugin spec，也可以返回一个 spec 列表：
 
 ```lua
 -- 单个插件
@@ -152,11 +152,12 @@ return {
 - `pack = "opt"`：延迟加载，可通过 `cmd`、`keys`、`event`、`ft` 触发
 - `keys` 里带 `action` 的映射会在插件加载后自动绑定
 
-`lua/plugins/loader.lua` 只负责装配：读取 registry，把 spec 交给 `vim.pack`，在 `VimEnter` 时跑 start 插件的 config 并应用主题，最后把懒加载规则注册给 `lz.n`。
+`lua/pack/init.lua` 只负责装配：读取 registry，把 spec 交给 `vim.pack`，在 `VimEnter` 时跑 start 插件的 config 并应用主题，最后把懒加载规则注册给 `lz.n`。
 
 配套模块：
 
-- `lua/plugins/pack.lua`：`vim.pack` 安装 / 更新、Treesitter 构建钩子、`:PackUpdate` / `:PackClean`
+- `lua/pack/install.lua`：`vim.pack` 安装 / 更新、Treesitter 构建钩子、`:PackUpdate` / `:PackClean`
+- `lua/pack/registry.lua`：spec 发现；直接放在 `lua/plugins/` 下的 spec 文件会直接报错，而不是被静默跳过
 - `lua/config/colorscheme.lua`：应用插件 spec 里声明的 `colorscheme` 字段
 - `lua/config/treesitter.lua`：Treesitter 高亮自启与 `foldexpr`
 
@@ -218,11 +219,11 @@ Leader 是 `<Space>`。
 
 - 基础选项：`lua/config/options.lua`
 - 快捷键：`lua/config/keymaps.lua`
-- 自动命令：`lua/config/autocmds.lua`
+- 自动命令：`lua/config/highlights.lua`
 - Neovide 设置：`lua/config/neovide.lua`
 - LSP server：`lua/plugins/lsp/core.lua`
 - 格式化器：`lua/plugins/lsp/formatting.lua`
-- 添加插件：在 `lua/plugins/<category>/` 下新增或修改 `.lua` 文件
+- 添加插件：在 `lua/plugins/<category>/` 下新增或修改 `.lua` 文件（直接放在 `lua/plugins/` 下会在启动时报错）
 - 切换主题：修改 `lua/plugins/colorschemes/colorschemes.lua` 里的 `colorscheme` 字段
 
 ## 备注
