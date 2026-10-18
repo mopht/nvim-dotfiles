@@ -25,8 +25,9 @@ local function file_info()
     local enc = vim.bo.fileencoding ~= "" and vim.bo.fileencoding or vim.bo.encoding
     local icon = ""
 
-    if _G.MiniIcons ~= nil and ft ~= "" then
-        icon = MiniIcons.get("filetype", ft) .. " "
+    local mini_icons = rawget(_G, "MiniIcons")
+    if mini_icons ~= nil and ft ~= "" then
+        icon = mini_icons.get("filetype", ft) .. " "
     end
 
     local parts = {}

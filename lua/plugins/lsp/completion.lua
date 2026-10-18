@@ -68,7 +68,9 @@ return {
     config = function()
         local cmp = require("blink.cmp")
         -- pwait() returns (ok, err) instead of throwing; a missing library only
-        -- costs the Rust matcher, so keep going with the Lua implementation
+        -- costs the Rust matcher, so keep going with the Lua implementation.
+        -- blink.lib.Task does not annotate pwait, hence the suppression
+        ---@diagnostic disable-next-line: undefined-field
         local done, err = cmp.build():pwait()
         if not done then
             vim.notify("blink.cmp: native build failed, using the Lua fallback: " .. tostring(err),
