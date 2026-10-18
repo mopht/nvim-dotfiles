@@ -71,9 +71,6 @@ local statusline_opts = {
 }
 
 return {
-    -- Uncomment this if you want the Git branch section.
-    -- { name = "mini.git", src = "nvim-mini/mini.git", pack = "start",
-    -- config = function() require("mini.git").setup() end },
     { name = "mini.statusline", src = "nvim-mini/mini.statusline", pack = "start",
     config = function()
         require("mini.statusline").setup(statusline_opts)

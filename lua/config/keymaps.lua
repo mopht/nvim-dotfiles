@@ -1,4 +1,4 @@
-vim.g.mapleader = " "
+-- leader is set in init.lua
 
 -- Formatting
 vim.keymap.set("n", "<leader>=", function()

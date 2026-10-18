@@ -55,7 +55,7 @@ mv ~/.config/nvim ~/.config/nvim.bak
 克隆仓库：
 
 ```bash
-git clone git@github.com:MoYu-CL/nvim-config.git ~/.config/nvim
+git clone git@github.com:MoYu-CL/nvim-dotfiles.git ~/.config/nvim
 ```
 
 直接启动 Neovim：
@@ -87,11 +87,14 @@ nvim
 └── lua/
     ├── config/
     │   ├── autocmds.lua
+    │   ├── colorscheme.lua
     │   ├── keymaps.lua
     │   ├── neovide.lua
-    │   └── options.lua
+    │   ├── options.lua
+    │   └── treesitter.lua
     └── plugins/
         ├── loader.lua
+        ├── pack.lua
         ├── registry.lua
         ├── colorschemes/
         │   └── colorschemes.lua
@@ -149,13 +152,13 @@ return {
 - `pack = "opt"`：延迟加载，可通过 `cmd`、`keys`、`event`、`ft` 触发
 - `keys` 里带 `action` 的映射会在插件加载后自动绑定
 
-`lua/plugins/loader.lua` 负责：
+`lua/plugins/loader.lua` 只负责装配：读取 registry，把 spec 交给 `vim.pack`，在 `VimEnter` 时跑 start 插件的 config 并应用主题，最后把懒加载规则注册给 `lz.n`。
 
-- `vim.pack` 安装和更新插件
-- 使用 `lz.n` 注册懒加载规则
-- `VimEnter` 时应用 colorscheme 和 start 插件配置
-- Treesitter 自动启动
-- `:PackUpdate` / `:PackClean`
+配套模块：
+
+- `lua/plugins/pack.lua`：`vim.pack` 安装 / 更新、Treesitter 构建钩子、`:PackUpdate` / `:PackClean`
+- `lua/config/colorscheme.lua`：应用插件 spec 里声明的 `colorscheme` 字段
+- `lua/config/treesitter.lua`：Treesitter 高亮自启与 `foldexpr`
 
 ## ⌨️ 快捷键
 
@@ -220,7 +223,7 @@ Leader 是 `<Space>`。
 - LSP server：`lua/plugins/lsp/core.lua`
 - 格式化器：`lua/plugins/lsp/formatting.lua`
 - 添加插件：在 `lua/plugins/<category>/` 下新增或修改 `.lua` 文件
-- 切换主题：修改 `lua/plugins/loader.lua` 里的 `everforest` / `colorscheme` 配置
+- 切换主题：修改 `lua/plugins/colorschemes/colorschemes.lua` 里的 `colorscheme` 字段
 
 ## 备注
 

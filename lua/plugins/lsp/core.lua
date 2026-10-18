@@ -4,38 +4,6 @@ return {
         -- nvim-lspconfig 0.11+ API: use vim.lsp.enable() / vim.lsp.config()
         -- Old require('lspconfig').xxx.setup() is DEPRECATED
 
-        -- require("mason").setup({
-        --     ui = {
-        --         icons = {
-        --             package_installed = "✓",
-        --             package_pending = "➜",
-        --             package_uninstalled = "✗",
-        --         },
-        --     },
-        -- })
-        --
-        -- require("mason-lspconfig").setup({
-        --     ensure_installed = { },
-        --     handlers = {
-        --         -- Default: auto-enable all installed servers
-        --         function(server_name)
-        --             vim.lsp.enable(server_name)
-        --         end,
-        --         -- Custom: clangd uses specific path
-        --         -- ["clangd"] = function()
-        --         --     vim.lsp.config("clangd", {
-        --         --         cmd = {
-        --         --             "E:/apps/apps/mingw-mstorsjo-llvm-ucrt/current/bin/clangd.exe",
-        --         --             "--background-index",
-        --         --             "--query-driver=clang++",
-        --         --         },
-        --         --         filetypes = { "cc", "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-        --         --     })
-        --         --     vim.lsp.enable("clangd")
-        --         -- end,
-        --     },
-        -- })
-
         vim.diagnostic.config({
             virtual_text = {
                 prefix = '■',
