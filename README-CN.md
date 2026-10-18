@@ -8,12 +8,12 @@
 
 本配置旨在以尽可能低的配置复杂度，提供足够强的开发能力
 
-- 优先使用 Neovim 内置 API，而非引入额外的抽象层
+- 优先使用 Neovim 内置 API，避免叠加额外的抽象层
 - 仅在能力缺失或原生实现不划算时使用插件
 - 插件 spec 保持显式声明，并按职责归类
 - 仅在能显著减少重复或降低维护成本时引入抽象
 
-目标不是把插件数量压到最少，而是把维持一个可用开发环境所需的复杂度压到最低
+重点在于以尽可能低的复杂度维持一个可用的开发环境，插件数量随之而定
 
 ## ✨ 功能
 
@@ -168,7 +168,7 @@ return {
 配套模块：
 
 - `lua/pack/install.lua`：`vim.pack` 安装 / 更新、Treesitter 构建钩子、`:PackUpdate` / `:PackClean`
-- `lua/pack/registry.lua`：spec 发现；直接放在 `lua/plugins/` 下的 spec 文件会直接报错，而不是被静默跳过
+- `lua/pack/registry.lua`：spec 发现；直接放在 `lua/plugins/` 下的 spec 文件会直接报错，避免被静默忽略
 - `lua/config/colorscheme.lua`：应用插件 spec 里声明的 `colorscheme` 字段
 - `lua/config/treesitter.lua`：Treesitter 高亮自启与 `foldexpr`
 
@@ -233,7 +233,7 @@ Leader 键为 `<Space>`
 
 - 基础选项：`lua/config/options.lua`
 - 快捷键：`lua/config/keymaps.lua`
-- 斜体：`lua/config/highlights.lua` —— 对固定的一组高亮组强制斜体，并在每次 `ColorScheme` 时重新应用
+- 斜体：`lua/config/highlights.lua`（对固定的一组高亮组强制斜体，并在每次 `ColorScheme` 时重新应用）
 - 状态栏透明：`lua/plugins/ui/status.lua`
 - Neovide 设置：`lua/config/neovide.lua`
 - LSP server：`lua/plugins/lsp/core.lua`
