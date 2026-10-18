@@ -213,7 +213,7 @@ Leader 键为 `<Space>`
 | --- | --- |
 | `<leader>=` | 格式化当前 buffer |
 | `K` | Hover |
-| `<C-i>` | 显示诊断浮窗 |
+| `<leader>o` | 显示诊断浮窗 |
 | `J` / `K`（可视模式） | 向下 / 向上移动选中行 |
 | `<leader>e` | 切换 snacks explorer |
 | `-` | 用 Oil 打开父目录 |
