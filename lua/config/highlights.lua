@@ -21,7 +21,7 @@ local function apply_italics()
         local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
         if ok then
             hl.italic = true
-            vim.api.nvim_set_hl(0, group, hl)
+            vim.api.nvim_set_hl(0, group, hl --[[@as vim.api.keyset.highlight]])
         end
     end
 end
