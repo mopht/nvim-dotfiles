@@ -62,7 +62,20 @@ local blink_opts = {
 }
 
 return {
-    { name = "blink.cmp", src = "saghen/blink.cmp", lazy = false, opts = blink_opts },
+    { name = "blink.cmp", src = "saghen/blink.cmp", lazy = false,
+    -- build the native fuzzy matcher before setup (a no-op once it is built);
+    -- this is the vim.pack equivalent of lazy.nvim's build hook
+    config = function()
+        local cmp = require("blink.cmp")
+        -- pwait() returns (ok, err) instead of throwing; a missing library only
+        -- costs the Rust matcher, so keep going with the Lua implementation
+        local done, err = cmp.build():pwait()
+        if not done then
+            vim.notify("blink.cmp: native build failed, using the Lua fallback: " .. tostring(err),
+                       vim.log.levels.WARN)
+        end
+        cmp.setup(blink_opts)
+    end },
 
     { name = "friendly-snippets", src = "rafamadriz/friendly-snippets", lazy = true,
     event = { "InsertEnter" } },

@@ -267,3 +267,4 @@ The leader key is `<Space>`
 - New plugins are installed by `vim.pack` on the next startup after adding a spec file
 - Theme order: the theme is applied before the remaining start-plugin configs, so plugins that recompute highlights on `ColorScheme` (statusline, dropbar) see the final palette (`lua/pack/init.lua`)
 - Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`
+- `blink.cmp` compiles its native fuzzy matcher on the first start and after every update; later starts are a no-op
