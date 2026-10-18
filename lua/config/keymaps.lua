@@ -7,7 +7,7 @@ end, { desc = "Format buffer" })
 
 -- LSP
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
-vim.keymap.set("n", "<C-o>", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Diagnostics float" })
+vim.keymap.set("n", "<C-i>", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Diagnostics float" })
 
 -- Movement
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
