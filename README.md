@@ -18,14 +18,16 @@ Maintaining a capable development environment at low complexity takes priority, 
 ## ✨ Features
 
 - **Plugin management**: `vim.pack` + `lz.n`
-- **LSP**: `nvim-lspconfig` with manual `vim.lsp.config` / `vim.lsp.enable`, plus `lazydev.nvim`
-- **Completion**: `blink.cmp` with lazydev source
+- **LSP**: `nvim-lspconfig` with a table of `vim.lsp.config` / `vim.lsp.enable` overrides, plus `lazydev.nvim` and `haskell-tools.nvim` (which owns the Haskell client)
+- **Completion**: `blink.cmp` (lazydev source, `friendly-snippets`)
 - **Formatting**: `conform.nvim` (`stylua`, `nixfmt`, and LSP fallback)
-- **Treesitter**: `nvim-treesitter`, `tree-sitter-manager.nvim`, `rainbow-delimiters.nvim`
+- **Treesitter**: `nvim-treesitter`, `tree-sitter-manager.nvim`, `nvim-treesitter-context`, `rainbow-delimiters.nvim`
 - **Picker / terminal**: `snacks.nvim` (smart/files/grep/buffers/help, terminal, lazygit)
-- **UI**: `which-key.nvim` (Helix preset), `mini.statusline`, `dropbar.nvim`, `noice.nvim`
+- **UI**: `which-key.nvim` (Helix preset), `mini.statusline`, `mini.icons`, `dropbar.nvim`, `noice.nvim`
 - **Explorer / navigation**: `snacks.nvim` explorer, `oil.nvim`, `vim-tmux-navigator`
-- **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `vim-better-whitespace`, `todo-comments.nvim`
+- **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `vim-better-whitespace`, `todo-comments.nvim`, `guess-indent.nvim`, `twilight.nvim`, `zen-mode.nvim`
+- **Language plugins**: `rustaceanvim`, `idris2-nvim`, `koka.nvim`, `moonbit.nvim`
+- **Git**: `gitsigns.nvim` (hunk signs and actions)
 - **Diagnostics panel**: `trouble.nvim`
 - **Task runner**: `overseer.nvim`, with bun and cabal templates
 - **Colorschemes**: `everforest` by default, with `tokyonight` and `catppuccin` available
@@ -37,7 +39,8 @@ Maintaining a capable development environment at low complexity takes priority, 
 - `git`
 - `ripgrep`, `fd` (Snacks picker)
 - A Nerd Font
-- Optional: `lazygit`, `nushell`
+- `cargo` (builds the `blink.cmp` native fuzzy matcher)
+- Optional: `lazygit`, `nushell`, and `bun` / `cabal` (the last two back the overseer task templates)
 
 LSP servers are configured manually in `lua/plugins/lsp/core.lua`, and the corresponding executables must be available on `PATH`
 
@@ -74,7 +77,7 @@ Start Neovim:
 nvim
 ```
 
-On first launch `vim.pack` prompts for the installation of missing plugins, and the resolved versions are recorded in `nvim-pack-lock.json`
+On first launch `vim.pack` prompts for the installation of missing plugins, and the resolved versions are recorded in `nvim-pack-lock.json`. The first launch also compiles the `blink.cmp` fuzzy matcher, which takes tens of seconds
 
 Maintenance commands:
 
@@ -88,6 +91,10 @@ Maintenance commands:
 
 ```text
 ~/.config/nvim/
+├── .editorconfig
+├── .gitignore
+├── .luarc.json
+├── .stylua.toml
 ├── README.md
 ├── README-CN.md
 ├── init.lua
@@ -147,7 +154,7 @@ Maintenance commands:
 
 ## 🧩 Plugin Layout
 
-`lua/pack/registry.lua` automatically discovers every `.lua` file under `lua/plugins/<category>/`; each file returns either a single plugin spec or a list of specs:
+`lua/pack/registry.lua` automatically discovers every `.lua` file directly under `lua/plugins/<category>/`; each file returns either a single plugin spec or a list of specs (subdirectories are ignored and can hold helper modules):
 
 ```lua
 -- A single plugin
@@ -173,12 +180,13 @@ return {
 - Every `lazy = true` spec requires at least one trigger
 - Colorscheme plugins declare `colorscheme = "<name>"`, which also makes `:colorscheme <name>` load them on demand
 
-`lua/pack/init.lua` only assembles the pieces: it reads the registry, hands the specs to `vim.pack`, runs the start-plugin configs and the colorscheme on `VimEnter`, and then registers the lazy-loading rules with `lz.n`
+`lua/pack/init.lua` only assembles the pieces: it reads the registry, hands the specs to `vim.pack`, runs the eager plugin configs and the colorscheme on `VimEnter`, and then registers the lazy-loading rules with `lz.n`
 
 Supporting modules:
 
-- `lua/pack/install.lua`: install/update via `vim.pack`, the Treesitter build hook, and `:PackUpdate` / `:PackClean`
+- `lua/pack/install.lua`: install/update via `vim.pack`, the `PackChanged` build hooks (`nvim-treesitter`, `blink.cmp`), and `:PackUpdate` / `:PackClean`
 - `lua/pack/registry.lua`: spec discovery; a spec file placed directly in `lua/plugins/` raises an error, so a misplaced spec surfaces at startup
+- `lua/pack/spec.lua`: turns a registry spec into an `lz.n` rule and applies `opts` / `main` / `config`
 - `lua/config/colorscheme.lua`: applies the `colorscheme` field declared in the plugin specs
 - `lua/config/treesitter.lua`: Treesitter highlight auto-start and `foldexpr`
 
@@ -206,6 +214,7 @@ The leader key is `<Space>`
 | `<leader>=` | Format buffer |
 | `K` | Hover |
 | `<C-o>` | Diagnostics float |
+| `J` / `K` (visual) | Move the selection down / up |
 | `<leader>e` | Toggle snacks explorer |
 | `-` | Open parent directory with Oil |
 | `<leader>sv` / `<leader>sh` | Vertical / horizontal split |
@@ -257,6 +266,7 @@ The leader key is `<Space>`
 - Neovide settings: `lua/config/neovide.lua`
 - LSP servers: `lua/plugins/lsp/core.lua`
 - Formatters: `lua/plugins/lsp/formatting.lua`
+- Task templates: `lua/plugins/tools/overseer/templates.lua` (bun and cabal)
 - Add plugins: create or edit a `.lua` file under `lua/plugins/<category>/` (a file placed directly in `lua/plugins/` is rejected at startup)
 - Change colorscheme: edit the `colorscheme` field in `lua/plugins/ui/colorscheme.lua`
 
@@ -264,7 +274,8 @@ The leader key is `<Space>`
 
 - Plugin install location: `stdpath("data")/site/pack/core/opt/`
 - Lock file: `nvim-pack-lock.json`
-- New plugins are installed by `vim.pack` on the next startup after adding a spec file
+- New plugins are installed by `vim.pack` on the next startup after adding a spec file; `:PackUpdate` runs the build hooks afterwards
 - Theme order: the theme is applied before the remaining start-plugin configs, so plugins that recompute highlights on `ColorScheme` (statusline, dropbar) see the final palette (`lua/pack/init.lua`)
 - Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`
 - `blink.cmp` compiles its native fuzzy matcher on the first start and after every update; later starts are a no-op
+- Shared dependencies live in `lua/plugins/lib/deps.lua`: `lz.n`, `plenary.nvim`, `nui.nvim`, `_blink.lib`, `mini.icons`

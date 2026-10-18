@@ -23,7 +23,6 @@ vim.keymap.set("n", "sh", ":bprevious<CR>", { desc = "Previous buffer" })
 vim.keymap.set("n", "nl", ":nohl<CR>", { desc = "Clear search highlight" })
 
 -- Tools
--- Trouble keys live in lua/plugins/tools/trouble.lua, Haskell keys in
--- lua/plugins/language/functional.lua, so they lazy-load with their plugin
-vim.keymap.set("n", "<F11>", ":RunCode<CR>", { desc = "Run code" })
+-- Trouble, Haskell and overseer keys live in their plugin specs so they can
+-- lazy-load with the plugin; `-` opens Oil, which is loaded eagerly
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
