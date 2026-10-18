@@ -134,6 +134,7 @@ nvim
         └── ui/
             ├── colorscheme.lua
             ├── effects.lua
+            ├── gitsigns.lua
             ├── status.lua
             └── which-key.lua
 ```
