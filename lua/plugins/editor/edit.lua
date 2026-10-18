@@ -33,13 +33,13 @@ local tabout_opts = {
 
 return {
     { name = "better-escape.nvim", src = "max397574/better-escape.nvim", lazy = true,
-        event = { "InsertEnter" }, main = "better_escape", opts = better_escape_opts },
+    event = { "InsertEnter" }, main = "better_escape", opts = better_escape_opts },
 
     { name = "tabout.nvim",        src = "abecodes/tabout.nvim",  lazy = true,
-        event = { "InsertEnter" }, opts = tabout_opts },
+    event = { "InsertEnter" }, opts = tabout_opts },
 
     { name = "nvim-autopairs",     src = "windwp/nvim-autopairs", lazy = true,
-        event = { "InsertEnter" },
+    event = { "InsertEnter" },
     opts = {
         check_ts = true,
         ts_config = {

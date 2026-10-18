@@ -1,5 +1,6 @@
 return {
-    { name = "moonbit.nvim", src = "moonbit-community/moonbit.nvim", lazy = true, ft = "moonbit",
+    { name = "moonbit.nvim", src = "moonbit-community/moonbit.nvim", lazy = true,
+    ft = "moonbit",
     opts = {
         mooncakes = {
             virtual_text = true,

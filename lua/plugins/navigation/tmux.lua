@@ -5,6 +5,5 @@ return {
         { "<C-j>", desc = "Window down" },
         { "<C-k>", desc = "Window up" },
         { "<C-l>", desc = "Window right" },
-    },
-    config = nil },
+    }},
 }
