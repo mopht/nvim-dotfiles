@@ -23,7 +23,7 @@ Maintaining a capable development environment at low complexity takes priority, 
 - **Formatting**: `conform.nvim` (`stylua`, `nixfmt`, and LSP fallback)
 - **Treesitter**: `nvim-treesitter`, `tree-sitter-manager.nvim`, `rainbow-delimiters.nvim`
 - **Picker / terminal**: `snacks.nvim` (smart/files/grep/buffers/help, terminal, lazygit)
-- **UI**: `which-key.nvim` (Helix preset), `mini.statusline`, `barbecue`, `noice.nvim`
+- **UI**: `which-key.nvim` (Helix preset), `mini.statusline`, `dropbar.nvim`, `noice.nvim`
 - **Explorer / navigation**: `snacks.nvim` explorer, `oil.nvim`, `vim-tmux-navigator`
 - **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `vim-better-whitespace`, `todo-comments.nvim`
 - **Diagnostics panel**: `trouble.nvim`
@@ -133,6 +133,7 @@ Maintenance commands:
         │   └── core.lua
         └── ui/
             ├── colorscheme.lua
+            ├── dropbar.lua
             ├── effects.lua
             ├── gitsigns.lua
             ├── status.lua
@@ -247,5 +248,5 @@ The leader key is `<Space>`
 - Plugin install location: `stdpath("data")/site/pack/core/opt/`
 - Lock file: `nvim-pack-lock.json`
 - New plugins are installed by `vim.pack` on the next startup after adding a spec file
-- Theme order: the theme is applied before the remaining start-plugin configs, so plugins that recompute highlights on `ColorScheme` (statusline, barbecue) see the final palette (`lua/pack/init.lua`)
+- Theme order: the theme is applied before the remaining start-plugin configs, so plugins that recompute highlights on `ColorScheme` (statusline, dropbar) see the final palette (`lua/pack/init.lua`)
 - Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`
