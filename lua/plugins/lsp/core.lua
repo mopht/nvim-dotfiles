@@ -14,12 +14,11 @@ return {
             },
         })
 
-        -- haskell-language-server (via ghcup)
-        vim.lsp.config("haskell-language-server", {
-            cmd = { "haskell-language-server-wrapper" },
-            filetypes = { "haskell", "lhaskell" },
-        })
-        vim.lsp.enable("haskell-language-server")
+        -- haskell-language-server is started by haskell-tools.nvim from its
+        -- ftplugin (see lua/plugins/language/functional.lua), with --lsp and a
+        -- per-session --logfile. Enabling it here as well starts a second
+        -- client without --lsp, which exits right away and shows up as
+        -- "Client haskell-language-server quit with exit code ..."
 
         vim.lsp.config("clangd", {
             cmd = { "clangd" },
