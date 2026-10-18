@@ -4,6 +4,17 @@
 
 个人 Neovim 配置。插件由 Neovim 原生 `vim.pack` 安装和管理，使用 `lz.n` 做懒加载。
 
+## 🎯 设计理念
+
+这套配置的目标是：用尽量低的配置复杂度，提供足够强的开发能力。
+
+- 优先使用 Neovim 内置 API，而不是再叠一层抽象。
+- 内置缺失或实现起来不划算的能力，交给插件补齐。
+- 插件 spec 保持显式声明，并按职责归类。
+- 只有当抽象能显著减少重复或维护成本时才引入抽象。
+
+目标不是把插件数量压到最少，而是把"维持一个够用的开发环境"所需的复杂度压到最低。
+
 ## ✨ 功能
 
 - **插件管理**：`vim.pack` + `lz.n`
@@ -16,7 +27,6 @@
 - **文件树 / 窗口导航**：`snacks.nvim` explorer、`oil.nvim`、`vim-tmux-navigator`
 - **编辑增强**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`vim-better-whitespace`、`todo-comments.nvim`
 - **诊断面板**：`trouble.nvim`
-- **运行代码**：`code_runner.nvim`
 - **主题**：默认 `everforest`，可选 `tokyonight`、`catppuccin`
 - **GUI**：附带 Neovide 字体、透明度和窗口设置
 
@@ -42,7 +52,6 @@ LSP 在 `lua/plugins/lsp/core.lua` 里手动配置，需要把对应 server 的�
 - TypeScript：`typescript-language-server`
 - Lua / lazydev：`lua-language-server`
 - 格式化：`stylua`、`nixfmt`
-- `code_runner.nvim`：`python3`、`deno`、`gcc`、`clang++`、`rustc`、`javac` 等
 
 ## 📦 安装
 
@@ -149,8 +158,9 @@ return {
 ```
 
 - `pack = "start"`：启动时加载
-- `pack = "opt"`：延迟加载，可通过 `cmd`、`keys`、`event`、`ft` 触发
+- `pack = "opt"`：延迟加载，可通过 `cmd`、`keys`、`event`、`ft` 或 `colorscheme` 触发
 - `keys` 里带 `action` 的映射会在插件加载后自动绑定
+- 每个 `opt` spec 至少给一个触发器。主题插件声明 `colorscheme = "<name>"`，这样 `:colorscheme <name>` 也会按需加载它
 
 `lua/pack/init.lua` 只负责装配：读取 registry，把 spec 交给 `vim.pack`，在 `VimEnter` 时跑 start 插件的 config 并应用主题，最后把懒加载规则注册给 `lz.n`。
 
@@ -192,7 +202,6 @@ Leader 是 `<Space>`。
 | `nl` | 清除搜索高亮 |
 | `tl` | Todo location list |
 | `<leader>he` | Haskell evaluate all |
-| `<F11>` | 运行代码 |
 
 ### Trouble
 
@@ -213,21 +222,28 @@ Leader 是 `<Space>`。
 | `r` / `R` | Remote Flash / Treesitter search |
 | `gpd` / `gpt` / `gpi` / `gpD` | Goto preview definition / type / implementation / declaration |
 | `gP` | 关闭所有 preview |
+| `<C-u>` / `<C-d>` | 上 / 下滚动半页 |
+| `<C-b>` / `<C-f>` | 上 / 下滚动整页 |
+| `<C-y>` / `<C-e>` | 上 / 下滚动一行 |
+| `zz` / `zt` / `zb` | 光标行居中 / 置顶 / 置底 |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | 窗口 / tmux 导航 |
 
 ## 🛠 自定义
 
 - 基础选项：`lua/config/options.lua`
 - 快捷键：`lua/config/keymaps.lua`
-- 自动命令：`lua/config/highlights.lua`
+- 斜体：`lua/config/highlights.lua` —— 对固定的一组高亮组强制斜体，并在每次 `ColorScheme` 时重新应用
+- 状态栏透明：`lua/plugins/ui/status.lua`
 - Neovide 设置：`lua/config/neovide.lua`
 - LSP server：`lua/plugins/lsp/core.lua`
 - 格式化器：`lua/plugins/lsp/formatting.lua`
 - 添加插件：在 `lua/plugins/<category>/` 下新增或修改 `.lua` 文件（直接放在 `lua/plugins/` 下会在启动时报错）
-- 切换主题：修改 `lua/plugins/colorschemes/colorschemes.lua` 里的 `colorscheme` 字段
+- 切换主题：修改 `lua/plugins/ui/colorscheme.lua` 里的 `colorscheme` 字段
 
 ## 备注
 
 - 插件源码安装位置：`stdpath("data")/site/pack/core/opt/`
 - 锁文件：`nvim-pack-lock.json`
-- 修改插件 registry 后，新插件会在下次启动时由 `vim.pack` 安装
+- 新增 spec 文件后，新插件会在下次启动时由 `vim.pack` 安装
+- 主题顺序：主题在其余 start 插件 config 之前应用，所以依赖 `ColorScheme` 重算高亮的插件（statusline、barbecue）拿到的是最终配色（见 `lua/pack/init.lua`）
+- 仓库工具配置：`.stylua.toml`、`.editorconfig`、`.luarc.json`
