@@ -27,6 +27,7 @@ Maintaining a capable development environment at low complexity takes priority, 
 - **Explorer / navigation**: `snacks.nvim` explorer, `oil.nvim`, `vim-tmux-navigator`
 - **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `vim-better-whitespace`, `todo-comments.nvim`
 - **Diagnostics panel**: `trouble.nvim`
+- **Task runner**: `overseer.nvim`
 - **Colorschemes**: `everforest` by default, with `tokyonight` and `catppuccin` available
 - **GUI**: Neovide font, opacity, and window settings
 
@@ -104,7 +105,8 @@ Maintenance commands:
     ├── pack/
     │   ├── init.lua
     │   ├── install.lua
-    │   └── registry.lua
+    │   ├── registry.lua
+    │   └── spec.lua
     └── plugins/
         ├── lib/
         │   └── deps.lua
@@ -126,6 +128,7 @@ Maintenance commands:
         │   └── tmux.lua
         ├── tools/
         │   ├── oil.lua
+        │   ├── overseer.lua
         │   ├── snacks.lua
         │   └── trouble.lua
         ├── treesitter/
@@ -147,20 +150,23 @@ Maintenance commands:
 ```lua
 -- A single plugin
 return {
-    { name = "mini.icons", src = "echasnovski/mini.icons", lazy = false },
+    { name = "mini.icons", src = "echasnovski/mini.icons", lazy = false, opts = {} },
 }
 ```
 
 ```lua
 -- Multiple plugins in one file
 return {
-    { name = "flash.nvim", src = "folke/flash.nvim", lazy = true, keys = { ... } },
-    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true, keys = { ... } },
+    { name = "flash.nvim", src = "folke/flash.nvim", lazy = true, keys = { ... }, opts = {} },
+    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true, keys = { ... }, opts = {} },
 }
 ```
 
 - `lazy = false`: loaded at startup
 - `lazy = true`: lazy-loaded via `cmd`, `keys`, `event`, `ft` or `colorscheme`
+- `opts = { ... }`: shorthand for `require(main).setup(opts)`
+- `main`: the Lua module that owns `opts`; defaults to the plugin name without the `.nvim` suffix, so set it when they differ (`better_escape`, `everforest`, `idris2`, `treesitter-context`)
+- `config`: extra setup that `opts` cannot express; runs after `opts`
 - Keymaps that carry an `action` are bound after the plugin loads
 - Every `lazy = true` spec requires at least one trigger
 - Colorscheme plugins declare `colorscheme = "<name>"`, which also makes `:colorscheme <name>` load them on demand
@@ -216,6 +222,15 @@ The leader key is `<Space>`
 | `cl` | LSP references/definitions |
 | `xL` | Location list |
 | `xQ` | Quickfix list |
+
+### Task runner
+
+| Key | Description |
+| --- | --- |
+| `<leader>rr` | Run a task |
+| `<leader>rt` | Toggle the task list |
+| `<leader>rs` | Run a shell command |
+| `<leader>ra` | Run an action on a task |
 
 ### Flash / Preview / Scrolling
 

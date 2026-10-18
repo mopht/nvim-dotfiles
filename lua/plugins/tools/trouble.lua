@@ -62,5 +62,5 @@ return {
         { "xL", mode = "n", action = function() vim.cmd("Trouble loclist toggle") end, desc = "Trouble location list" },
         { "xQ", mode = "n", action = function() vim.cmd("Trouble qflist toggle") end, desc = "Trouble quickfix" },
     },
-    config = function() require("trouble").setup(trouble_opts) end },
+    opts = trouble_opts },
 }

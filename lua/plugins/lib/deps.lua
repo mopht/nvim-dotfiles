@@ -5,5 +5,5 @@ return {
     { name = "nui.nvim",          src = "MunifTanjim/nui.nvim",         lazy = false },
     -- { name = "nvim-navic",        src = "SmiteshP/nvim-navic",          lazy = false },
     { name = "mini.icons",        src = "echasnovski/mini.icons",       lazy = false,
-    config = function () require("mini.icons").setup() end},
+    opts = {} },
 }
