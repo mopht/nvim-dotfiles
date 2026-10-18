@@ -27,7 +27,7 @@
 - **文件树 / 窗口导航**：`snacks.nvim` explorer、`oil.nvim`、`vim-tmux-navigator`
 - **编辑能力**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`vim-better-whitespace`、`todo-comments.nvim`
 - **诊断面板**：`trouble.nvim`
-- **任务运行器**：`overseer.nvim`
+- **任务运行器**：`overseer.nvim`，内置 bun 和 cabal 模板
 - **主题**：默认 `everforest`，可选 `tokyonight`、`catppuccin`
 - **GUI**：附带 Neovide 字体、透明度和窗口设置
 
@@ -129,6 +129,8 @@ nvim
         ├── tools/
         │   ├── oil.lua
         │   ├── overseer.lua
+        │   ├── overseer/
+        │   │   └── templates.lua
         │   ├── snacks.lua
         │   └── trouble.lua
         ├── treesitter/
