@@ -14,7 +14,7 @@ local nvim_treesitter_context_opts = {
 
 return {
     { name = "nvim-treesitter-context", src = "nvim-treesitter/nvim-treesitter-context", lazy = false,
-    main = "treesitter-context",
-    opts = nvim_treesitter_context_opts },
+    main = "treesitter-context", opts = nvim_treesitter_context_opts },
+
     { name = "rainbow-delimiters.nvim", src = "HiPhish/rainbow-delimiters.nvim", lazy = false },
 }

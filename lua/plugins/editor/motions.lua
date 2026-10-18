@@ -39,6 +39,7 @@ return {
         { "gP",  mode = "n", action = function() require("goto-preview").close_all_win() end,                desc = "Close All Previews" },
     },
     opts = goto_preview_opts },
+
     { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true,
     keys = {
         { "<C-u>", desc = "Scroll up half page" },

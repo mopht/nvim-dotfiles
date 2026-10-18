@@ -62,7 +62,8 @@ local blink_opts = {
 }
 
 return {
-    { name = "blink.cmp", src = "saghen/blink.cmp", lazy = false,
-    opts = blink_opts },
-    { name = "friendly-snippets", src = "rafamadriz/friendly-snippets", lazy = true, event = { "InsertEnter" } },
+    { name = "blink.cmp", src = "saghen/blink.cmp", lazy = false, opts = blink_opts },
+
+    { name = "friendly-snippets", src = "rafamadriz/friendly-snippets", lazy = true,
+    event = { "InsertEnter" } },
 }
