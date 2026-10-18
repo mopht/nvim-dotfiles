@@ -3,5 +3,7 @@ return {
     config = function() require("idris2-nvim").setup() end },
     { name = "koka.nvim", src = "syaiful6/koka.nvim", pack = "opt", ft = "koka" },
     { name = "haskell-tools.nvim", src = "mrcjkb/haskell-tools.nvim", pack = "start",
-    config = nil },
+    config = function()
+        vim.keymap.set("n", "<leader>he", "<cmd>Haskell hls evalAll<cr>", { desc = "Haskell evaluate all" })
+    end },
 }

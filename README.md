@@ -86,21 +86,19 @@ Useful commands:
 │   └── haskell.lua
 └── lua/
     ├── config/
-    │   ├── autocmds.lua
     │   ├── colorscheme.lua
+    │   ├── highlights.lua
     │   ├── keymaps.lua
     │   ├── neovide.lua
     │   ├── options.lua
     │   └── treesitter.lua
+    ├── pack/
+    │   ├── init.lua
+    │   ├── install.lua
+    │   └── registry.lua
     └── plugins/
-        ├── loader.lua
-        ├── pack.lua
-        ├── registry.lua
-        ├── colorschemes/
-        │   └── colorschemes.lua
-        ├── core/
-        │   ├── deps.lua
-        │   └── which-key.lua
+        ├── lib/
+        │   └── deps.lua
         ├── editor/
         │   ├── buffers.lua
         │   ├── edit.lua
@@ -125,13 +123,15 @@ Useful commands:
         │   ├── context.lua
         │   └── core.lua
         └── ui/
+            ├── colorscheme.lua
             ├── effects.lua
-            └── status.lua
+            ├── status.lua
+            └── which-key.lua
 ```
 
 ## 🧩 Plugin Layout
 
-`lua/plugins/registry.lua` automatically discovers every `.lua` file under `lua/plugins/<category>/`. Each file may return a single plugin spec or a list of specs:
+`lua/pack/registry.lua` automatically discovers every `.lua` file under `lua/plugins/<category>/`. Each file may return a single plugin spec or a list of specs:
 
 ```lua
 -- A single plugin
@@ -152,11 +152,12 @@ return {
 - `pack = "opt"`: lazy-loaded via `cmd`, `keys`, `event`, or `ft`
 - Keymaps with an `action` are bound after the plugin loads
 
-`lua/plugins/loader.lua` only wires things together: it reads the registry, hands the specs to `vim.pack`, runs the start-plugin configs and the colorscheme on `VimEnter`, then registers lazy-loading rules with `lz.n`.
+`lua/pack/init.lua` only wires things together: it reads the registry, hands the specs to `vim.pack`, runs the start-plugin configs and the colorscheme on `VimEnter`, then registers lazy-loading rules with `lz.n`.
 
 Supporting modules:
 
-- `lua/plugins/pack.lua` — install/update via `vim.pack`, the Treesitter build hook, and `:PackUpdate` / `:PackClean`
+- `lua/pack/install.lua` — install/update via `vim.pack`, the Treesitter build hook, and `:PackUpdate` / `:PackClean`
+- `lua/pack/registry.lua` — spec discovery; a spec file placed directly in `lua/plugins/` raises an error instead of being skipped
 - `lua/config/colorscheme.lua` — applies the `colorscheme` field declared in the plugin specs
 - `lua/config/treesitter.lua` — Treesitter highlight auto-start and `foldexpr`
 
@@ -218,11 +219,11 @@ Leader is `<Space>`.
 
 - Core options: `lua/config/options.lua`
 - Keymaps: `lua/config/keymaps.lua`
-- Autocmds: `lua/config/autocmds.lua`
+- Autocmds: `lua/config/highlights.lua`
 - Neovide settings: `lua/config/neovide.lua`
 - LSP servers: `lua/plugins/lsp/core.lua`
 - Formatters: `lua/plugins/lsp/formatting.lua`
-- Add plugins: create or edit a `.lua` file under `lua/plugins/<category>/`
+- Add plugins: create or edit a `.lua` file under `lua/plugins/<category>/` (a file directly in `lua/plugins/` is rejected at startup)
 - Change colorscheme: edit the `colorscheme` field in `lua/plugins/colorschemes/colorschemes.lua`
 
 ## Notes
