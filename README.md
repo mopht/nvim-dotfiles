@@ -213,7 +213,7 @@ The leader key is `<Space>`
 | --- | --- |
 | `<leader>=` | Format buffer |
 | `K` | Hover |
-| `<C-o>` | Diagnostics float |
+| `<C-i>` | Diagnostics float |
 | `J` / `K` (visual) | Move the selection down / up |
 | `<leader>e` | Toggle snacks explorer |
 | `-` | Open parent directory with Oil |
