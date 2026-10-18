@@ -8,12 +8,12 @@ A personal Neovim configuration built on Neovim's native `vim.pack`, with lazy l
 
 This configuration aims to provide strong development capabilities with minimal configuration complexity
 
-- Prefer Neovim's built-in APIs over additional abstraction layers
+- Prefer Neovim's built-in APIs, and avoid adding abstraction layers on top
 - Use plugins only for capabilities that are missing or impractical to implement natively
 - Keep plugin specifications explicit and organized by responsibility
 - Introduce abstractions only when they meaningfully reduce duplication or maintenance cost
 
-The goal is not to minimize the number of plugins, but to minimize the complexity required to maintain a capable development environment
+Maintaining a capable development environment at low complexity takes priority, and the plugin count follows from that
 
 ## ✨ Features
 
@@ -167,10 +167,10 @@ return {
 
 Supporting modules:
 
-- `lua/pack/install.lua` — install/update via `vim.pack`, the Treesitter build hook, and `:PackUpdate` / `:PackClean`
-- `lua/pack/registry.lua` — spec discovery; a spec file placed directly in `lua/plugins/` raises an error instead of being skipped
-- `lua/config/colorscheme.lua` — applies the `colorscheme` field declared in the plugin specs
-- `lua/config/treesitter.lua` — Treesitter highlight auto-start and `foldexpr`
+- `lua/pack/install.lua`: install/update via `vim.pack`, the Treesitter build hook, and `:PackUpdate` / `:PackClean`
+- `lua/pack/registry.lua`: spec discovery; a spec file placed directly in `lua/plugins/` raises an error, so a misplaced spec surfaces at startup
+- `lua/config/colorscheme.lua`: applies the `colorscheme` field declared in the plugin specs
+- `lua/config/treesitter.lua`: Treesitter highlight auto-start and `foldexpr`
 
 ## ⌨️ Keymaps
 
@@ -233,7 +233,7 @@ The leader key is `<Space>`
 
 - Core options: `lua/config/options.lua`
 - Keymaps: `lua/config/keymaps.lua`
-- Italics: `lua/config/highlights.lua` — forces italics on a fixed group list and reapplies them on every `ColorScheme`
+- Italics: `lua/config/highlights.lua` (forces italics on a fixed group list and reapplies them on every `ColorScheme`)
 - Statusline transparency: `lua/plugins/ui/status.lua`
 - Neovide settings: `lua/config/neovide.lua`
 - LSP servers: `lua/plugins/lsp/core.lua`
