@@ -4,6 +4,17 @@ English | [简体中文](README-CN.md)
 
 Personal Neovim configuration. Plugins are installed and managed by Neovim's built-in `vim.pack`, with lazy loading powered by `lz.n`.
 
+## 🎯 Design Philosophy
+
+This configuration aims to provide strong development capabilities with minimal configuration complexity.
+
+- Prefer Neovim's built-in APIs over additional abstraction layers.
+- Use plugins to provide capabilities that are missing or impractical to implement natively.
+- Keep plugin specifications explicit and organized by responsibility.
+- Introduce abstractions only when they meaningfully reduce duplication or maintenance cost.
+
+The goal is not to minimize the number of plugins, but to minimize the complexity required to maintain a capable development environment.
+
 ## ✨ Features
 
 - **Plugin management**: `vim.pack` + `lz.n`
@@ -16,7 +27,6 @@ Personal Neovim configuration. Plugins are installed and managed by Neovim's bui
 - **Explorer / navigation**: `snacks.nvim` explorer, `oil.nvim`, `vim-tmux-navigator`
 - **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `vim-better-whitespace`, `todo-comments.nvim`
 - **Diagnostics panel**: `trouble.nvim`
-- **Code runner**: `code_runner.nvim`
 - **Colorschemes**: `everforest` by default, with `tokyonight` and `catppuccin` available
 - **GUI**: Neovide font, opacity, and window settings
 
@@ -42,7 +52,6 @@ Install language toolchains as needed:
 - TypeScript: `typescript-language-server`
 - Lua / lazydev: `lua-language-server`
 - Formatting: `stylua`, `nixfmt`
-- `code_runner.nvim`: `python3`, `deno`, `gcc`, `clang++`, `rustc`, `javac`, etc.
 
 ## 📦 Installation
 
@@ -149,8 +158,9 @@ return {
 ```
 
 - `pack = "start"`: load at startup
-- `pack = "opt"`: lazy-loaded via `cmd`, `keys`, `event`, or `ft`
+- `pack = "opt"`: lazy-loaded via `cmd`, `keys`, `event`, `ft` or `colorscheme`
 - Keymaps with an `action` are bound after the plugin loads
+- Give every `opt` spec at least one trigger. Colorscheme plugins declare `colorscheme = "<name>"`, which also makes `:colorscheme <name>` load them on demand
 
 `lua/pack/init.lua` only wires things together: it reads the registry, hands the specs to `vim.pack`, runs the start-plugin configs and the colorscheme on `VimEnter`, then registers lazy-loading rules with `lz.n`.
 
@@ -192,7 +202,6 @@ Leader is `<Space>`.
 | `nl` | Clear search highlight |
 | `tl` | Todo location list |
 | `<leader>he` | Haskell evaluate all |
-| `<F11>` | Run code |
 
 ### Trouble
 
@@ -213,22 +222,29 @@ Leader is `<Space>`.
 | `r` / `R` | Remote Flash / Treesitter search |
 | `gpd` / `gpt` / `gpi` / `gpD` | Goto preview definition/type/implementation/declaration |
 | `gP` | Close all previews |
+| `<C-u>` / `<C-d>` | Scroll half page up / down |
+| `<C-b>` / `<C-f>` | Scroll page up / down |
+| `<C-y>` / `<C-e>` | Scroll one line up / down |
+| `zz` / `zt` / `zb` | Center / top / bottom the cursor line |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Window / tmux navigation |
 
 ## 🛠 Customization
 
 - Core options: `lua/config/options.lua`
 - Keymaps: `lua/config/keymaps.lua`
-- Autocmds: `lua/config/highlights.lua`
+- Italics: `lua/config/highlights.lua` — forces italics on a fixed group list and reapplies it on every `ColorScheme`
+- Statusline transparency: `lua/plugins/ui/status.lua`
 - Neovide settings: `lua/config/neovide.lua`
 - LSP servers: `lua/plugins/lsp/core.lua`
 - Formatters: `lua/plugins/lsp/formatting.lua`
 - Add plugins: create or edit a `.lua` file under `lua/plugins/<category>/` (a file directly in `lua/plugins/` is rejected at startup)
-- Change colorscheme: edit the `colorscheme` field in `lua/plugins/colorschemes/colorschemes.lua`
+- Change colorscheme: edit the `colorscheme` field in `lua/plugins/ui/colorscheme.lua`
 
 ## Notes
 
 - Plugin install location: `stdpath("data")/site/pack/core/opt/`
 - Lock file: `nvim-pack-lock.json`
-- New plugins are installed by `vim.pack` on the next startup after updating the registry
+- New plugins are installed by `vim.pack` on the next startup after adding a spec file
+- Theme order: the theme is applied before the remaining start-plugin configs, so plugins that recompute highlights on `ColorScheme` (statusline, barbecue) see the final palette (`lua/pack/init.lua`)
+- Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`
 
