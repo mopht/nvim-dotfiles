@@ -8,16 +8,12 @@
       "rev": "5961d5e041c227e4d99e9e44e3a7ce9c6826c145",
       "src": "https://github.com/okuuva/auto-save.nvim"
     },
-    "barbecue": {
-      "rev": "3e31404f0b93a2c30d151abf0648650ac811c664",
-      "src": "https://github.com/utilyre/barbecue.nvim"
-    },
     "better-escape.nvim": {
       "rev": "3f4bc0b326606264ff75967f59091b5ddada0554",
       "src": "https://github.com/max397574/better-escape.nvim"
     },
     "blink.cmp": {
-      "rev": "10198f904da1e7f77aeb0368414f871568c0d898",
+      "rev": "6b4b40a785a9f61885e1f550423b2559138f3ef3",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "catppuccin": {
@@ -108,12 +104,8 @@
       "rev": "45a3a444b710511c39abca3b60bb6e23a21e3de5",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
-    "nvim-navic": {
-      "rev": "455808fd0fae06e6d70fadfd61432275db8f34ce",
-      "src": "https://github.com/SmiteshP/nvim-navic"
-    },
     "nvim-treesitter": {
-      "rev": "d4a9b23a383266bdb0bfb42d565f31e83f27be5e",
+      "rev": "d3e4a28b63961ba972b0945d66c73b6eec969953",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-context": {
