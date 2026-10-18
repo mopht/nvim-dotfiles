@@ -15,17 +15,28 @@ local function to_pack_spec(p)
     }
 end
 
--- Plugins that need an extra build step after install/update
+-- Extra build step to run after a plugin is installed or updated
+local BUILDERS = {
+    ["nvim-treesitter"] = function() vim.cmd("TSUpdate") end,
+    ["blink.cmp"] = function()
+        local done, err = require("blink.cmp").build():pwait()
+        if not done then error(err, 0) end
+    end,
+}
+
 local function setup_build_hook()
     api.nvim_create_autocmd("PackChanged", {
         callback = function(ev)
             local d = ev.data
-            local needs_build = d.spec.name == "nvim-treesitter"
-                and (d.kind == "install" or d.kind == "update")
-            if not needs_build then return end
+            local build = BUILDERS[d.spec.name]
+            if not build or (d.kind ~= "install" and d.kind ~= "update") then return end
 
-            if not d.active then vim.cmd.packadd("nvim-treesitter") end
-            pcall(vim.cmd.fun, "TSUpdate")
+            if not d.active then vim.cmd.packadd(d.spec.name) end
+
+            local ok, err = pcall(build)
+            if not ok then
+                vim.notify(("pack: build failed for %s: %s"):format(d.spec.name, err), vim.log.levels.ERROR)
+            end
         end,
     })
 end

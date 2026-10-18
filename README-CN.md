@@ -267,3 +267,4 @@ Leader 键为 `<Space>`
 - 新增 spec 文件后，新插件会在下次启动时由 `vim.pack` 安装
 - 主题顺序：主题在其余 start 插件 config 之前应用，因此依赖 `ColorScheme` 重算高亮的插件（statusline、dropbar）拿到的是最终配色（见 `lua/pack/init.lua`）
 - 仓库工具配置：`.stylua.toml`、`.editorconfig`、`.luarc.json`
+- `blink.cmp` 会在首次启动和每次更新后编译原生 fuzzy matcher，之后启动是无操作
