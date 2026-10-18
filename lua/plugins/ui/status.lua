@@ -72,8 +72,8 @@ local statusline_opts = {
 
 return {
     { name = "mini.statusline", src = "nvim-mini/mini.statusline", lazy = false,
+    opts = statusline_opts,
     config = function()
-        require("mini.statusline").setup(statusline_opts)
         apply_transparency()
 
         vim.api.nvim_create_autocmd("ColorScheme", {

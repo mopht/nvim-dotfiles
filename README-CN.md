@@ -27,6 +27,7 @@
 - **文件树 / 窗口导航**：`snacks.nvim` explorer、`oil.nvim`、`vim-tmux-navigator`
 - **编辑能力**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`vim-better-whitespace`、`todo-comments.nvim`
 - **诊断面板**：`trouble.nvim`
+- **任务运行器**：`overseer.nvim`
 - **主题**：默认 `everforest`，可选 `tokyonight`、`catppuccin`
 - **GUI**：附带 Neovide 字体、透明度和窗口设置
 
@@ -104,7 +105,8 @@ nvim
     ├── pack/
     │   ├── init.lua
     │   ├── install.lua
-    │   └── registry.lua
+    │   ├── registry.lua
+    │   └── spec.lua
     └── plugins/
         ├── lib/
         │   └── deps.lua
@@ -126,6 +128,7 @@ nvim
         │   └── tmux.lua
         ├── tools/
         │   ├── oil.lua
+        │   ├── overseer.lua
         │   ├── snacks.lua
         │   └── trouble.lua
         ├── treesitter/
@@ -147,20 +150,23 @@ nvim
 ```lua
 -- 单个插件
 return {
-    { name = "mini.icons", src = "echasnovski/mini.icons", lazy = false },
+    { name = "mini.icons", src = "echasnovski/mini.icons", lazy = false, opts = {} },
 }
 ```
 
 ```lua
 -- 一个文件里放多个插件
 return {
-    { name = "flash.nvim", src = "folke/flash.nvim", lazy = true, keys = { ... } },
-    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true, keys = { ... } },
+    { name = "flash.nvim", src = "folke/flash.nvim", lazy = true, keys = { ... }, opts = {} },
+    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true, keys = { ... }, opts = {} },
 }
 ```
 
 - `lazy = false`：启动时加载
 - `lazy = true`：延迟加载，可由 `cmd`、`keys`、`event`、`ft` 或 `colorscheme` 触发
+- `opts = { ... }`：等价于 `require(main).setup(opts)`
+- `main`：`opts` 对应的 Lua 模块名，默认取插件名去掉 `.nvim` 后缀；两者不一致时必须显式指定（`better_escape`、`everforest`、`idris2`、`treesitter-context`）
+- `config`：`opts` 表达不了的额外逻辑，在 `opts` 之后执行
 - 带 `action` 的 `keys` 映射在插件加载后绑定
 - 每个 `lazy = true` spec 至少需要一个触发器
 - 主题插件声明 `colorscheme = "<name>"`，`:colorscheme <name>` 也会据此按需加载
@@ -216,6 +222,15 @@ Leader 键为 `<Space>`
 | `cl` | LSP references / definitions |
 | `xL` | Location list |
 | `xQ` | Quickfix list |
+
+### 任务运行
+
+| 快捷键 | 功能 |
+| --- | --- |
+| `<leader>rr` | 运行任务 |
+| `<leader>rt` | 开关任务列表 |
+| `<leader>rs` | 运行 shell 命令 |
+| `<leader>ra` | 对任务执行操作 |
 
 ### Flash / 预览 / 滚动
 

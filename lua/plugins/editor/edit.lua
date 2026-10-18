@@ -32,33 +32,29 @@ local tabout_opts = {
 }
 
 return {
-    { name = "better-escape.nvim", src = "max397574/better-escape.nvim", lazy = true, event = { "InsertEnter" },
-    config = function() require("better_escape").setup(better_escape_opts) end },
-    { name = "tabout.nvim", src = "abecodes/tabout.nvim", lazy = true, event = { "InsertEnter" },
-    config = function() require("tabout").setup(tabout_opts) end },
-    { name = "nvim-autopairs", src = "windwp/nvim-autopairs", lazy = true, event = { "InsertEnter" },
-    config = function()
-        local npairs_ok, npairs = pcall(require, "nvim-autopairs")
-        if not npairs_ok then
-            return
-        end
+    { name = "better-escape.nvim", src = "max397574/better-escape.nvim", lazy = true,
+        event = { "InsertEnter" }, main = "better_escape", opts = better_escape_opts },
 
-        npairs.setup {
-            check_ts = true,
-            ts_config = {
-                lua = { "string", "source" },
-                javascript = { "string", "template_string" },
-            },
-            fast_wrap = {
-                map = "<M-e>",
-                chars = { "{", "[", "(", '"', "'" },
-                pattern = [=[[%'%"%)%>%]%)%}%,]]=],
-                end_key = "$",
-                keys = "qwertyuiopzxcvbnmasdfghjkl",
-                check_comma = true,
-                highlight = "Search",
-                highlight_grey = "Comment",
-            },
-        }
-    end },
+    { name = "tabout.nvim",        src = "abecodes/tabout.nvim",  lazy = true,
+        event = { "InsertEnter" }, opts = tabout_opts },
+
+    { name = "nvim-autopairs",     src = "windwp/nvim-autopairs", lazy = true,
+        event = { "InsertEnter" },
+    opts = {
+        check_ts = true,
+        ts_config = {
+            lua = { "string", "source" },
+            javascript = { "string", "template_string" },
+        },
+        fast_wrap = {
+            map = "<M-e>",
+            chars = { "{", "[", "(", '"', "'" },
+            pattern = [=[[%'%"%)%>%]%)%}%,]]=],
+            end_key = "$",
+            keys = "qwertyuiopzxcvbnmasdfghjkl",
+            check_comma = true,
+            highlight = "Search",
+            highlight_grey = "Comment",
+        },
+    } },
 }

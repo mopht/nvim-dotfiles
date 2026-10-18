@@ -28,8 +28,8 @@ return {
         { "R",     mode = { "o", "x" },      action = function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
         { "<c-s>", mode = "c",               action = function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
     },
-    config = function() require("flash").setup({})
-    end },
+    opts = {} },
+
     { name = "goto-preview", src = "rmagatti/goto-preview", lazy = true,
     keys = {
         { "gpd", mode = "n", action = function() require("goto-preview").goto_preview_definition() end,      desc = "Preview Definition" },
@@ -38,9 +38,7 @@ return {
         { "gpD", mode = "n", action = function() require("goto-preview").goto_preview_declaration({}) end,     desc = "Preview Declaration" },
         { "gP",  mode = "n", action = function() require("goto-preview").close_all_win() end,                desc = "Close All Previews" },
     },
-    config = function()
-        require("goto-preview").setup(goto_preview_opts)
-    end },
+    opts = goto_preview_opts },
     { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true,
     keys = {
         { "<C-u>", desc = "Scroll up half page" },
@@ -53,5 +51,5 @@ return {
         { "zt",    desc = "Cursor line to top" },
         { "zb",    desc = "Cursor line to bottom" },
     },
-    config = function() require("neoscroll").setup({}) end },
+    opts = {} },
 }
