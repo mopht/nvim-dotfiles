@@ -24,10 +24,6 @@
       "rev": "edefef779ab08ce1a4a404713e3012b0d202bd35",
       "src": "https://github.com/catppuccin/nvim"
     },
-    "code_runner.nvim": {
-      "rev": "ae11f6cb469ee5547cd0e076ecb41d74a7322cb8",
-      "src": "https://github.com/CRAG666/code_runner.nvim"
-    },
     "conform.nvim": {
       "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"
