@@ -1,1 +1,1 @@
-return { { name = "rustaceanvim", src = "mrcjkb/rustaceanvim", pack = "start" }, }
+return { { name = "rustaceanvim", src = "mrcjkb/rustaceanvim", lazy = false }, }

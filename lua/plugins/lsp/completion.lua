@@ -62,7 +62,7 @@ local blink_opts = {
 }
 
 return {
-    { name = "blink.cmp", src = "saghen/blink.cmp", pack = "start",
+    { name = "blink.cmp", src = "saghen/blink.cmp", lazy = false,
     config = function() require("blink.cmp").setup(blink_opts) end },
-    { name = "friendly-snippets", src = "rafamadriz/friendly-snippets", pack = "opt", event = { "InsertEnter" } },
+    { name = "friendly-snippets", src = "rafamadriz/friendly-snippets", lazy = true, event = { "InsertEnter" } },
 }

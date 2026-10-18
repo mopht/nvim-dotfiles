@@ -1,5 +1,5 @@
 return {
-    { name = "vim-tmux-navigator", src = "christoomey/vim-tmux-navigator", pack = "opt",
+    { name = "vim-tmux-navigator", src = "christoomey/vim-tmux-navigator", lazy = true,
     keys = {
         { "<C-h>", desc = "Window left" },
         { "<C-j>", desc = "Window down" },

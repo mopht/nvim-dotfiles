@@ -146,22 +146,22 @@ Maintenance commands:
 ```lua
 -- A single plugin
 return {
-    { name = "mini.icons", src = "echasnovski/mini.icons", pack = "start" },
+    { name = "mini.icons", src = "echasnovski/mini.icons", lazy = false },
 }
 ```
 
 ```lua
 -- Multiple plugins in one file
 return {
-    { name = "flash.nvim", src = "folke/flash.nvim", pack = "opt", keys = { ... } },
-    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", pack = "opt", keys = { ... } },
+    { name = "flash.nvim", src = "folke/flash.nvim", lazy = true, keys = { ... } },
+    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true, keys = { ... } },
 }
 ```
 
-- `pack = "start"`: loaded at startup
-- `pack = "opt"`: lazy-loaded via `cmd`, `keys`, `event`, `ft` or `colorscheme`
+- `lazy = false`: loaded at startup
+- `lazy = true`: lazy-loaded via `cmd`, `keys`, `event`, `ft` or `colorscheme`
 - Keymaps that carry an `action` are bound after the plugin loads
-- Every `opt` spec requires at least one trigger
+- Every `lazy = true` spec requires at least one trigger
 - Colorscheme plugins declare `colorscheme = "<name>"`, which also makes `:colorscheme <name>` load them on demand
 
 `lua/pack/init.lua` only assembles the pieces: it reads the registry, hands the specs to `vim.pack`, runs the start-plugin configs and the colorscheme on `VimEnter`, and then registers the lazy-loading rules with `lz.n`

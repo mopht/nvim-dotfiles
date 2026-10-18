@@ -1,5 +1,5 @@
 return {
-    { name = "conform.nvim", src = "stevearc/conform.nvim", pack = "start",
+    { name = "conform.nvim", src = "stevearc/conform.nvim", lazy = false,
     config = function()
         require("conform").setup({
             -- Add formatters per filetype when the binaries are available, e.g.:

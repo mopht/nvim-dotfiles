@@ -74,7 +74,7 @@ local snacks_opts = {
 }
 
 return {
-    { name = "snacks.nvim", src = "folke/snacks.nvim", pack = "opt",
+    { name = "snacks.nvim", src = "folke/snacks.nvim", lazy = true,
     event = { "BufReadPre" };
     keys = {
         { "<leader>e",       action = function() require("snacks").explorer() end,       desc = "Toggle explorer" },

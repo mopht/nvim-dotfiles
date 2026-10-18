@@ -1,5 +1,5 @@
 return {
-    { name = "moonbit.nvim", src = "moonbit-community/moonbit.nvim", pack = "opt", ft = "moonbit",
+    { name = "moonbit.nvim", src = "moonbit-community/moonbit.nvim", lazy = true, ft = "moonbit",
     config = function()
         require("moonbit").setup({
             mooncakes = {

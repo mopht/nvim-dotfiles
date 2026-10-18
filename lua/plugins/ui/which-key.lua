@@ -13,6 +13,6 @@ local which_key_opts = {
 }
 
 return {
-    { name = "which-key.nvim",    src = "folke/which-key.nvim",         pack = "start",
+    { name = "which-key.nvim",    src = "folke/which-key.nvim",         lazy = false,
     config = function() require("which-key").setup(which_key_opts) end },
 }

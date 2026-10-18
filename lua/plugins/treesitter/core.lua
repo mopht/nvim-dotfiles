@@ -6,8 +6,8 @@
 --   :TSInstall c lua zig vim vimdoc kotlin query rust cpp javascript python haskell typescript
 -- Highlighting, indent and folding are enabled per buffer in lua/config/treesitter.lua.
 return {
-    { name = "nvim-treesitter", src = "nvim-treesitter/nvim-treesitter", pack = "start" },
-    { name = "tree-sitter-manager.nvim", src = "romus204/tree-sitter-manager.nvim", pack = "start",
+    { name = "nvim-treesitter", src = "nvim-treesitter/nvim-treesitter", lazy = false },
+    { name = "tree-sitter-manager.nvim", src = "romus204/tree-sitter-manager.nvim", lazy = false,
     config = function()
         require("tree-sitter-manager").setup({
             ensure_installed = {
