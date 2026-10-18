@@ -113,7 +113,6 @@ nvim
         │   ├── formatting.lua
         │   └── lazydev.lua
         ├── navigation/
-        │   ├── neo-tree.lua   # 已禁用；使用 snacks.explorer
         │   └── tmux.lua
         ├── tools/
         │   ├── oil.lua
