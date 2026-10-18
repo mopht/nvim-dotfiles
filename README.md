@@ -113,7 +113,6 @@ Useful commands:
         │   ├── formatting.lua
         │   └── lazydev.lua
         ├── navigation/
-        │   ├── neo-tree.lua   # disabled; snacks.explorer is used
         │   └── tmux.lua
         ├── tools/
         │   ├── oil.lua
