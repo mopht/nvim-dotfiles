@@ -14,5 +14,5 @@ return {
     config = function() require("everforest").setup({ transparent_background_level = 2 }) end },
     { name = "catppuccin",      src = "catppuccin/nvim",         pack = "opt" },
     { name = "tokyonight.nvim", src = "folke/tokyonight.nvim",   pack = "opt",
-    config = function() require("tokyonight").setup({tokyonight_opts}) end },
+    config = function() require("tokyonight").setup(tokyonight_opts) end },
 }
