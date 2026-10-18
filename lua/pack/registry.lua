@@ -15,7 +15,7 @@ local function load_spec(module)
         error(("cannot load plugin spec %s: %s"):format(module, loaded), 0)
     end
     if type(loaded) ~= "table" then
-        error(("plugin spec %s must return a table, got %s"):format(module, type(loaded)), 0)
+        error(("plugin spec %s must return a table, got %s"):format(module, type(loaded)), 1)
     end
 
     if loaded.name then
