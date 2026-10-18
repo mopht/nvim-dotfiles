@@ -27,7 +27,7 @@ Maintaining a capable development environment at low complexity takes priority, 
 - **Explorer / navigation**: `snacks.nvim` explorer, `oil.nvim`, `vim-tmux-navigator`
 - **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `vim-better-whitespace`, `todo-comments.nvim`
 - **Diagnostics panel**: `trouble.nvim`
-- **Task runner**: `overseer.nvim`
+- **Task runner**: `overseer.nvim`, with bun and cabal templates
 - **Colorschemes**: `everforest` by default, with `tokyonight` and `catppuccin` available
 - **GUI**: Neovide font, opacity, and window settings
 
@@ -129,6 +129,8 @@ Maintenance commands:
         ├── tools/
         │   ├── oil.lua
         │   ├── overseer.lua
+        │   ├── overseer/
+        │   │   └── templates.lua
         │   ├── snacks.lua
         │   └── trouble.lua
         ├── treesitter/
