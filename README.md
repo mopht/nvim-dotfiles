@@ -275,7 +275,8 @@ The leader key is `<Space>`
 - Plugin install location: `stdpath("data")/site/pack/core/opt/`
 - Lock file: `nvim-pack-lock.json`
 - New plugins are installed by `vim.pack` on the next startup after adding a spec file; `:PackUpdate` runs the build hooks afterwards
-- Theme order: the theme is applied before the remaining start-plugin configs, so plugins that recompute highlights on `ColorScheme` (statusline, dropbar) see the final palette (`lua/pack/init.lua`)
+- Theme order: the theme is applied before the remaining eager plugin configs, so plugins that recompute highlights on `ColorScheme` (statusline, dropbar) see the final palette (`lua/pack/init.lua`)
+- `lz.n` only receives the lazy specs: `vim.pack` loads the eager ones, and their configs run on `VimEnter` (running the same setups during init measured about 16ms slower)
 - Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`
 - `blink.cmp` compiles its native fuzzy matcher on the first start and after every update; later starts are a no-op
 - Shared dependencies live in `lua/plugins/lib/deps.lua`: `lz.n`, `plenary.nvim`, `nui.nvim`, `_blink.lib`, `mini.icons`

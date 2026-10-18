@@ -275,7 +275,8 @@ Leader 键为 `<Space>`
 - 插件源码安装位置：`stdpath("data")/site/pack/core/opt/`
 - 锁文件：`nvim-pack-lock.json`
 - 新增 spec 文件后，新插件会在下次启动时由 `vim.pack` 安装；`:PackUpdate` 结束时会依次执行构建钩子
-- 主题顺序：主题在其余 start 插件 config 之前应用，因此依赖 `ColorScheme` 重算高亮的插件（statusline、dropbar）拿到的是最终配色（见 `lua/pack/init.lua`）
+- 主题顺序：主题在其余 eager 插件 config 之前应用，因此依赖 `ColorScheme` 重算高亮的插件（statusline、dropbar）拿到的是最终配色（见 `lua/pack/init.lua`）
+- `lz.n` 只接收 lazy spec：eager 插件由 `vim.pack` 加载，其 config 统一在 `VimEnter` 执行（实测同样的 setup 放在 init 阶段会慢约 16ms）
 - 仓库工具配置：`.stylua.toml`、`.editorconfig`、`.luarc.json`
 - `blink.cmp` 会在首次启动和每次更新后编译原生 fuzzy matcher，之后启动是无操作
 - 共享依赖集中在 `lua/plugins/lib/deps.lua`：`lz.n`、`plenary.nvim`、`nui.nvim`、`_blink.lib`、`mini.icons`

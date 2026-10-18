@@ -19,6 +19,9 @@ end
 local BUILDERS = {
     ["nvim-treesitter"] = function() vim.cmd("TSUpdate") end,
     ["blink.cmp"] = function()
+        -- build() returns a blink.lib.Task; that class does not annotate its
+        -- pwait/wait methods, hence the suppression
+        ---@diagnostic disable-next-line: undefined-field
         local done, err = require("blink.cmp").build():pwait()
         if not done then error(err, 0) end
     end,
