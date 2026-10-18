@@ -1,5 +1,5 @@
 -- ============================================================================
--- treesitter.lua — treesitter highlight auto-start + treesitter-based folding
+-- treesitter.lua — treesitter highlight / indent auto-start + folding
 -- ============================================================================
 
 local M = {}
@@ -15,15 +15,31 @@ end
 function M.auto_highlight()
     vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "FileType" }, {
         callback = function(ev)
-            if vim.treesitter.highlighter.active[ev.buf] then return end
+            local buf = ev.buf
+            local ft = vim.bo[buf].filetype
 
-            local ft = vim.bo[ev.buf].filetype
-            if not (ft and ft ~= "") then return end
+            if not vim.treesitter.highlighter.active[buf] then
+                if not (ft and ft ~= "") then return end
 
+                local lang = vim.treesitter.language.get_lang(ft)
+                if not lang or not pcall(vim.treesitter.start, buf, lang) then return end
+            end
+
+            -- The main branch no longer enables indent through setup(); it has
+            -- to be set per buffer. This runs on every event because the
+            -- filetype indent files are sourced on FileType, i.e. after
+            -- BufReadPost, and would otherwise override it. Languages without
+            -- an indent query are skipped: get_indent() returns 0 for them,
+            -- which would flatten the buffer instead of keeping its indent
             local lang = vim.treesitter.language.get_lang(ft)
-            if lang then pcall(vim.treesitter.start, ev.buf, lang) end
+            if not lang then return end
+
+            local ok, query = pcall(vim.treesitter.query.get, lang, "indents")
+            if ok and query then
+                vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end
         end,
-        desc = "auto-start treesitter highlighting",
+        desc = "start treesitter highlighting and indent",
     })
 end
 
