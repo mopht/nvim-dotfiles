@@ -81,6 +81,4 @@ return {
             callback = apply_transparency,
         })
     end },
-    { name = "barbecue", src = "utilyre/barbecue.nvim", lazy = false,
-    config = function() require("barbecue").setup({}) end },
 }

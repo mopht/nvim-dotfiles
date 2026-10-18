@@ -23,7 +23,7 @@
 - **格式化**：`conform.nvim`（`stylua`、`nixfmt`，并回退到 LSP 格式化）
 - **Treesitter**：`nvim-treesitter`、`tree-sitter-manager.nvim`、`rainbow-delimiters.nvim`
 - **Picker / 终端**：`snacks.nvim`（smart/files/grep/buffers/help、terminal、lazygit）
-- **UI**：`which-key.nvim`（Helix 风格）、`mini.statusline`、`barbecue`、`noice.nvim`
+- **UI**：`which-key.nvim`（Helix 风格）、`mini.statusline`、`dropbar.nvim`、`noice.nvim`
 - **文件树 / 窗口导航**：`snacks.nvim` explorer、`oil.nvim`、`vim-tmux-navigator`
 - **编辑能力**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`vim-better-whitespace`、`todo-comments.nvim`
 - **诊断面板**：`trouble.nvim`
@@ -133,6 +133,7 @@ nvim
         │   └── core.lua
         └── ui/
             ├── colorscheme.lua
+            ├── dropbar.lua
             ├── effects.lua
             ├── gitsigns.lua
             ├── status.lua
@@ -247,5 +248,5 @@ Leader 键为 `<Space>`
 - 插件源码安装位置：`stdpath("data")/site/pack/core/opt/`
 - 锁文件：`nvim-pack-lock.json`
 - 新增 spec 文件后，新插件会在下次启动时由 `vim.pack` 安装
-- 主题顺序：主题在其余 start 插件 config 之前应用，因此依赖 `ColorScheme` 重算高亮的插件（statusline、barbecue）拿到的是最终配色（见 `lua/pack/init.lua`）
+- 主题顺序：主题在其余 start 插件 config 之前应用，因此依赖 `ColorScheme` 重算高亮的插件（statusline、dropbar）拿到的是最终配色（见 `lua/pack/init.lua`）
 - 仓库工具配置：`.stylua.toml`、`.editorconfig`、`.luarc.json`

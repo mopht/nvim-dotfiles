@@ -60,7 +60,7 @@ end
 --
 -- The order matters. When :colorscheme runs inside a VimEnter callback, the
 -- ColorScheme event does NOT fire non-nested autocommands, so plugins that
--- recompute highlights on ColorScheme (mini.statusline transparency, barbecue
+-- recompute highlights on ColorScheme (mini.statusline transparency, dropbar
 -- winbar colors) must be set up *after* the theme is applied. Otherwise they
 -- capture the fallback background.
 local function run_eager_configs(specs, theme_pass)
