@@ -2,18 +2,18 @@
 
 [English](README.md) | 简体中文
 
-个人 Neovim 配置。插件由 Neovim 原生 `vim.pack` 安装和管理，使用 `lz.n` 做懒加载。
+本仓库为个人 Neovim 配置，插件由 Neovim 原生 `vim.pack` 安装与管理，懒加载由 `lz.n` 提供
 
 ## 🎯 设计理念
 
-这套配置的目标是：用尽量低的配置复杂度，提供足够强的开发能力。
+本配置旨在以尽可能低的配置复杂度，提供足够强的开发能力
 
-- 优先使用 Neovim 内置 API，而不是再叠一层抽象。
-- 内置缺失或实现起来不划算的能力，交给插件补齐。
-- 插件 spec 保持显式声明，并按职责归类。
-- 只有当抽象能显著减少重复或维护成本时才引入抽象。
+- 优先使用 Neovim 内置 API，而非引入额外的抽象层
+- 仅在能力缺失或原生实现不划算时使用插件
+- 插件 spec 保持显式声明，并按职责归类
+- 仅在能显著减少重复或降低维护成本时引入抽象
 
-目标不是把插件数量压到最少，而是把"维持一个够用的开发环境"所需的复杂度压到最低。
+目标不是把插件数量压到最少，而是把维持一个可用开发环境所需的复杂度压到最低
 
 ## ✨ 功能
 
@@ -25,22 +25,22 @@
 - **Picker / 终端**：`snacks.nvim`（smart/files/grep/buffers/help、terminal、lazygit）
 - **UI**：`which-key.nvim`（Helix 风格）、`mini.statusline`、`barbecue`、`noice.nvim`
 - **文件树 / 窗口导航**：`snacks.nvim` explorer、`oil.nvim`、`vim-tmux-navigator`
-- **编辑增强**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`vim-better-whitespace`、`todo-comments.nvim`
+- **编辑能力**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`vim-better-whitespace`、`todo-comments.nvim`
 - **诊断面板**：`trouble.nvim`
 - **主题**：默认 `everforest`，可选 `tokyonight`、`catppuccin`
 - **GUI**：附带 Neovide 字体、透明度和窗口设置
 
 ## ⚙️ 环境要求
 
-- **Neovim >= 0.12.4**（依赖原生 `vim.pack`）
+- **Neovim >= 0.12.4**（原生 `vim.pack` 所需）
 - `git`
 - `ripgrep`、`fd`（Snacks picker）
 - 一个 Nerd Font
 - 可选：`lazygit`、`nushell`
 
-LSP 在 `lua/plugins/lsp/core.lua` 里手动配置，需要把对应 server 的可执行文件放到 `PATH`。
+LSP server 在 `lua/plugins/lsp/core.lua` 中手动配置，对应的可执行文件需位于 `PATH` 中
 
-按需安装语言工具链：
+以下语言工具链需另行安装：
 
 - Haskell：`ghcup` + `haskell-language-server`
 - C/C++：`clangd`
@@ -55,7 +55,7 @@ LSP 在 `lua/plugins/lsp/core.lua` 里手动配置，需要把对应 server 的�
 
 ## 📦 安装
 
-先备份旧配置：
+备份现有配置：
 
 ```bash
 mv ~/.config/nvim ~/.config/nvim.bak
@@ -67,15 +67,15 @@ mv ~/.config/nvim ~/.config/nvim.bak
 git clone git@github.com:MoYu-CL/nvim-dotfiles.git ~/.config/nvim
 ```
 
-直接启动 Neovim：
+启动 Neovim：
 
 ```bash
 nvim
 ```
 
-首次启动时 `vim.pack` 会提示安装缺失插件，确认即可。插件版本记录在 `nvim-pack-lock.json`。
+首次启动时 `vim.pack` 会提示安装缺失插件，解析后的版本记录在 `nvim-pack-lock.json` 中
 
-常用命令：
+维护命令：
 
 ```vim
 :PackUpdate          " 更新插件
@@ -140,7 +140,7 @@ nvim
 
 ## 🧩 插件组织方式
 
-`lua/pack/registry.lua` 会自动扫描 `lua/plugins/<category>/*.lua`。每个文件可以返回单个 plugin spec，也可以返回一个 spec 列表：
+`lua/pack/registry.lua` 会自动扫描 `lua/plugins/<category>/*.lua`，每个文件返回单个 plugin spec 或一个 spec 列表：
 
 ```lua
 -- 单个插件
@@ -158,11 +158,12 @@ return {
 ```
 
 - `pack = "start"`：启动时加载
-- `pack = "opt"`：延迟加载，可通过 `cmd`、`keys`、`event`、`ft` 或 `colorscheme` 触发
-- `keys` 里带 `action` 的映射会在插件加载后自动绑定
-- 每个 `opt` spec 至少给一个触发器。主题插件声明 `colorscheme = "<name>"`，这样 `:colorscheme <name>` 也会按需加载它
+- `pack = "opt"`：延迟加载，可由 `cmd`、`keys`、`event`、`ft` 或 `colorscheme` 触发
+- 带 `action` 的 `keys` 映射在插件加载后绑定
+- 每个 `opt` spec 至少需要一个触发器
+- 主题插件声明 `colorscheme = "<name>"`，`:colorscheme <name>` 也会据此按需加载
 
-`lua/pack/init.lua` 只负责装配：读取 registry，把 spec 交给 `vim.pack`，在 `VimEnter` 时跑 start 插件的 config 并应用主题，最后把懒加载规则注册给 `lz.n`。
+`lua/pack/init.lua` 只负责装配：读取 registry，将 spec 交给 `vim.pack`，在 `VimEnter` 时执行 start 插件的 config 并应用主题，最后把懒加载规则注册给 `lz.n`
 
 配套模块：
 
@@ -173,7 +174,7 @@ return {
 
 ## ⌨️ 快捷键
 
-Leader 是 `<Space>`。
+Leader 键为 `<Space>`
 
 ### 查找 / 终端
 
@@ -238,12 +239,12 @@ Leader 是 `<Space>`。
 - LSP server：`lua/plugins/lsp/core.lua`
 - 格式化器：`lua/plugins/lsp/formatting.lua`
 - 添加插件：在 `lua/plugins/<category>/` 下新增或修改 `.lua` 文件（直接放在 `lua/plugins/` 下会在启动时报错）
-- 切换主题：修改 `lua/plugins/ui/colorscheme.lua` 里的 `colorscheme` 字段
+- 切换主题：修改 `lua/plugins/ui/colorscheme.lua` 中的 `colorscheme` 字段
 
 ## 备注
 
 - 插件源码安装位置：`stdpath("data")/site/pack/core/opt/`
 - 锁文件：`nvim-pack-lock.json`
 - 新增 spec 文件后，新插件会在下次启动时由 `vim.pack` 安装
-- 主题顺序：主题在其余 start 插件 config 之前应用，所以依赖 `ColorScheme` 重算高亮的插件（statusline、barbecue）拿到的是最终配色（见 `lua/pack/init.lua`）
+- 主题顺序：主题在其余 start 插件 config 之前应用，因此依赖 `ColorScheme` 重算高亮的插件（statusline、barbecue）拿到的是最终配色（见 `lua/pack/init.lua`）
 - 仓库工具配置：`.stylua.toml`、`.editorconfig`、`.luarc.json`

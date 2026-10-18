@@ -2,18 +2,18 @@
 
 English | [简体中文](README-CN.md)
 
-Personal Neovim configuration. Plugins are installed and managed by Neovim's built-in `vim.pack`, with lazy loading powered by `lz.n`.
+A personal Neovim configuration built on Neovim's native `vim.pack`, with lazy loading provided by `lz.n`
 
 ## 🎯 Design Philosophy
 
-This configuration aims to provide strong development capabilities with minimal configuration complexity.
+This configuration aims to provide strong development capabilities with minimal configuration complexity
 
-- Prefer Neovim's built-in APIs over additional abstraction layers.
-- Use plugins to provide capabilities that are missing or impractical to implement natively.
-- Keep plugin specifications explicit and organized by responsibility.
-- Introduce abstractions only when they meaningfully reduce duplication or maintenance cost.
+- Prefer Neovim's built-in APIs over additional abstraction layers
+- Use plugins only for capabilities that are missing or impractical to implement natively
+- Keep plugin specifications explicit and organized by responsibility
+- Introduce abstractions only when they meaningfully reduce duplication or maintenance cost
 
-The goal is not to minimize the number of plugins, but to minimize the complexity required to maintain a capable development environment.
+The goal is not to minimize the number of plugins, but to minimize the complexity required to maintain a capable development environment
 
 ## ✨ Features
 
@@ -32,15 +32,15 @@ The goal is not to minimize the number of plugins, but to minimize the complexit
 
 ## ⚙️ Requirements
 
-- **Neovim >= 0.12.4** (for native `vim.pack`)
+- **Neovim >= 0.12.4** (required for native `vim.pack`)
 - `git`
 - `ripgrep`, `fd` (Snacks picker)
 - A Nerd Font
 - Optional: `lazygit`, `nushell`
 
-LSP servers are configured manually in `lua/plugins/lsp/core.lua`; make sure their executables are on `PATH`.
+LSP servers are configured manually in `lua/plugins/lsp/core.lua`, and the corresponding executables must be available on `PATH`
 
-Install language toolchains as needed:
+The following language toolchains are installed separately:
 
 - Haskell: `ghcup` + `haskell-language-server`
 - C/C++: `clangd`
@@ -55,13 +55,13 @@ Install language toolchains as needed:
 
 ## 📦 Installation
 
-Back up your existing config:
+Back up the existing configuration:
 
 ```bash
 mv ~/.config/nvim ~/.config/nvim.bak
 ```
 
-Clone this repository:
+Clone the repository:
 
 ```bash
 git clone git@github.com:MoYu-CL/nvim-dotfiles.git ~/.config/nvim
@@ -73,9 +73,9 @@ Start Neovim:
 nvim
 ```
 
-On first launch, `vim.pack` will prompt to install missing plugins. Plugin versions are pinned in `nvim-pack-lock.json`.
+On first launch `vim.pack` prompts for the installation of missing plugins, and the resolved versions are recorded in `nvim-pack-lock.json`
 
-Useful commands:
+Maintenance commands:
 
 ```vim
 :PackUpdate          " update all plugins
@@ -140,7 +140,7 @@ Useful commands:
 
 ## 🧩 Plugin Layout
 
-`lua/pack/registry.lua` automatically discovers every `.lua` file under `lua/plugins/<category>/`. Each file may return a single plugin spec or a list of specs:
+`lua/pack/registry.lua` automatically discovers every `.lua` file under `lua/plugins/<category>/`; each file returns either a single plugin spec or a list of specs:
 
 ```lua
 -- A single plugin
@@ -157,12 +157,13 @@ return {
 }
 ```
 
-- `pack = "start"`: load at startup
+- `pack = "start"`: loaded at startup
 - `pack = "opt"`: lazy-loaded via `cmd`, `keys`, `event`, `ft` or `colorscheme`
-- Keymaps with an `action` are bound after the plugin loads
-- Give every `opt` spec at least one trigger. Colorscheme plugins declare `colorscheme = "<name>"`, which also makes `:colorscheme <name>` load them on demand
+- Keymaps that carry an `action` are bound after the plugin loads
+- Every `opt` spec requires at least one trigger
+- Colorscheme plugins declare `colorscheme = "<name>"`, which also makes `:colorscheme <name>` load them on demand
 
-`lua/pack/init.lua` only wires things together: it reads the registry, hands the specs to `vim.pack`, runs the start-plugin configs and the colorscheme on `VimEnter`, then registers lazy-loading rules with `lz.n`.
+`lua/pack/init.lua` only assembles the pieces: it reads the registry, hands the specs to `vim.pack`, runs the start-plugin configs and the colorscheme on `VimEnter`, and then registers the lazy-loading rules with `lz.n`
 
 Supporting modules:
 
@@ -173,7 +174,7 @@ Supporting modules:
 
 ## ⌨️ Keymaps
 
-Leader is `<Space>`.
+The leader key is `<Space>`
 
 ### Find / Terminal
 
@@ -232,12 +233,12 @@ Leader is `<Space>`.
 
 - Core options: `lua/config/options.lua`
 - Keymaps: `lua/config/keymaps.lua`
-- Italics: `lua/config/highlights.lua` — forces italics on a fixed group list and reapplies it on every `ColorScheme`
+- Italics: `lua/config/highlights.lua` — forces italics on a fixed group list and reapplies them on every `ColorScheme`
 - Statusline transparency: `lua/plugins/ui/status.lua`
 - Neovide settings: `lua/config/neovide.lua`
 - LSP servers: `lua/plugins/lsp/core.lua`
 - Formatters: `lua/plugins/lsp/formatting.lua`
-- Add plugins: create or edit a `.lua` file under `lua/plugins/<category>/` (a file directly in `lua/plugins/` is rejected at startup)
+- Add plugins: create or edit a `.lua` file under `lua/plugins/<category>/` (a file placed directly in `lua/plugins/` is rejected at startup)
 - Change colorscheme: edit the `colorscheme` field in `lua/plugins/ui/colorscheme.lua`
 
 ## Notes
@@ -247,4 +248,3 @@ Leader is `<Space>`.
 - New plugins are installed by `vim.pack` on the next startup after adding a spec file
 - Theme order: the theme is applied before the remaining start-plugin configs, so plugins that recompute highlights on `ColorScheme` (statusline, barbecue) see the final palette (`lua/pack/init.lua`)
 - Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`
-
