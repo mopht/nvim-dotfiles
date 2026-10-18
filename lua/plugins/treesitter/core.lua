@@ -1,34 +1,12 @@
-local nvim_treesitter_opts = {
-    ensure_installed = {
-        "c",
-        "lua",
-        "zig",
-        "vim",
-        "vimdoc",
-        "kotlin",
-        "query",
-        "rust",
-        "cpp",
-        "javascript",
-        "python",
-        "haskell",
-        "typescript",
-    },
-
-    highlight = { enable = true },
-    indent = { enable = true },
-
-    rainbow = {
-        enable = true,
-        extended_more = true,
-        max_file_lines = nil,
-    },
-
-}
-
+-- nvim-treesitter (main branch).
+--
+-- No setup() call is needed: the old keys (ensure_installed, highlight, indent,
+-- rainbow) were dropped upstream and were silently ignored here. Parsers are
+-- installed with :TSInstall, e.g.
+--   :TSInstall c lua zig vim vimdoc kotlin query rust cpp javascript python haskell typescript
+-- Highlighting, indent and folding are enabled per buffer in lua/config/treesitter.lua.
 return {
-    { name = "nvim-treesitter", src = "nvim-treesitter/nvim-treesitter", pack = "start",
-    config = function() require("nvim-treesitter.config").setup(nvim_treesitter_opts) end },
+    { name = "nvim-treesitter", src = "nvim-treesitter/nvim-treesitter", pack = "start" },
     { name = "tree-sitter-manager.nvim", src = "romus204/tree-sitter-manager.nvim", pack = "start",
     config = function()
         require("tree-sitter-manager").setup({
