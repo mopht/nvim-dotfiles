@@ -55,7 +55,7 @@ mv ~/.config/nvim ~/.config/nvim.bak
 Clone this repository:
 
 ```bash
-git clone git@github.com:MoYu-CL/nvim-config.git ~/.config/nvim
+git clone git@github.com:MoYu-CL/nvim-dotfiles.git ~/.config/nvim
 ```
 
 Start Neovim:
@@ -87,11 +87,14 @@ Useful commands:
 └── lua/
     ├── config/
     │   ├── autocmds.lua
+    │   ├── colorscheme.lua
     │   ├── keymaps.lua
     │   ├── neovide.lua
-    │   └── options.lua
+    │   ├── options.lua
+    │   └── treesitter.lua
     └── plugins/
         ├── loader.lua
+        ├── pack.lua
         ├── registry.lua
         ├── colorschemes/
         │   └── colorschemes.lua
@@ -149,13 +152,13 @@ return {
 - `pack = "opt"`: lazy-loaded via `cmd`, `keys`, `event`, or `ft`
 - Keymaps with an `action` are bound after the plugin loads
 
-`lua/plugins/loader.lua` is responsible for:
+`lua/plugins/loader.lua` only wires things together: it reads the registry, hands the specs to `vim.pack`, runs the start-plugin configs and the colorscheme on `VimEnter`, then registers lazy-loading rules with `lz.n`.
 
-- Installing and updating plugins with `vim.pack`
-- Registering lazy-loading rules with `lz.n`
-- Applying the colorscheme and start-plugin configs on `VimEnter`
-- Auto-starting Treesitter
-- Providing `:PackUpdate` / `:PackClean`
+Supporting modules:
+
+- `lua/plugins/pack.lua` — install/update via `vim.pack`, the Treesitter build hook, and `:PackUpdate` / `:PackClean`
+- `lua/config/colorscheme.lua` — applies the `colorscheme` field declared in the plugin specs
+- `lua/config/treesitter.lua` — Treesitter highlight auto-start and `foldexpr`
 
 ## ⌨️ Keymaps
 
@@ -220,7 +223,7 @@ Leader is `<Space>`.
 - LSP servers: `lua/plugins/lsp/core.lua`
 - Formatters: `lua/plugins/lsp/formatting.lua`
 - Add plugins: create or edit a `.lua` file under `lua/plugins/<category>/`
-- Change colorscheme: edit the `everforest` / `colorscheme` setup in `lua/plugins/loader.lua`
+- Change colorscheme: edit the `colorscheme` field in `lua/plugins/colorschemes/colorschemes.lua`
 
 ## Notes
 

@@ -38,16 +38,6 @@ local blink_opts = {
 
     completion = {
         documentation = { auto_show = true },
-        accept = {
-            -- auto_brackets = {
-                -- enabled = true,
-                -- semantic_token_types = {
-                --     "function",
-                --     "method",
-                --     "constructor",
-                -- }
-            -- },
-        },
     },
 
     -- Default list of enabled providers defined so that you can extend it
@@ -73,15 +63,6 @@ local blink_opts = {
 
 return {
     { name = "blink.cmp", src = "saghen/blink.cmp", pack = "start",
-    config = function()
-        -- v2: build/download native fuzzy matcher (one-time, caches after)
-        -- local ok, _ = pcall(function() require("blink.cmp").build():pwait() end)
-        -- if not ok then
-        --     vim.notify("blink.cmp: native build failed, using Lua fallback", vim.log.levels.WARN)
-        -- end
-        require("blink.cmp").setup(blink_opts)
-    end },
-    -- { name = "lsp_signature.nvim", src = "ray-x/lsp_signature.nvim", pack = "opt", event = { "InsertEnter" },
-    -- config = function() require("lsp_signature").setup({ hint_prefix = " ", }) end},
+    config = function() require("blink.cmp").setup(blink_opts) end },
     { name = "friendly-snippets", src = "rafamadriz/friendly-snippets", pack = "opt", event = { "InsertEnter" } },
 }

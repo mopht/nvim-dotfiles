@@ -1,24 +1,31 @@
--- Plugin registry: auto-loads every .lua file under lua/plugins/<category>/.
--- A category file may return a single spec table or a list of spec tables.
+-- Discovers plugin specs from lua/plugins/<category>/*.lua.
+-- Each file returns either a single spec table or a list of spec tables.
+
 local M = {}
 
 local root = vim.fn.stdpath("config") .. "/lua/plugins"
 
-local function add_specs(specs)
-    if specs.name then table.insert(M, specs)
-    else vim.list_extend(M, specs) end
+local specs = {}
+
+local function add(loaded)
+    if loaded.name then
+        table.insert(specs, loaded)
+    else
+        vim.list_extend(specs, loaded)
+    end
 end
 
 for _, dir in ipairs(vim.fn.glob(root .. "/*", false, true)) do
-    local name = vim.fn.fnamemodify(dir, ":t")
-    if not (name ~= "specs" and vim.fn.isdirectory(dir) == 1) then goto continue end
+    if vim.fn.isdirectory(dir) == 1 then
+        local category = vim.fn.fnamemodify(dir, ":t")
 
-    for _, file in ipairs(vim.fn.glob(dir .. "/*.lua", false, true)) do
-        local mod = "plugins." .. name .. "." .. vim.fn.fnamemodify(file, ":t:r")
-        add_specs(require(mod))
+        for _, file in ipairs(vim.fn.glob(dir .. "/*.lua", false, true)) do
+            local name = vim.fn.fnamemodify(file, ":t:r")
+            add(require("plugins." .. category .. "." .. name))
+        end
     end
-
-    ::continue::
 end
 
-return { plugins = M }
+M.plugins = specs
+
+return M

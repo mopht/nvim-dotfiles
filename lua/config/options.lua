@@ -8,8 +8,6 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.autoindent = true
 vim.opt.smarttab = true
-vim.opt.ai = true
-vim.opt.si = true
 
 -- anti warp
 vim.opt.wrap = false
@@ -33,9 +31,9 @@ vim.opt.winblend = 30
 vim.opt.pumblend = 23
 vim.opt.pumheight = 12
 vim.opt.background = "dark"
--- Colorscheme is applied by pack-loader VimEnter autocmd (after plugins are in rtp)
--- To change colorscheme, edit lua/core/pack-loader.lua → VimEnter callback
--- or set it here after pack-loader.setup() (start/ plugins are already in rtp by then)
+-- The theme is applied centrally in lua/config/colorscheme.lua (after VimEnter,
+-- when plugins are already on the rtp). To change it, edit the colorscheme field
+-- in lua/plugins/colorschemes/colorschemes.lua
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -49,6 +47,7 @@ vim.opt.backup = false
 vim.opt.laststatus = 2
 vim.opt.fillchars = { vert = " ", eob = " " }
 
-vim.wo.foldlevel = 99
+-- Fold settings live in lua/config/treesitter.lua (window-local, so they are set
+-- together with foldexpr)
 
 vim.g.everforest_enable_italic = true

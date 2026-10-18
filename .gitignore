@@ -1,1 +1,7 @@
 .omo/
+.opencode/
+
+# editor / tool leftovers
+*.log
+tags
+.DS_Store
