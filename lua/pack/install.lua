@@ -1,5 +1,5 @@
 -- ============================================================================
--- pack.lua — vim.pack wrapper: install, build hooks, maintenance commands
+-- pack/install.lua — vim.pack wrapper: install, build hooks, maintenance commands
 -- Owns "how plugins are installed/updated", not load order
 -- ============================================================================
 
@@ -8,13 +8,11 @@ local api = vim.api
 
 -- Convert a registry spec into what vim.pack.add() expects
 local function to_pack_spec(p)
-    local src = p.src
-    if not src:find("://", 1, true) then
-        src = "https://github.com/" .. src
-    end
-    local spec = { src = src, name = p.name }
-    if p.version then spec.version = p.version end
-    return spec
+    return {
+        name    = p.name,
+        src     = p.src:find("://", 1, true) and p.src or ("https://github.com/" .. p.src),
+        version = p.version,
+    }
 end
 
 -- Plugins that need an extra build step after install/update
@@ -32,12 +30,12 @@ local function setup_build_hook()
     })
 end
 
--- start plugins go on the rtp immediately; opt plugins are only registered,
+-- eager plugins go on the rtp immediately; lazy ones are only registered,
 -- loading them is lz.n's job
 function M.install(specs)
     local eager, lazy = {}, {}
     for _, p in ipairs(specs) do
-        table.insert(p.pack == "start" and eager or lazy, to_pack_spec(p))
+        table.insert(p.lazy and lazy or eager, to_pack_spec(p))
     end
 
     vim.pack.add(eager)
@@ -57,7 +55,7 @@ function M.commands(specs)
         local stale = {}
         for _, p in ipairs(vim.pack.get()) do
             if not known[p.spec.name] then
-                table.insert(stale, p.spec.name)
+                stale[#stale + 1] = p.spec.name
             end
         end
 
@@ -67,8 +65,7 @@ function M.commands(specs)
         end
 
         vim.pack.del(stale)
-        vim.notify("pack: removed " .. table.concat(stale, ", "),
-                   vim.log.levels.INFO)
+        vim.notify("pack: removed " .. table.concat(stale, ", "), vim.log.levels.INFO)
     end, { desc = "Remove plugins not listed in the registry" })
 end
 

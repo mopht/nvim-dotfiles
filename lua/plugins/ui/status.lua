@@ -71,7 +71,7 @@ local statusline_opts = {
 }
 
 return {
-    { name = "mini.statusline", src = "nvim-mini/mini.statusline", pack = "start",
+    { name = "mini.statusline", src = "nvim-mini/mini.statusline", lazy = false,
     config = function()
         require("mini.statusline").setup(statusline_opts)
         apply_transparency()
@@ -81,6 +81,6 @@ return {
             callback = apply_transparency,
         })
     end },
-    { name = "barbecue", src = "utilyre/barbecue.nvim", pack = "start",
+    { name = "barbecue", src = "utilyre/barbecue.nvim", lazy = false,
     config = function() require("barbecue").setup({}) end },
 }

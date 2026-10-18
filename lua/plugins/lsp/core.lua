@@ -1,5 +1,5 @@
 return {
-    { name = "nvim-lspconfig", src = "neovim/nvim-lspconfig", pack = "start",
+    { name = "nvim-lspconfig", src = "neovim/nvim-lspconfig", lazy = false,
     config = function()
         -- nvim-lspconfig 0.11+ API: use vim.lsp.enable() / vim.lsp.config()
         -- Old require('lspconfig').xxx.setup() is DEPRECATED

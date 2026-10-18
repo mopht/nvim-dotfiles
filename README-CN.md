@@ -146,22 +146,22 @@ nvim
 ```lua
 -- 单个插件
 return {
-    { name = "mini.icons", src = "echasnovski/mini.icons", pack = "start" },
+    { name = "mini.icons", src = "echasnovski/mini.icons", lazy = false },
 }
 ```
 
 ```lua
 -- 一个文件里放多个插件
 return {
-    { name = "flash.nvim", src = "folke/flash.nvim", pack = "opt", keys = { ... } },
-    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", pack = "opt", keys = { ... } },
+    { name = "flash.nvim", src = "folke/flash.nvim", lazy = true, keys = { ... } },
+    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true, keys = { ... } },
 }
 ```
 
-- `pack = "start"`：启动时加载
-- `pack = "opt"`：延迟加载，可由 `cmd`、`keys`、`event`、`ft` 或 `colorscheme` 触发
+- `lazy = false`：启动时加载
+- `lazy = true`：延迟加载，可由 `cmd`、`keys`、`event`、`ft` 或 `colorscheme` 触发
 - 带 `action` 的 `keys` 映射在插件加载后绑定
-- 每个 `opt` spec 至少需要一个触发器
+- 每个 `lazy = true` spec 至少需要一个触发器
 - 主题插件声明 `colorscheme = "<name>"`，`:colorscheme <name>` 也会据此按需加载
 
 `lua/pack/init.lua` 只负责装配：读取 registry，将 spec 交给 `vim.pack`，在 `VimEnter` 时执行 start 插件的 config 并应用主题，最后把懒加载规则注册给 `lz.n`

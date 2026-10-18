@@ -33,6 +33,6 @@ local noice_opts = {
 }
 
 return {
-    { name = "noice.nvim", src = "folke/noice.nvim", pack = "start",
+    { name = "noice.nvim", src = "folke/noice.nvim", lazy = false,
     config = function() require("noice").setup(noice_opts) end },
 }

@@ -17,12 +17,13 @@ function M.auto_highlight()
         callback = function(ev)
             local buf = ev.buf
             local ft = vim.bo[buf].filetype
+            if ft == "" then return end
+
+            local lang = vim.treesitter.language.get_lang(ft)
+            if not lang then return end
 
             if not vim.treesitter.highlighter.active[buf] then
-                if not (ft and ft ~= "") then return end
-
-                local lang = vim.treesitter.language.get_lang(ft)
-                if not lang or not pcall(vim.treesitter.start, buf, lang) then return end
+                if not pcall(vim.treesitter.start, buf, lang) then return end
             end
 
             -- The main branch no longer enables indent through setup(); it has
@@ -30,10 +31,7 @@ function M.auto_highlight()
             -- filetype indent files are sourced on FileType, i.e. after
             -- BufReadPost, and would otherwise override it. Languages without
             -- an indent query are skipped: get_indent() returns 0 for them,
-            -- which would flatten the buffer instead of keeping its indent
-            local lang = vim.treesitter.language.get_lang(ft)
-            if not lang then return end
-
+            -- which would flatten the buffer instead of keeping its indent.
             local ok, query = pcall(vim.treesitter.query.get, lang, "indents")
             if ok and query then
                 vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"

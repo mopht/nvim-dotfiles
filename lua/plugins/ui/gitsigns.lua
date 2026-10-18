@@ -3,7 +3,7 @@
 -- If even that ~3ms matters, switch the event to "CursorHold" to load it only
 -- once the editor is idle.
 return {
-    { name = "gitsigns.nvim", src = "lewis6991/gitsigns.nvim", pack = "opt",
+    { name = "gitsigns.nvim", src = "lewis6991/gitsigns.nvim", lazy = true,
     event = { "BufReadPre", "BufNewFile" },
     config = function() require("gitsigns").setup({}) end },
 }

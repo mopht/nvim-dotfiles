@@ -1,9 +1,9 @@
 return {
-    { name = "lz.n",              src = "nvim-neorocks/lz.n",           pack = "start" },
-    { name = "_blink.lib",        src = "saghen/blink.lib",             pack = "start" },
-    { name = "plenary.nvim",      src = "nvim-lua/plenary.nvim",        pack = "start" },
-    { name = "nui.nvim",          src = "MunifTanjim/nui.nvim",         pack = "start" },
-    { name = "nvim-navic",        src = "SmiteshP/nvim-navic",          pack = "start" },
-    { name = "mini.icons",        src = "echasnovski/mini.icons",       pack = "start",
+    { name = "lz.n",              src = "nvim-neorocks/lz.n",           lazy = false },
+    { name = "_blink.lib",        src = "saghen/blink.lib",             lazy = false },
+    { name = "plenary.nvim",      src = "nvim-lua/plenary.nvim",        lazy = false },
+    { name = "nui.nvim",          src = "MunifTanjim/nui.nvim",         lazy = false },
+    { name = "nvim-navic",        src = "SmiteshP/nvim-navic",          lazy = false },
+    { name = "mini.icons",        src = "echasnovski/mini.icons",       lazy = false,
     config = function () require("mini.icons").setup() end},
 }

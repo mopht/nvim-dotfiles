@@ -20,7 +20,7 @@ local goto_preview_opts = {
 }
 
 return {
-    { name = "flash.nvim", src = "folke/flash.nvim", pack = "opt",
+    { name = "flash.nvim", src = "folke/flash.nvim", lazy = true,
     keys = {
         { "s",     mode = { "n", "x", "o" }, action = function() require("flash").jump() end,              desc = "Flash" },
         { "S",     mode = { "n", "x", "o" }, action = function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
@@ -30,7 +30,7 @@ return {
     },
     config = function() require("flash").setup({})
     end },
-    { name = "goto-preview", src = "rmagatti/goto-preview", pack = "opt",
+    { name = "goto-preview", src = "rmagatti/goto-preview", lazy = true,
     keys = {
         { "gpd", mode = "n", action = function() require("goto-preview").goto_preview_definition() end,      desc = "Preview Definition" },
         { "gpt", mode = "n", action = function() require("goto-preview").goto_preview_type_definition({}) end, desc = "Preview Type Def" },
@@ -41,7 +41,7 @@ return {
     config = function()
         require("goto-preview").setup(goto_preview_opts)
     end },
-    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", pack = "opt",
+    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true,
     keys = {
         { "<C-u>", desc = "Scroll up half page" },
         { "<C-d>", desc = "Scroll down half page" },

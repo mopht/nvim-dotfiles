@@ -53,7 +53,7 @@ local trouble_opts = {
 }
 
 return {
-    { name = "trouble.nvim", src = "folke/trouble.nvim", pack = "opt", cmd = { "Trouble" },
+    { name = "trouble.nvim", src = "folke/trouble.nvim", lazy = true, cmd = { "Trouble" },
     keys = {
         { "xx", mode = "n", action = function() vim.cmd("Trouble diagnostics toggle") end, desc = "Trouble diagnostics" },
         { "xX", mode = "n", action = function() vim.cmd("Trouble diagnostics toggle filter.buf=0") end, desc = "Trouble buffer diagnostics" },

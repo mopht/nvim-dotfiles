@@ -32,11 +32,11 @@ local tabout_opts = {
 }
 
 return {
-    { name = "better-escape.nvim", src = "max397574/better-escape.nvim", pack = "opt", event = { "InsertEnter" },
+    { name = "better-escape.nvim", src = "max397574/better-escape.nvim", lazy = true, event = { "InsertEnter" },
     config = function() require("better_escape").setup(better_escape_opts) end },
-    { name = "tabout.nvim", src = "abecodes/tabout.nvim", pack = "opt", event = { "InsertEnter" },
+    { name = "tabout.nvim", src = "abecodes/tabout.nvim", lazy = true, event = { "InsertEnter" },
     config = function() require("tabout").setup(tabout_opts) end },
-    { name = "nvim-autopairs", src = "windwp/nvim-autopairs", pack = "opt", event = { "InsertEnter" },
+    { name = "nvim-autopairs", src = "windwp/nvim-autopairs", lazy = true, event = { "InsertEnter" },
     config = function()
         local npairs_ok, npairs = pcall(require, "nvim-autopairs")
         if not npairs_ok then
