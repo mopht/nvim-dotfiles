@@ -33,13 +33,12 @@ vim.opt.pumheight = 12
 vim.opt.background = "dark"
 -- The theme is applied centrally in lua/config/colorscheme.lua (after VimEnter,
 -- when plugins are already on the rtp). To change it, edit the colorscheme field
--- in lua/plugins/colorschemes/colorschemes.lua
+-- in lua/plugins/ui/colorscheme.lua
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.scriptencoding = "utf-8"
-vim.opt.encoding = "utf-8"
+-- Neovim is always UTF-8; only the file encoding is worth setting
 vim.opt.fileencoding = "utf-8"
 
 vim.opt.backup = false
