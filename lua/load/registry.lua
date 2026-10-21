@@ -1,13 +1,11 @@
--- Discovers plugin specs from lua/plugins/<category>/*.lua.
--- Each file returns either a single spec table or a list of spec tables.
--- Anything else in lua/plugins/ is a mistake and fails loudly: files placed
--- directly in lua/plugins/ used to be skipped silently.
+-- Discovers specs in lua/plugins/<category>/*.lua. Each file returns one spec
+-- table or a list of specs. A spec file directly in lua/plugins/ is an error.
 
 local M = {}
 
 local root = vim.fn.stdpath("config") .. "/lua/plugins"
 
--- vim.fs.dir yields filesystem order; sorting keeps the load order stable
+-- sort entries so the load order is stable
 local function sorted_entries(path)
     local entries = {}
     for name, type in vim.fs.dir(path) do

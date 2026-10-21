@@ -63,13 +63,11 @@ local blink_opts = {
 
 return {
     { name = "blink.cmp", src = "saghen/blink.cmp", lazy = false,
-    -- build the native fuzzy matcher before setup (a no-op once it is built);
-    -- this is the vim.pack equivalent of lazy.nvim's build hook
+    -- build the native fuzzy matcher before setup; no-op when current
     config = function()
         local cmp = require("blink.cmp")
-        -- pwait() returns (ok, err) instead of throwing; a missing library only
-        -- costs the Rust matcher, so keep going with the Lua implementation.
-        -- blink.lib.Task does not annotate pwait, hence the suppression
+        -- pwait returns (ok, err) instead of throwing; on failure keep the Lua
+        -- implementation. blink.lib.Task does not annotate pwait.
         ---@diagnostic disable-next-line: undefined-field
         local done, err = cmp.build():pwait()
         if not done then

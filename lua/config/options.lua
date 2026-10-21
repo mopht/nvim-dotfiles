@@ -31,14 +31,12 @@ vim.opt.winblend = 30
 vim.opt.pumblend = 23
 vim.opt.pumheight = 12
 vim.opt.background = "dark"
--- The theme is applied in lua/load/init.lua, right after the plugins are on
--- the rtp and before any plugin config. To change it, edit the colorscheme
--- field in lua/plugins/ui/colorscheme.lua
+-- Theme: lua/plugins/ui/colorscheme.lua, applied by lua/load/init.lua
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Neovim is always UTF-8; only the file encoding is worth setting
+-- Neovim is always UTF-8
 vim.opt.fileencoding = "utf-8"
 
 vim.opt.backup = false
@@ -46,7 +44,6 @@ vim.opt.backup = false
 vim.opt.laststatus = 2
 vim.opt.fillchars = { vert = " ", eob = " " }
 
--- Fold settings live in lua/config/treesitter.lua (window-local, so they are set
--- together with foldexpr)
+-- Folds: lua/config/treesitter.lua
 
 vim.g.everforest_enable_italic = true

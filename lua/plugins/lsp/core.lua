@@ -1,11 +1,8 @@
--- LSP servers: name -> vim.lsp.config() overrides. Anything not listed here
--- still gets nvim-lspconfig's defaults.
+-- LSP servers: name -> vim.lsp.config() overrides. Servers not listed keep
+-- nvim-lspconfig's defaults.
 --
--- haskell-language-server is intentionally absent: haskell-tools.nvim starts it
--- from its ftplugin (see lua/plugins/language/functional.lua) with --lsp and a
--- per-session --logfile. Enabling it here as well started a second client
--- without --lsp, which exited right away and showed up as "Client
--- haskell-language-server quit with exit code ...".
+-- haskell-language-server is started by haskell-tools.nvim (ftplugin). Do not
+-- enable it here: the second client starts without --lsp and exits.
 local servers = {
     clangd = { cmd = { "clangd" }, filetypes = { "cpp", "c++", "c" } },
     nixd = { cmd = { "nixd" }, filetypes = { "nix" } },
@@ -35,8 +32,7 @@ local servers = {
 return {
     { name = "nvim-lspconfig", src = "neovim/nvim-lspconfig", lazy = false,
     config = function()
-        -- nvim-lspconfig 0.11+ API: use vim.lsp.enable() / vim.lsp.config()
-        -- Old require('lspconfig').xxx.setup() is DEPRECATED
+        -- vim.lsp.config() / vim.lsp.enable()
         vim.diagnostic.config({
             virtual_text = { prefix = "■" },
             severity_sort = true,

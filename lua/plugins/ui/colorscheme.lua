@@ -1,4 +1,4 @@
--- To switch theme, edit the colorscheme field here; lua/load/init.lua applies it
+-- Theme: edit the colorscheme field; lua/load/init.lua applies it
 
 local tokyonight_opts = {
     transparent = true,

@@ -1,5 +1,4 @@
--- Task runner. Loaded through `cmd` or `keys`; no task-list keymaps beyond
--- the buffer-local ones the plugin ships.
+-- Task runner. Loaded by `cmd` or `keys`.
 return {
     { name = "overseer.nvim", src = "stevearc/overseer.nvim", lazy = true,
     cmd = {

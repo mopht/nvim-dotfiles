@@ -22,7 +22,5 @@ vim.keymap.set("n", "sl", ":bnext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "sh", ":bprevious<CR>", { desc = "Previous buffer" })
 vim.keymap.set("n", "nl", ":nohl<CR>", { desc = "Clear search highlight" })
 
--- Tools
--- Trouble, Haskell and overseer keys live in their plugin specs so they can
--- lazy-load with the plugin; `-` opens Oil, which is loaded eagerly
+-- Tools. Plugin keys live in their specs; `-` opens Oil.
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

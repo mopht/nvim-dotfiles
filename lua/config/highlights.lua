@@ -1,11 +1,5 @@
--- Force italics on the groups below, whatever colorscheme is active.
---
--- Colorschemes redefine highlight groups, so this cannot run only once: it has
--- to be reapplied on ColorScheme, otherwise everything except the theme's own
--- italic groups (keywords/comments) loses italics after :colorscheme <theme>.
--- UIEnter covers the startup path: the theme is applied during init, before
--- this file registers its ColorScheme listener, so the first application is
--- missed and UIEnter catches up once the UI is attached.
+-- Italics for the groups below. Reapplied on ColorScheme and UIEnter, plus
+-- once at load.
 
 local GROUPS = {
     "@keyword", "@keyword.function", "@keyword.return", "@keyword.repeat",
