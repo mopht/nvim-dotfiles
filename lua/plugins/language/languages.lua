@@ -14,7 +14,8 @@ return {
 
     { name = "moonbit.nvim", src = "moonbit-community/moonbit.nvim", lazy = true,
     ft = "moonbit",
-    opts = {
+    -- use config or vim.lsp will be called at start
+    config = function() require("moonbit").setup({
         mooncakes = {
             virtual_text = true,
             use_local = true,
@@ -31,5 +32,5 @@ return {
         jsonls = {
             settings = {},
         },
-    } },
+    }) end },
 }

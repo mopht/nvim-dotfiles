@@ -49,7 +49,13 @@ return {
     { name = "lazydev.nvim", src = "folke/lazydev.nvim", lazy = false,
     opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } } },
 
-    { name = "conform.nvim", src = "stevearc/conform.nvim", lazy = false,
+    { name = "conform.nvim", src = "stevearc/conform.nvim", lazy = true,
+    event = { "BufWritePre" },
+    keys = { {
+        "<leader>=", mode = "n", action = function ()
+            require("conform").format({ async = true, lsp_format = "fallback" })
+        end, desc = "Format"
+    }, },
     opts = {
         -- Add formatters per filetype when the binaries are available, e.g.:
         -- lua = { "stylua" },
