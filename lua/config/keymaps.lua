@@ -1,10 +1,5 @@
 -- leader is set in init.lua
 
--- Formatting
-vim.keymap.set("n", "<leader>=", function()
-    require("conform").format({ async = true, lsp_format = "fallback" })
-end, { desc = "Format buffer" })
-
 -- LSP
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
 vim.keymap.set("n", "<leader>o", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Diagnostics float" })
