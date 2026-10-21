@@ -103,13 +103,12 @@ Maintenance commands:
 │   └── haskell.lua
 └── lua/
     ├── config/
-    │   ├── colorscheme.lua
     │   ├── highlights.lua
     │   ├── keymaps.lua
     │   ├── neovide.lua
     │   ├── options.lua
     │   └── treesitter.lua
-    ├── pack/
+    ├── load/
     │   ├── init.lua
     │   ├── install.lua
     │   ├── registry.lua
@@ -145,7 +144,6 @@ Maintenance commands:
         │   └── core.lua
         └── ui/
             ├── colorscheme.lua
-            ├── dropbar.lua
             ├── effects.lua
             ├── gitsigns.lua
             ├── status.lua
@@ -154,7 +152,7 @@ Maintenance commands:
 
 ## 🧩 Plugin Layout
 
-`lua/pack/registry.lua` automatically discovers every `.lua` file directly under `lua/plugins/<category>/`; each file returns either a single plugin spec or a list of specs (subdirectories are ignored and can hold helper modules):
+`lua/load/registry.lua` automatically discovers every `.lua` file directly under `lua/plugins/<category>/`; each file returns either a single plugin spec or a list of specs (subdirectories are ignored and can hold helper modules):
 
 ```lua
 -- A single plugin
@@ -173,6 +171,7 @@ return {
 
 - `lazy = false`: loaded at startup
 - `lazy = true`: lazy-loaded via `cmd`, `keys`, `event`, `ft` or `colorscheme`
+- `priority = <number>`: load order for `lazy = false` plugins, higher first (default 50; the shared dependencies in `lua/plugins/lib/deps.lua` use 1000)
 - `opts = { ... }`: shorthand for `require(main).setup(opts)`
 - `main`: the Lua module that owns `opts`; defaults to the plugin name without the `.nvim` suffix, so set it when they differ (`better_escape`, `everforest`, `idris2`, `treesitter-context`)
 - `config`: extra setup that `opts` cannot express; runs after `opts`
@@ -180,14 +179,13 @@ return {
 - Every `lazy = true` spec requires at least one trigger
 - Colorscheme plugins declare `colorscheme = "<name>"`, which also makes `:colorscheme <name>` load them on demand
 
-`lua/pack/init.lua` only assembles the pieces: it reads the registry, hands the specs to `vim.pack`, runs the eager plugin configs and the colorscheme on `VimEnter`, and then registers the lazy-loading rules with `lz.n`
+`lua/load/init.lua` only assembles the pieces: it reads the registry, hands the specs to `vim.pack`, applies the colorscheme, and then hands every spec to `lz.n` — `lazy = false` plugins load right away, `lazy = true` ones register their triggers
 
 Supporting modules:
 
-- `lua/pack/install.lua`: install/update via `vim.pack`, the `PackChanged` build hooks (`nvim-treesitter`, `blink.cmp`), and `:PackUpdate` / `:PackClean`
-- `lua/pack/registry.lua`: spec discovery; a spec file placed directly in `lua/plugins/` raises an error, so a misplaced spec surfaces at startup
-- `lua/pack/spec.lua`: turns a registry spec into an `lz.n` rule and applies `opts` / `main` / `config`
-- `lua/config/colorscheme.lua`: applies the `colorscheme` field declared in the plugin specs
+- `lua/load/install.lua`: install/update via `vim.pack`, the `PackChanged` build hooks (`nvim-treesitter`, `blink.cmp`), and `:PackUpdate` / `:PackClean`
+- `lua/load/registry.lua`: spec discovery; a spec file placed directly in `lua/plugins/` raises an error, so a misplaced spec surfaces at startup
+- `lua/load/spec.lua`: turns a registry spec into an `lz.n` rule (lazy or eager) and applies `opts` / `main` / `config`
 - `lua/config/treesitter.lua`: Treesitter highlight auto-start and `foldexpr`
 
 ## ⌨️ Keymaps
@@ -275,8 +273,8 @@ The leader key is `<Space>`
 - Plugin install location: `stdpath("data")/site/pack/core/opt/`
 - Lock file: `nvim-pack-lock.json`
 - New plugins are installed by `vim.pack` on the next startup after adding a spec file; `:PackUpdate` runs the build hooks afterwards
-- Theme order: the theme is applied before the remaining eager plugin configs, so plugins that recompute highlights on `ColorScheme` (statusline, dropbar) see the final palette (`lua/pack/init.lua`)
-- `lz.n` only receives the lazy specs: `vim.pack` loads the eager ones, and their configs run on `VimEnter` (running the same setups during init measured about 16ms slower)
+- Theme order: the theme is applied as soon as `vim.pack` has loaded the plugins and before any plugin config runs, so the first frame is already themed and every `setup()` sees the final palette (`lua/load/init.lua`)
+- `lz.n` receives every spec: `lazy = false` ones load immediately, `lazy = true` ones register their triggers. Configs run during init rather than on `VimEnter` because `--startuptime` stops before `VimEnter` — deferring setups only hides them from the number, while it can miss autocmd-driven setup and briefly show the default theme
 - Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`
 - `blink.cmp` compiles its native fuzzy matcher on the first start and after every update; later starts are a no-op
 - Shared dependencies live in `lua/plugins/lib/deps.lua`: `lz.n`, `plenary.nvim`, `nui.nvim`, `_blink.lib`, `mini.icons`
