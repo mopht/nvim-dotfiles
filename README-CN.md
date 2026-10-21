@@ -29,6 +29,7 @@
 - **语言插件**：`rustaceanvim`、`idris2-nvim`、`koka.nvim`、`moonbit.nvim`
 - **Git**：`gitsigns.nvim`
 - **诊断**：`trouble.nvim`
+- **调试**：`nvim-dap`，适配器由语言插件提供
 - **任务运行器**：`overseer.nvim`，内置 bun 和 cabal 模板
 - **主题**：默认 `everforest`，可选 `tokyonight`、`catppuccin`
 - **GUI**：Neovide 设置
@@ -105,20 +106,16 @@ nvim
         ├── editor/
         │   ├── buffers.lua
         │   ├── edit.lua
-        │   ├── focus.lua
         │   └── motions.lua
         ├── language/
-        │   ├── functional.lua
-        │   ├── moonbit.lua
-        │   └── rust.lua
+        │   └── languages.lua
         ├── lsp/
         │   ├── completion.lua
-        │   ├── core.lua
-        │   ├── formatting.lua
-        │   └── lazydev.lua
+        │   └── core.lua
         ├── navigation/
         │   └── tmux.lua
         ├── tools/
+        │   ├── dap.lua
         │   ├── oil.lua
         │   ├── overseer.lua
         │   ├── overseer/
@@ -126,7 +123,6 @@ nvim
         │   ├── snacks.lua
         │   └── trouble.lua
         ├── treesitter/
-        │   ├── context.lua
         │   └── core.lua
         └── ui/
             ├── colorscheme.lua
@@ -241,8 +237,9 @@ leader 键为 `<Space>`
 - 状态栏透明：`lua/plugins/ui/status.lua`
 - Neovide：`lua/config/neovide.lua`
 - LSP server：`lua/plugins/lsp/core.lua`
-- 格式化器：`lua/plugins/lsp/formatting.lua`
+- 格式化器：`lua/plugins/lsp/core.lua`
 - 任务模板：`lua/plugins/tools/overseer/templates.lua`
+- DAP：`lua/plugins/tools/dap.lua`
 - 新增插件：在 `lua/plugins/<category>/` 下新建文件
 - 主题：`lua/plugins/ui/colorscheme.lua`
 
