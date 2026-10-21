@@ -17,7 +17,8 @@ local context_opts = {
 
 return {
     { name = "nvim-treesitter", src = "nvim-treesitter/nvim-treesitter", lazy = true,
-    event = "BufReadPost" },
+    event = "BufReadPost",
+    cmd = { "TSInstall", "TSInstallFromGrammar", "TSUpdate", "TSUninstall", "TSLog" } },
 
     { name = "tree-sitter-manager.nvim", src = "romus204/tree-sitter-manager.nvim", lazy = true,
     ft = "haskell",
