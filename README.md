@@ -22,10 +22,10 @@ Maintaining a capable development environment at low complexity takes priority, 
 - **Completion**: `blink.cmp`, `friendly-snippets`
 - **Formatting**: `conform.nvim` with `stylua`, `nixfmt` and LSP fallback
 - **Treesitter**: `nvim-treesitter`, `tree-sitter-manager.nvim`, `nvim-treesitter-context`, `rainbow-delimiters.nvim`
-- **Picker / terminal**: `snacks.nvim`
+- **Picker / terminal**: `snacks.nvim` (picker, terminal, explorer, scroll)
 - **UI**: `which-key.nvim`, `mini.statusline`, `mini.icons`, `dropbar.nvim`, `noice.nvim`
 - **Explorer / navigation**: `snacks.nvim` explorer, `oil.nvim`, `vim-tmux-navigator`
-- **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `mini.trailspace`, `todo-comments.nvim`, `guess-indent.nvim`, `twilight.nvim`, `zen-mode.nvim`
+- **Editing**: `flash.nvim`, `goto-preview`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `mini.trailspace`, `todo-comments.nvim`, `guess-indent.nvim`, `twilight.nvim`, `zen-mode.nvim`
 - **Language plugins**: `rustaceanvim`, `idris2-nvim`, `koka.nvim`, `moonbit.nvim`
 - **Git**: `gitsigns.nvim`
 - **Diagnostics**: `trouble.nvim`
@@ -139,7 +139,7 @@ Commands:
 ```lua
 return {
     { name = "flash.nvim", src = "folke/flash.nvim", lazy = true, keys = { ... }, opts = {} },
-    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true, keys = { ... }, opts = {} },
+    { name = "guess-indent.nvim", src = "NMAC427/guess-indent.nvim", lazy = true, cmd = { "GuessIndent" }, opts = {} },
 }
 ```
 
@@ -215,7 +215,7 @@ The leader key is `<Space>`
 | `<leader>rs` | Run a shell command |
 | `<leader>ra` | Run an action on a task |
 
-### Flash / Preview / Scrolling
+### Flash / Preview
 
 | Key | Description |
 | --- | --- |
@@ -223,10 +223,6 @@ The leader key is `<Space>`
 | `r` / `R` | Remote Flash / Treesitter search |
 | `gpd` / `gpt` / `gpi` / `gpD` | Goto preview definition/type/implementation/declaration |
 | `gP` | Close all previews |
-| `<C-u>` / `<C-d>` | Scroll half page up / down |
-| `<C-b>` / `<C-f>` | Scroll page up / down |
-| `<C-y>` / `<C-e>` | Scroll one line up / down |
-| `zz` / `zt` / `zb` | Center / top / bottom the cursor line |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Window / tmux navigation |
 
 ## 🛠 Customization

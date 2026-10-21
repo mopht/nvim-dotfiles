@@ -22,10 +22,10 @@
 - **补全**：`blink.cmp`、`friendly-snippets`
 - **格式化**：`conform.nvim`，使用 `stylua`、`nixfmt`，并回退到 LSP 格式化
 - **Treesitter**：`nvim-treesitter`、`tree-sitter-manager.nvim`、`nvim-treesitter-context`、`rainbow-delimiters.nvim`
-- **Picker / 终端**：`snacks.nvim`
+- **Picker / 终端**：`snacks.nvim`（picker、terminal、explorer、scroll）
 - **UI**：`which-key.nvim`、`mini.statusline`、`mini.icons`、`dropbar.nvim`、`noice.nvim`
 - **文件树 / 窗口导航**：`snacks.nvim` explorer、`oil.nvim`、`vim-tmux-navigator`
-- **编辑能力**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`mini.trailspace`、`todo-comments.nvim`、`guess-indent.nvim`、`twilight.nvim`、`zen-mode.nvim`
+- **编辑能力**：`flash.nvim`、`goto-preview`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`mini.trailspace`、`todo-comments.nvim`、`guess-indent.nvim`、`twilight.nvim`、`zen-mode.nvim`
 - **语言插件**：`rustaceanvim`、`idris2-nvim`、`koka.nvim`、`moonbit.nvim`
 - **Git**：`gitsigns.nvim`
 - **诊断**：`trouble.nvim`
@@ -139,7 +139,7 @@ nvim
 ```lua
 return {
     { name = "flash.nvim", src = "folke/flash.nvim", lazy = true, keys = { ... }, opts = {} },
-    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true, keys = { ... }, opts = {} },
+    { name = "guess-indent.nvim", src = "NMAC427/guess-indent.nvim", lazy = true, cmd = { "GuessIndent" }, opts = {} },
 }
 ```
 
@@ -215,7 +215,7 @@ leader 键为 `<Space>`
 | `<leader>rs` | 运行 shell 命令 |
 | `<leader>ra` | 对任务执行操作 |
 
-### Flash / 预览 / 滚动
+### Flash / 预览
 
 | 按键 | 说明 |
 | --- | --- |
@@ -223,10 +223,6 @@ leader 键为 `<Space>`
 | `r` / `R` | 远程 Flash / Treesitter 搜索 |
 | `gpd` / `gpt` / `gpi` / `gpD` | Goto preview 定义/类型/实现/声明 |
 | `gP` | 关闭全部预览 |
-| `<C-u>` / `<C-d>` | 上下滚动半页 |
-| `<C-b>` / `<C-f>` | 上下滚动整页 |
-| `<C-y>` / `<C-e>` | 上下滚动一行 |
-| `zz` / `zt` / `zb` | 光标行居中 / 置顶 / 置底 |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | 窗口 / tmux 导航 |
 
 ## 🛠 自定义
