@@ -6,9 +6,9 @@
 local M = {}
 local api = vim.api
 
-local registry   = require("pack.registry")
-local install    = require("pack.install")
-local spec       = require("pack.spec")
+local registry   = require("load.registry")
+local install    = require("load.install")
+local spec       = require("load.spec")
 local treesitter = require("config.treesitter")
 
 M.plugins = registry.plugins

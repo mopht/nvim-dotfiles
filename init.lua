@@ -9,7 +9,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 require("config.options")
-require("pack").setup()
+require("load.init").setup()
 
 require("config.highlights")
 require("config.keymaps")
