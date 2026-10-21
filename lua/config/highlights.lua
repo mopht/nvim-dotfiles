@@ -21,7 +21,7 @@ local function apply_italics()
     end
 end
 
-vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
+vim.api.nvim_create_autocmd({ "ColorScheme" }, {
     callback = apply_italics,
     desc = "keep the custom italic groups across colorscheme switches",
 })
