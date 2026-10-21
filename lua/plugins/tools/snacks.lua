@@ -16,6 +16,18 @@ local function explorer_resize_to_widest(picker)
 end
 
 local snacks_opts = {
+    scroll = {
+        animate = {
+            duration = { step = 10, total = 200 },
+            easing = "linear",
+        },
+        -- faster animation when repeating scroll after delay
+        animate_repeat = {
+            delay = 100, -- delay in ms before using the repeat animation
+            duration = { step = 5, total = 50 },
+            easing = "linear",
+        },
+    },
     explorer = {
         enabled = true,
         replace_netrw = true,

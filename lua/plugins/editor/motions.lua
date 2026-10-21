@@ -39,18 +39,4 @@ return {
         { "gP",  mode = "n", action = function() require("goto-preview").close_all_win() end,                desc = "Close All Previews" },
     },
     opts = goto_preview_opts },
-
-    { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true,
-    keys = {
-        { "<C-u>", desc = "Scroll up half page" },
-        { "<C-d>", desc = "Scroll down half page" },
-        { "<C-b>", desc = "Scroll up page" },
-        { "<C-f>", desc = "Scroll down page" },
-        { "<C-y>", desc = "Scroll line up" },
-        { "<C-e>", desc = "Scroll line down" },
-        { "zz",    desc = "Center cursor line" },
-        { "zt",    desc = "Cursor line to top" },
-        { "zb",    desc = "Cursor line to bottom" },
-    },
-    opts = {} },
 }
