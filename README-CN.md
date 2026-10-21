@@ -103,13 +103,12 @@ nvim
 │   └── haskell.lua
 └── lua/
     ├── config/
-    │   ├── colorscheme.lua
     │   ├── highlights.lua
     │   ├── keymaps.lua
     │   ├── neovide.lua
     │   ├── options.lua
     │   └── treesitter.lua
-    ├── pack/
+    ├── load/
     │   ├── init.lua
     │   ├── install.lua
     │   ├── registry.lua
@@ -145,7 +144,6 @@ nvim
         │   └── core.lua
         └── ui/
             ├── colorscheme.lua
-            ├── dropbar.lua
             ├── effects.lua
             ├── gitsigns.lua
             ├── status.lua
@@ -154,7 +152,7 @@ nvim
 
 ## 🧩 插件组织方式
 
-`lua/pack/registry.lua` 会自动扫描 `lua/plugins/<category>/` 下**直接**存在的 `.lua` 文件（子目录会被忽略，可放辅助模块），每个文件返回单个 plugin spec 或一个 spec 列表：
+`lua/load/registry.lua` 会自动扫描 `lua/plugins/<category>/` 下**直接**存在的 `.lua` 文件（子目录会被忽略，可放辅助模块），每个文件返回单个 plugin spec 或一个 spec 列表：
 
 ```lua
 -- 单个插件
@@ -173,6 +171,7 @@ return {
 
 - `lazy = false`：启动时加载
 - `lazy = true`：延迟加载，可由 `cmd`、`keys`、`event`、`ft` 或 `colorscheme` 触发
+- `priority = <数字>`：`lazy = false` 插件的加载顺序，越大越先加载（默认 50；`lua/plugins/lib/deps.lua` 里的共享依赖用 1000）
 - `opts = { ... }`：等价于 `require(main).setup(opts)`
 - `main`：`opts` 对应的 Lua 模块名，默认取插件名去掉 `.nvim` 后缀；两者不一致时必须显式指定（`better_escape`、`everforest`、`idris2`、`treesitter-context`）
 - `config`：`opts` 表达不了的额外逻辑，在 `opts` 之后执行
@@ -180,14 +179,13 @@ return {
 - 每个 `lazy = true` spec 至少需要一个触发器
 - 主题插件声明 `colorscheme = "<name>"`，`:colorscheme <name>` 也会据此按需加载
 
-`lua/pack/init.lua` 只负责装配：读取 registry，将 spec 交给 `vim.pack`，在 `VimEnter` 时执行 eager 插件的 config 并应用主题，最后把懒加载规则注册给 `lz.n`
+`lua/load/init.lua` 只负责装配：读取 registry，将 spec 交给 `vim.pack`，应用主题，然后把全部 spec 交给 `lz.n` —— `lazy = false` 的立即加载，`lazy = true` 的注册触发器
 
 配套模块：
 
-- `lua/pack/install.lua`：`vim.pack` 安装 / 更新、`PackChanged` 构建钩子（`nvim-treesitter`、`blink.cmp`）、`:PackUpdate` / `:PackClean`
-- `lua/pack/registry.lua`：spec 发现；直接放在 `lua/plugins/` 下的 spec 文件会直接报错，避免被静默忽略
-- `lua/pack/spec.lua`：把 registry spec 转成 `lz.n` 规则，并执行 `opts` / `main` / `config`
-- `lua/config/colorscheme.lua`：应用插件 spec 里声明的 `colorscheme` 字段
+- `lua/load/install.lua`：`vim.pack` 安装 / 更新、`PackChanged` 构建钩子（`nvim-treesitter`、`blink.cmp`）、`:PackUpdate` / `:PackClean`
+- `lua/load/registry.lua`：spec 发现；直接放在 `lua/plugins/` 下的 spec 文件会直接报错，避免被静默忽略
+- `lua/load/spec.lua`：把 registry spec 转成 `lz.n` 规则（lazy 或 eager），并执行 `opts` / `main` / `config`
 - `lua/config/treesitter.lua`：Treesitter 高亮自启与 `foldexpr`
 
 ## ⌨️ 快捷键
@@ -275,8 +273,8 @@ Leader 键为 `<Space>`
 - 插件源码安装位置：`stdpath("data")/site/pack/core/opt/`
 - 锁文件：`nvim-pack-lock.json`
 - 新增 spec 文件后，新插件会在下次启动时由 `vim.pack` 安装；`:PackUpdate` 结束时会依次执行构建钩子
-- 主题顺序：主题在其余 eager 插件 config 之前应用，因此依赖 `ColorScheme` 重算高亮的插件（statusline、dropbar）拿到的是最终配色（见 `lua/pack/init.lua`）
-- `lz.n` 只接收 lazy spec：eager 插件由 `vim.pack` 加载，其 config 统一在 `VimEnter` 执行（实测同样的 setup 放在 init 阶段会慢约 16ms）
+- 主题顺序：`vim.pack` 加载完插件后立即应用主题，早于任何插件 config，因此第一帧就是最终配色，所有 `setup()` 拿到的也是最终配色（见 `lua/load/init.lua`）
+- `lz.n` 接收全部 spec：`lazy = false` 的立即加载，`lazy = true` 的注册触发器。config 在 init 阶段执行而不是 `VimEnter`，因为 `--startuptime` 在 `VimEnter` 之前就结束——把 setup 推迟到 `VimEnter` 只是让它不出现在这个数字里，却可能漏掉依赖自动命令的初始化，并短暂显示默认主题
 - 仓库工具配置：`.stylua.toml`、`.editorconfig`、`.luarc.json`
 - `blink.cmp` 会在首次启动和每次更新后编译原生 fuzzy matcher，之后启动是无操作
 - 共享依赖集中在 `lua/plugins/lib/deps.lua`：`lz.n`、`plenary.nvim`、`nui.nvim`、`_blink.lib`、`mini.icons`
