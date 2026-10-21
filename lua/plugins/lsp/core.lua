@@ -45,7 +45,7 @@ return {
         end
     end },
 
-    -- Loaded at startup: blink.cmp resolves the provider module eagerly
+    -- Loaded at startup: blink.cmp requires the provider module when it sets up
     { name = "lazydev.nvim", src = "folke/lazydev.nvim", lazy = false,
     opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } } },
 

@@ -25,7 +25,7 @@ Maintaining a capable development environment at low complexity takes priority, 
 - **Picker / terminal**: `snacks.nvim`
 - **UI**: `which-key.nvim`, `mini.statusline`, `mini.icons`, `dropbar.nvim`, `noice.nvim`
 - **Explorer / navigation**: `snacks.nvim` explorer, `oil.nvim`, `vim-tmux-navigator`
-- **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `vim-better-whitespace`, `todo-comments.nvim`, `guess-indent.nvim`, `twilight.nvim`, `zen-mode.nvim`
+- **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `mini.trailspace`, `todo-comments.nvim`, `guess-indent.nvim`, `twilight.nvim`, `zen-mode.nvim`
 - **Language plugins**: `rustaceanvim`, `idris2-nvim`, `koka.nvim`, `moonbit.nvim`
 - **Git**: `gitsigns.nvim`
 - **Diagnostics**: `trouble.nvim`
@@ -249,6 +249,6 @@ The leader key is `<Space>`
 - Versions are pinned in `nvim-pack-lock.json`
 - New specs are installed on the next start; `:PackUpdate` also runs the build hooks
 - The theme is applied after the plugins are loaded and before any plugin config
-- `blink.cmp` builds its native matcher on the first start and after every update
+- `blink.cmp` loads on `InsertEnter`; its native matcher is built on install and after every update
 - Shared dependencies: `lua/plugins/lib/deps.lua`
 - Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`

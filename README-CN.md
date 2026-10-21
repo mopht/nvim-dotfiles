@@ -25,7 +25,7 @@
 - **Picker / 终端**：`snacks.nvim`
 - **UI**：`which-key.nvim`、`mini.statusline`、`mini.icons`、`dropbar.nvim`、`noice.nvim`
 - **文件树 / 窗口导航**：`snacks.nvim` explorer、`oil.nvim`、`vim-tmux-navigator`
-- **编辑能力**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`vim-better-whitespace`、`todo-comments.nvim`、`guess-indent.nvim`、`twilight.nvim`、`zen-mode.nvim`
+- **编辑能力**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`mini.trailspace`、`todo-comments.nvim`、`guess-indent.nvim`、`twilight.nvim`、`zen-mode.nvim`
 - **语言插件**：`rustaceanvim`、`idris2-nvim`、`koka.nvim`、`moonbit.nvim`
 - **Git**：`gitsigns.nvim`
 - **诊断**：`trouble.nvim`
@@ -249,6 +249,6 @@ leader 键为 `<Space>`
 - 版本锁定在 `nvim-pack-lock.json`
 - 新增 spec 后，下次启动会安装对应插件；`:PackUpdate` 也会执行构建钩子
 - 主题在插件加载完成后、任何插件 config 之前应用
-- `blink.cmp` 在首次启动和每次更新后编译原生 matcher
+- `blink.cmp` 在 `InsertEnter` 时加载；原生 matcher 在安装和每次更新后编译
 - 共享依赖：`lua/plugins/lib/deps.lua`
 - 仓库工具配置：`.stylua.toml`、`.editorconfig`、`.luarc.json`
