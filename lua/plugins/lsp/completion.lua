@@ -63,7 +63,7 @@ local blink_opts = {
 
 return {
     { name = "blink.cmp", src = "saghen/blink.cmp", lazy = true,
-    event = "InsertEnter",
+    event = "InsertEnter", cmd = { "BlinkCmp" },
     -- build the native fuzzy matcher before setup; no-op when current
     config = function()
         local cmp = require("blink.cmp")

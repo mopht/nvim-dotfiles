@@ -50,7 +50,7 @@ return {
     opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } } },
 
     { name = "conform.nvim", src = "stevearc/conform.nvim", lazy = true,
-    event = { "BufWritePre" },
+    event = { "BufWritePre" }, cmd = { "ConformInfo" },
     keys = { {
         "<leader>=", mode = "n", action = function ()
             require("conform").format({ async = true, lsp_format = "fallback" })
