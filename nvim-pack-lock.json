@@ -80,6 +80,10 @@
       "rev": "d7133a9a244a8d93ccee42ff37fb9499af5956fb",
       "src": "https://github.com/nvim-mini/mini.statusline"
     },
+    "mini.trailspace": {
+      "rev": "8bcd13b6d54d4c018982fea53e483937247d593b",
+      "src": "https://github.com/nvim-mini/mini.trailspace"
+    },
     "moonbit.nvim": {
       "rev": "907c8240d3d2f96fa8e8569c73973e8604a7b1e6",
       "src": "https://github.com/moonbit-community/moonbit.nvim"
@@ -163,10 +167,6 @@
     "twilight.nvim": {
       "rev": "664e752f4a219801265cc3fc18782b457b58c1e1",
       "src": "https://github.com/folke/twilight.nvim"
-    },
-    "vim-better-whitespace": {
-      "rev": "de99b55a6fe8c96a69f9376f16b1d5d627a56e81",
-      "src": "https://github.com/ntpeters/vim-better-whitespace"
     },
     "vim-tmux-navigator": {
       "rev": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432",
