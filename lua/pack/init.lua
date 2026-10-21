@@ -1,61 +1,72 @@
 -- ============================================================================
 -- pack/init.lua — assembly entry point
--- registry specs → vim.pack install → eager configs + colorscheme → lz.n lazy
+-- registry specs → vim.pack install → colorscheme → lz.n (eager + lazy)
 -- ============================================================================
 
 local M = {}
 local api = vim.api
 
-local registry    = require("pack.registry")
-local install     = require("pack.install")
-local spec        = require("pack.spec")
-local colorscheme = require("config.colorscheme")
-local treesitter  = require("config.treesitter")
+local registry   = require("pack.registry")
+local install    = require("pack.install")
+local spec       = require("pack.spec")
+local treesitter = require("config.treesitter")
 
 M.plugins = registry.plugins
 
--- Run the config of the eager plugins: either the theme ones (set up before
--- the theme is applied) or the rest (set up against the final palette).
---
--- The order matters. When :colorscheme runs inside a VimEnter callback, the
--- ColorScheme event does NOT fire non-nested autocommands, so plugins that
--- recompute highlights on ColorScheme (mini.statusline transparency, dropbar
--- winbar colors) must be set up *after* the theme is applied. Otherwise they
--- capture the fallback background.
-local function run_eager_configs(specs, theme_pass)
+-- Find the eager colorscheme plugin (lazy = false + colorscheme field).
+-- Returns nil if none is found (graceful degradation).
+local function find_current_theme(specs)
     for _, p in ipairs(specs) do
-        local is_theme = p.colorscheme ~= nil
-        if not p.lazy and is_theme == theme_pass then
-            spec.apply_config(p)
-        end
+        if not p.lazy and p.colorscheme then return p end
     end
 end
 
-local function on_vim_enter()
-    run_eager_configs(M.plugins, true)  -- theme plugins: set up before the theme
-    colorscheme.apply(M.plugins)        -- the theme itself
-    run_eager_configs(M.plugins, false) -- everything else sees final highlights
-    treesitter.setup_folds()
+-- Apply the current theme before lz.n.load() so that:
+--   1. No first-frame flash (colorscheme active before any buffer is drawn)
+--   2. lazy = false plugins' after() see the correct palette immediately
+local function apply_theme(specs)
+    local theme = find_current_theme(specs)
+    if not theme then return end
+    spec.apply_config(theme)
+    vim.cmd.colorscheme(theme.colorscheme)
+end
+
+-- Build lz.n specs for ALL plugins:
+--   lazy = false  → lz.n loads them immediately (after theme is applied)
+--   lazy = true   → lz.n registers trigger-based deferred loading
+local function build_lz_specs(specs)
+    local result = {}
+    for _, p in ipairs(specs) do
+        if p.lazy then result[#result + 1] = spec.to_lazy(p)
+        else
+            -- eager: apply_config runs immediately inside lz.n.load()
+            -- theme plugin is skipped here; it was already handled by apply_theme()
+            if not p.colorscheme then
+                result[#result + 1] = {
+                    p.name,
+                    before = p.pre,
+                    after  = function() spec.apply_config(p) end,
+                }
+            end
+        end
+    end
+    return result
 end
 
 function M.setup()
-    -- Phase 0: pre-init hooks of eager plugins (not on the rtp yet)
-    for _, p in ipairs(M.plugins) do
-        if not p.lazy and p.pre then pcall(p.pre) end
-    end
-
-    -- Phase 1: install / register plugins
+    -- Phase 0: install / register plugins with vim.pack
     install.setup(M.plugins)
 
-    -- Phase 2: eager configs + colorscheme (runs after VimEnter)
-    api.nvim_create_autocmd("VimEnter", { once = true, callback = on_vim_enter })
+    -- Phase 1: apply the current theme immediately (before lz.n.load)
+    apply_theme(M.plugins)
 
-    -- Phase 3: lazy-loading rules
-    local lazy_specs = {}
-    for _, p in ipairs(M.plugins) do
-        if p.lazy then lazy_specs[#lazy_specs + 1] = spec.to_lazy(p) end
-    end
-    require("lz.n").load(lazy_specs)
+    -- Phase 2: load all plugins via lz.n
+    -- eager plugins run their after() right now (palette already set)
+    -- lazy plugins register their trigger rules
+    require("lz.n").load(build_lz_specs(M.plugins))
+
+    -- Phase 3: treesitter folds (needs VimEnter for window options)
+    api.nvim_create_autocmd("VimEnter", { once = true, callback = treesitter.setup_folds })
 
     -- Phase 4: treesitter highlight auto-start
     treesitter.auto_highlight()

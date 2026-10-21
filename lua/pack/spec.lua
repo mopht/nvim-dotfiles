@@ -5,7 +5,7 @@
 local M = {}
 
 -- Fields lz.n understands as-is
-local LAZY_FIELDS = { "event", "ft", "cmd", "colorscheme" }
+local LAZY_FIELDS = { "event", "ft", "cmd", "colorscheme", "priority" }
 
 -- Module that owns a spec's setup(): the plugin name without the .nvim suffix,
 -- unless the spec sets `main` (better_escape, everforest, idris2, ...)
