@@ -1,5 +1,5 @@
 -- ============================================================================
--- pack/init.lua — assembly entry point
+-- load/init.lua — assembly entry point
 -- registry specs → vim.pack install → colorscheme → lz.n (eager + lazy)
 -- ============================================================================
 
@@ -28,7 +28,11 @@ local function apply_theme(specs)
     local theme = find_current_theme(specs)
     if not theme then return end
     spec.apply_config(theme)
-    vim.cmd.colorscheme(theme.colorscheme)
+
+    local ok, err = pcall(vim.cmd.colorscheme, theme.colorscheme)
+    if not ok then
+        vim.notify(("load: cannot apply theme %q: %s"):format(theme.colorscheme, err), vim.log.levels.ERROR)
+    end
 end
 
 -- Build lz.n specs for ALL plugins:
@@ -44,8 +48,9 @@ local function build_lz_specs(specs)
             if p.colorscheme then goto continue end
             result[#result + 1] = {
                 p.name,
-                before = p.pre,
-                after  = function() spec.apply_config(p) end,
+                before   = p.pre,
+                priority = p.priority,
+                after    = function() spec.apply_config(p) end,
             }
         :: continue ::
         end

@@ -1,5 +1,5 @@
 -- ============================================================================
--- pack/install.lua — vim.pack wrapper: install, build hooks, maintenance commands
+-- load/install.lua — vim.pack wrapper: install, build hooks, maintenance commands
 -- Owns "how plugins are installed/updated", not load order
 -- ============================================================================
 
@@ -49,7 +49,7 @@ end
 function M.install(specs)
     local eager, lazy = {}, {}
     for _, p in ipairs(specs) do
-         table.insert(p.lazy and lazy or eager, to_pack_spec(p))
+        table.insert(p.lazy and lazy or eager, to_pack_spec(p))
     end
 
     vim.pack.add(eager)
