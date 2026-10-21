@@ -33,6 +33,6 @@ local noice_opts = {
 }
 
 return {
-    { name = "noice.nvim", src = "folke/noice.nvim", lazy = false,
+    { name = "noice.nvim", src = "folke/noice.nvim", lazy = true,
     opts = noice_opts },
 }

@@ -41,13 +41,13 @@ local function build_lz_specs(specs)
         else
             -- eager: apply_config runs immediately inside lz.n.load()
             -- theme plugin is skipped here; it was already handled by apply_theme()
-            if not p.colorscheme then
-                result[#result + 1] = {
-                    p.name,
-                    before = p.pre,
-                    after  = function() spec.apply_config(p) end,
-                }
-            end
+            if p.colorscheme then goto continue end
+            result[#result + 1] = {
+                p.name,
+                before = p.pre,
+                after  = function() spec.apply_config(p) end,
+            }
+        :: continue ::
         end
     end
     return result
