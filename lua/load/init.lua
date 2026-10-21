@@ -9,17 +9,24 @@ local treesitter = require("config.treesitter")
 
 M.plugins = registry.plugins
 
--- First eager spec that declares a colorscheme.
-local function find_current_theme(specs)
+-- Build the lz.n specs in registry order and return the eager theme spec.
+-- The theme plugin is not passed to lz.n: it is set up separately below.
+local function collect(specs)
+    local result, theme = {}, nil
     for _, p in ipairs(specs) do
-        if not p.lazy and p.colorscheme then return p end
+        if p.lazy then
+            result[#result + 1] = spec.to_lazy(p)
+        elseif p.colorscheme then
+            theme = theme or p
+        else
+            result[#result + 1] = spec.to_eager(p)
+        end
     end
+    return result, theme
 end
 
 -- Set up and apply the theme before lz.n loads the plugins.
-local function apply_theme(specs)
-    local theme = find_current_theme(specs)
-    if not theme then return end
+local function apply_theme(theme)
     spec.apply_config(theme)
 
     local ok, err = pcall(vim.cmd.colorscheme, theme.colorscheme)
@@ -28,29 +35,17 @@ local function apply_theme(specs)
     end
 end
 
--- Eager specs run their config right away, lazy specs register their triggers.
--- The theme plugin is skipped: apply_theme() already handled it.
-local function build_lz_specs(specs)
-    local result = {}
-    for _, p in ipairs(specs) do
-        if p.lazy then
-            result[#result + 1] = spec.to_lazy(p)
-        elseif not p.colorscheme then
-            result[#result + 1] = spec.to_eager(p)
-        end
-    end
-    return result
-end
-
 function M.setup()
     -- install / register
     install.setup(M.plugins)
 
+    local specs, theme = collect(M.plugins)
+
     -- theme
-    apply_theme(M.plugins)
+    if theme then apply_theme(theme) end
 
     -- load
-    require("lz.n").load(build_lz_specs(M.plugins))
+    require("lz.n").load(specs)
 
     -- treesitter
     treesitter.setup_folds()

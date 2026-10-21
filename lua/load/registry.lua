@@ -16,6 +16,23 @@ local function sorted_entries(path)
 end
 
 local specs = {}
+local seen = {}
+
+local function check_spec(entry, module)
+    if type(entry) ~= "table" then
+        error(("plugin spec %s: expected a table, got %s"):format(module, type(entry)), 0)
+    end
+    if type(entry.name) ~= "string" then
+        error(("plugin spec %s: missing name"):format(module), 0)
+    end
+    if type(entry.src) ~= "string" then
+        error(("plugin spec %s (%s): missing src"):format(module, entry.name), 0)
+    end
+    if seen[entry.name] then
+        error(("plugin spec %s: duplicate plugin %q"):format(module, entry.name), 0)
+    end
+    seen[entry.name] = true
+end
 
 local function load_spec(module)
     local ok, loaded = pcall(require, module)
@@ -27,8 +44,10 @@ local function load_spec(module)
     end
 
     if loaded.name then
+        check_spec(loaded, module)
         table.insert(specs, loaded)
     else
+        for _, entry in ipairs(loaded) do check_spec(entry, module) end
         vim.list_extend(specs, loaded)
     end
 end

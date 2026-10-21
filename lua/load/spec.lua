@@ -20,7 +20,7 @@ local function apply_opts(p)
     local module = M.module_of(p)
     local ok, plugin = pcall(require, module)
     if not ok then
-        notify(p, ("cannot require %q"):format(module))
+        notify(p, ("cannot require %q: %s"):format(module, plugin))
         return
     end
     if type(plugin.setup) ~= "function" then
@@ -73,6 +73,14 @@ function M.has_trigger(p)
     return false
 end
 
+-- Run the config and bind the key actions once the plugin has loaded
+local function after(p)
+    return function()
+        M.apply_config(p)
+        if p.keys then bind_actions(p.keys) end
+    end
+end
+
 -- Eager spec: run the config at startup
 function M.to_eager(p)
     return {
@@ -80,10 +88,7 @@ function M.to_eager(p)
         -- vim.pack already loaded it; :packadd would source plugin/ again
         load     = function() end,
         priority = p.priority,
-        after = function()
-            M.apply_config(p)
-            if p.keys then bind_actions(p.keys) end
-        end,
+        after    = after(p),
     }
 end
 
@@ -102,10 +107,7 @@ function M.to_lazy(p)
         notify(p, "is lazy but has no trigger, so it loads at startup", vim.log.levels.WARN)
     end
 
-    spec.after = function()
-        M.apply_config(p)
-        if p.keys then bind_actions(p.keys) end
-    end
+    spec.after = after(p)
 
     return spec
 end
