@@ -79,7 +79,6 @@ end
 function M.to_eager(p)
     return {
         p.name,
-        -- vim.pack already packadded it, so lz.n only has to run the config
         load     = function() end,
         priority = p.priority,
         after = function()

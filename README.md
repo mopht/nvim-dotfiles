@@ -179,7 +179,7 @@ return {
 - Every `lazy = true` spec requires at least one trigger
 - Colorscheme plugins declare `colorscheme = "<name>"`, which also makes `:colorscheme <name>` load them on demand
 
-`lua/load/init.lua` only assembles the pieces: it reads the registry, hands the specs to `vim.pack`, applies the colorscheme, and then hands every spec to `lz.n` — `lazy = false` plugins run their config right away (`vim.pack` has already loaded them), `lazy = true` ones register their triggers
+`lua/load/init.lua` only assembles the pieces: it reads the registry, hands the specs to `vim.pack`, applies the colorscheme, and then hands every spec to `lz.n` — `lazy = false` plugins are loaded by `vim.pack` and only their config runs (a second `packadd` would source the `plugin/` scripts twice), `lazy = true` ones register their triggers
 
 Supporting modules:
 
@@ -274,7 +274,7 @@ The leader key is `<Space>`
 - Lock file: `nvim-pack-lock.json`
 - New plugins are installed by `vim.pack` on the next startup after adding a spec file; `:PackUpdate` runs the build hooks afterwards
 - Theme order: the theme is applied as soon as `vim.pack` has loaded the plugins and before any plugin config runs, so the first frame is already themed and every `setup()` sees the final palette (`lua/load/init.lua`)
-- `lz.n` receives every spec: `lazy = false` ones only run their config (the redundant `packadd` is skipped, `vim.pack` already loaded them), `lazy = true` ones register their triggers
+- `lz.n` receives every spec: `lazy = false` ones only run their config, since `vim.pack` already loaded them (`:packadd` sources `plugin/` scripts, so it must not run twice); `lazy = true` ones register their triggers
 - Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`
 - `blink.cmp` compiles its native fuzzy matcher on the first start and after every update; later starts are a no-op
 - Shared dependencies live in `lua/plugins/lib/deps.lua`: `lz.n`, `plenary.nvim`, `nui.nvim`, `_blink.lib`, `mini.icons`
