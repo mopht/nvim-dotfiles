@@ -25,18 +25,21 @@ local function load_spec(module)
     end
 end
 
-for _, entry in ipairs(vim.fn.glob(root .. "/*", false, true)) do
-    if vim.fn.isdirectory(entry) == 1 then
-        local category = vim.fn.fnamemodify(entry, ":t")
+for name, type in vim.fs.dir(root) do
+    if type == "directory" then
+        for file, ftype in vim.fs.dir(root .. "/" .. name) do
+            if ftype ~= "file" or (not file:match("%.lua$")) then goto continue end
+            local stem = file:gsub("%.lua$", "")
+            load_spec("plugins." .. name .. "." .. stem)
 
-        for _, file in ipairs(vim.fn.glob(entry .. "/*.lua", false, true)) do
-            load_spec("plugins." .. category .. "." .. vim.fn.fnamemodify(file, ":t:r"))
+            :: continue ::
         end
-    elseif entry:match("%.lua$") then
+    elseif type == "file" and name:match("%.lua$") then
         error(("plugin spec %s must live in a category directory, e.g. lua/plugins/editor/%s")
-            :format(vim.fn.fnamemodify(entry, ":t"), vim.fn.fnamemodify(entry, ":t")), 0)
+            :format(name, name), 0)
     end
 end
+
 
 M.plugins = specs
 

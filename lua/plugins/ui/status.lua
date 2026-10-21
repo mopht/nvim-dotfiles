@@ -72,6 +72,8 @@ local statusline_opts = {
 }
 
 return {
+    { name = "dropbar.nvim", src = "Bekaboo/dropbar.nvim", lazy = false },
+
     { name = "mini.statusline", src = "nvim-mini/mini.statusline", lazy = false,
     opts = statusline_opts,
     config = function()

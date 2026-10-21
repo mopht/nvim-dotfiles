@@ -53,7 +53,7 @@ function M.install(specs)
     end
 
     vim.pack.add(eager)
-    vim.pack.add(specs, { load = function() end })
+    vim.pack.add(lazy, { load = function() end })
 end
 
 function M.commands(specs)
