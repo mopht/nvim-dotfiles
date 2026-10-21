@@ -7,6 +7,16 @@ local M = {}
 
 local root = vim.fn.stdpath("config") .. "/lua/plugins"
 
+-- vim.fs.dir yields filesystem order; sorting keeps the load order stable
+local function sorted_entries(path)
+    local entries = {}
+    for name, type in vim.fs.dir(path) do
+        entries[#entries + 1] = { name = name, type = type }
+    end
+    table.sort(entries, function(a, b) return a.name < b.name end)
+    return entries
+end
+
 local specs = {}
 
 local function load_spec(module)
@@ -25,21 +35,18 @@ local function load_spec(module)
     end
 end
 
-for name, type in vim.fs.dir(root) do
-    if type == "directory" then
-        for file, ftype in vim.fs.dir(root .. "/" .. name) do
-            if ftype ~= "file" or (not file:match("%.lua$")) then goto continue end
-            local stem = file:gsub("%.lua$", "")
-            load_spec("plugins." .. name .. "." .. stem)
-
-            :: continue ::
+for _, category in ipairs(sorted_entries(root)) do
+    if category.type == "directory" then
+        for _, file in ipairs(sorted_entries(root .. "/" .. category.name)) do
+            if file.type == "file" and file.name:match("%.lua$") then
+                load_spec(("plugins.%s.%s"):format(category.name, file.name:gsub("%.lua$", "")))
+            end
         end
-    elseif type == "file" and name:match("%.lua$") then
+    elseif category.type == "file" and category.name:match("%.lua$") then
         error(("plugin spec %s must live in a category directory, e.g. lua/plugins/editor/%s")
-            :format(name, name), 0)
+            :format(category.name, category.name), 0)
     end
 end
-
 
 M.plugins = specs
 

@@ -31,9 +31,9 @@ vim.opt.winblend = 30
 vim.opt.pumblend = 23
 vim.opt.pumheight = 12
 vim.opt.background = "dark"
--- The theme is applied centrally in lua/config/colorscheme.lua (after VimEnter,
--- when plugins are already on the rtp). To change it, edit the colorscheme field
--- in lua/plugins/ui/colorscheme.lua
+-- The theme is applied in lua/load/init.lua, right after the plugins are on
+-- the rtp and before any plugin config. To change it, edit the colorscheme
+-- field in lua/plugins/ui/colorscheme.lua
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
