@@ -4,8 +4,8 @@
 
 local M = {}
 
--- Fields lz.n understands as-is
-local LAZY_FIELDS = { "event", "ft", "cmd", "colorscheme", "priority" }
+-- Fields lz.n understands as triggers
+local TRIGGER_FIELDS = { "event", "ft", "cmd", "colorscheme" }
 
 -- Module that owns a spec's setup(): the plugin name without the .nvim suffix,
 -- unless the spec sets `main` (better_escape, everforest, idris2, ...)
@@ -13,8 +13,8 @@ function M.module_of(p)
     return p.main or p.name:gsub("%.nvim$", "")
 end
 
-local function notify(p, msg)
-    vim.notify(("pack: %s %s"):format(p.name, msg), vim.log.levels.ERROR)
+local function notify(p, msg, level)
+    vim.notify(("pack: %s %s"):format(p.name, msg), level or vim.log.levels.ERROR)
 end
 
 -- opts = {...} is shorthand for require(main).setup(opts)
@@ -66,16 +66,42 @@ local function bind_actions(keys)
     end
 end
 
+-- Whether a lazy spec declares anything that can load it
+function M.has_trigger(p)
+    if p.keys and #p.keys > 0 then return true end
+    for _, field in ipairs(TRIGGER_FIELDS) do
+        if p[field] then return true end
+    end
+    return false
+end
+
+-- Turn a registry spec into an lz.n spec that loads immediately
+function M.to_eager(p)
+    return {
+        p.name,
+        -- vim.pack already packadded it, so lz.n only has to run the config
+        load     = function() end,
+        priority = p.priority,
+        after = function()
+            M.apply_config(p)
+            if p.keys then bind_actions(p.keys) end
+        end,
+    }
+end
+
 -- Turn a registry spec into an lz.n lazy-loading rule
 function M.to_lazy(p)
     local spec = {
         p.name,
-        before = p.pre,
-        keys   = p.keys and to_lz_keys(p.keys) or nil,
+        keys = p.keys and to_lz_keys(p.keys) or nil,
     }
 
-    for _, field in ipairs(LAZY_FIELDS) do
+    for _, field in ipairs(TRIGGER_FIELDS) do
         spec[field] = p[field]
+    end
+
+    if not M.has_trigger(p) then
+        notify(p, "is lazy but has no trigger, so it loads at startup", vim.log.levels.WARN)
     end
 
     spec.after = function()

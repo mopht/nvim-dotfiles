@@ -179,7 +179,7 @@ return {
 - 每个 `lazy = true` spec 至少需要一个触发器
 - 主题插件声明 `colorscheme = "<name>"`，`:colorscheme <name>` 也会据此按需加载
 
-`lua/load/init.lua` 只负责装配：读取 registry，将 spec 交给 `vim.pack`，应用主题，然后把全部 spec 交给 `lz.n` —— `lazy = false` 的立即加载，`lazy = true` 的注册触发器
+`lua/load/init.lua` 只负责装配：读取 registry，将 spec 交给 `vim.pack`，应用主题，然后把全部 spec 交给 `lz.n` —— `lazy = false` 的立即执行 config（`vim.pack` 已经加载过），`lazy = true` 的注册触发器
 
 配套模块：
 
@@ -274,7 +274,7 @@ Leader 键为 `<Space>`
 - 锁文件：`nvim-pack-lock.json`
 - 新增 spec 文件后，新插件会在下次启动时由 `vim.pack` 安装；`:PackUpdate` 结束时会依次执行构建钩子
 - 主题顺序：`vim.pack` 加载完插件后立即应用主题，早于任何插件 config，因此第一帧就是最终配色，所有 `setup()` 拿到的也是最终配色（见 `lua/load/init.lua`）
-- `lz.n` 接收全部 spec：`lazy = false` 的立即加载，`lazy = true` 的注册触发器。config 在 init 阶段执行而不是 `VimEnter`，因为 `--startuptime` 在 `VimEnter` 之前就结束——把 setup 推迟到 `VimEnter` 只是让它不出现在这个数字里，却可能漏掉依赖自动命令的初始化，并短暂显示默认主题
+- `lz.n` 接收全部 spec：`lazy = false` 的只执行 config（重复的 `packadd` 被跳过，`vim.pack` 已经加载过），`lazy = true` 的注册触发器
 - 仓库工具配置：`.stylua.toml`、`.editorconfig`、`.luarc.json`
 - `blink.cmp` 会在首次启动和每次更新后编译原生 fuzzy matcher，之后启动是无操作
 - 共享依赖集中在 `lua/plugins/lib/deps.lua`：`lz.n`、`plenary.nvim`、`nui.nvim`、`_blink.lib`、`mini.icons`

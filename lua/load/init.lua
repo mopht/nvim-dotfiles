@@ -4,7 +4,6 @@
 -- ============================================================================
 
 local M = {}
-local api = vim.api
 
 local registry   = require("load.registry")
 local install    = require("load.install")
@@ -38,21 +37,14 @@ end
 -- Build lz.n specs for ALL plugins:
 --   lazy = false  → lz.n loads them immediately (after theme is applied)
 --   lazy = true   → lz.n registers trigger-based deferred loading
+-- The theme plugin is skipped: apply_theme() already set it up and applied it.
 local function build_lz_specs(specs)
     local result = {}
     for _, p in ipairs(specs) do
-        if p.lazy then result[#result + 1] = spec.to_lazy(p)
-        else
-            -- eager: apply_config runs immediately inside lz.n.load()
-            -- theme plugin is skipped here; it was already handled by apply_theme()
-            if p.colorscheme then goto continue end
-            result[#result + 1] = {
-                p.name,
-                before   = p.pre,
-                priority = p.priority,
-                after    = function() spec.apply_config(p) end,
-            }
-        :: continue ::
+        if p.lazy then
+            result[#result + 1] = spec.to_lazy(p)
+        elseif not p.colorscheme then
+            result[#result + 1] = spec.to_eager(p)
         end
     end
     return result
@@ -70,10 +62,8 @@ function M.setup()
     -- lazy plugins register their trigger rules
     require("lz.n").load(build_lz_specs(M.plugins))
 
-    -- Phase 3: treesitter folds (needs VimEnter for window options)
-    api.nvim_create_autocmd("VimEnter", { once = true, callback = treesitter.setup_folds })
-
-    -- Phase 4: treesitter highlight auto-start
+    -- Phase 3: treesitter folds + highlight auto-start
+    treesitter.setup_folds()
     treesitter.auto_highlight()
 end
 
