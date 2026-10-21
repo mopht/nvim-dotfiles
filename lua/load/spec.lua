@@ -1,5 +1,5 @@
 -- ============================================================================
--- pack/spec.lua — turn registry specs into lz.n specs and run their config
+-- load/spec.lua — turn registry specs into lz.n specs and run their config
 -- ============================================================================
 
 local M = {}

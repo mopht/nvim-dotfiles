@@ -9,7 +9,7 @@ return {
     { name = "nvim-treesitter", src = "nvim-treesitter/nvim-treesitter", lazy = false },
 
     { name = "tree-sitter-manager.nvim", src = "romus204/tree-sitter-manager.nvim", lazy = true,
-    ft = "Haskell",
+    ft = "haskell",
     opts = {
         ensure_installed = {
             "haskell",
