@@ -32,9 +32,7 @@ local noice_opts = {
     -- vim.cmd [[NoiceDisable]]
 }
 
--- noice has no natural trigger (it has to be ready before the first message),
--- so `lazy = false` even though lz.n would currently treat a trigger-less spec
--- as eager anyway
+-- noice must be ready before the first message
 return {
     { name = "noice.nvim", src = "folke/noice.nvim", lazy = false,
     opts = noice_opts },

@@ -18,73 +18,59 @@
 ## ✨ 功能
 
 - **插件管理**：`vim.pack` + `lz.n`
-- **LSP**：`nvim-lspconfig` 配一张 `vim.lsp.config` / `vim.lsp.enable` 覆盖表，搭配 `lazydev.nvim` 与 `haskell-tools.nvim`（Haskell client 由它管理）
-- **补全**：`blink.cmp`（lazydev source、`friendly-snippets`）
-- **格式化**：`conform.nvim`（`stylua`、`nixfmt`，并回退到 LSP 格式化）
+- **LSP**：`nvim-lspconfig` 配一张 `vim.lsp.config` / `vim.lsp.enable` 覆盖表，搭配 `lazydev.nvim` 与 `haskell-tools.nvim`
+- **补全**：`blink.cmp`、`friendly-snippets`
+- **格式化**：`conform.nvim`，使用 `stylua`、`nixfmt`，并回退到 LSP 格式化
 - **Treesitter**：`nvim-treesitter`、`tree-sitter-manager.nvim`、`nvim-treesitter-context`、`rainbow-delimiters.nvim`
-- **Picker / 终端**：`snacks.nvim`（smart/files/grep/buffers/help、terminal、lazygit）
-- **UI**：`which-key.nvim`（Helix 风格）、`mini.statusline`、`mini.icons`、`dropbar.nvim`、`noice.nvim`
+- **Picker / 终端**：`snacks.nvim`
+- **UI**：`which-key.nvim`、`mini.statusline`、`mini.icons`、`dropbar.nvim`、`noice.nvim`
 - **文件树 / 窗口导航**：`snacks.nvim` explorer、`oil.nvim`、`vim-tmux-navigator`
 - **编辑能力**：`flash.nvim`、`goto-preview`、`neoscroll`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`vim-better-whitespace`、`todo-comments.nvim`、`guess-indent.nvim`、`twilight.nvim`、`zen-mode.nvim`
 - **语言插件**：`rustaceanvim`、`idris2-nvim`、`koka.nvim`、`moonbit.nvim`
-- **Git**：`gitsigns.nvim`（hunk 标记与操作）
-- **诊断面板**：`trouble.nvim`
+- **Git**：`gitsigns.nvim`
+- **诊断**：`trouble.nvim`
 - **任务运行器**：`overseer.nvim`，内置 bun 和 cabal 模板
 - **主题**：默认 `everforest`，可选 `tokyonight`、`catppuccin`
-- **GUI**：附带 Neovide 字体、透明度和窗口设置
+- **GUI**：Neovide 设置
 
 ## ⚙️ 环境要求
 
-- **Neovim >= 0.12.4**（原生 `vim.pack` 所需）
+- **Neovim >= 0.12.4**（`vim.pack`）
 - `git`
-- `ripgrep`、`fd`（Snacks picker）
+- `ripgrep`、`fd`，供 picker 使用
 - 一个 Nerd Font
-- `cargo`（用于编译 `blink.cmp` 的原生 fuzzy matcher）
-- 可选：`lazygit`、`nushell`，以及 `bun` / `cabal`（后两者供 overseer 任务模板使用）
+- `cargo`，用于编译 `blink.cmp` 的原生 matcher
+- 可选：`lazygit`、`nushell`，以及供 overseer 模板使用的 `bun`、`cabal`
 
-LSP server 在 `lua/plugins/lsp/core.lua` 中手动配置，对应的可执行文件需位于 `PATH` 中
+LSP server 在 `lua/plugins/lsp/core.lua` 中声明；可执行文件需在 `PATH` 中：
 
-以下语言工具链需另行安装：
-
-- Haskell：`ghcup` + `haskell-language-server`
+- Haskell：`ghcup`、`haskell-language-server`
 - C/C++：`clangd`
 - Idris2：`idris2-lsp`
 - Prolog：`swipl`
 - Nix：`nixd`
-- MoonBit：`moon` / `moon-lsp`
+- MoonBit：`moon`、`moon-lsp`
 - Scheme：`guile-lsp-server`
 - TypeScript：`typescript-language-server`
-- Lua / lazydev：`lua-language-server`
+- Lua：`lua-language-server`
 - 格式化：`stylua`、`nixfmt`
 
 ## 📦 安装
 
-备份现有配置：
-
 ```bash
 mv ~/.config/nvim ~/.config/nvim.bak
-```
-
-克隆仓库：
-
-```bash
 git clone git@github.com:MoYu-CL/nvim-dotfiles.git ~/.config/nvim
-```
-
-启动 Neovim：
-
-```bash
 nvim
 ```
 
-首次启动时 `vim.pack` 会提示安装缺失插件，解析后的版本记录在 `nvim-pack-lock.json` 中；首次启动还会编译 `blink.cmp` 的原生 fuzzy matcher，需要几十秒
+首次启动时 `vim.pack` 会安装缺失插件，解析后的版本记录在 `nvim-pack-lock.json`。首次启动还会编译 `blink.cmp` 的原生 fuzzy matcher
 
-维护命令：
+常用命令：
 
 ```vim
-:PackUpdate          " 更新插件
-:PackUpdate <name>   " 更新指定插件
-:PackClean           " 清理未在 registry 中注册的插件
+:PackUpdate          " 更新全部插件
+:PackUpdate <name>   " 更新单个插件
+:PackClean           " 删除 registry 中没有的插件
 ```
 
 ## 📁 目录结构
@@ -152,89 +138,81 @@ nvim
 
 ## 🧩 插件组织方式
 
-`lua/load/registry.lua` 会自动扫描 `lua/plugins/<category>/` 下**直接**存在的 `.lua` 文件（子目录会被忽略，可放辅助模块），每个文件返回单个 plugin spec 或一个 spec 列表：
+`lua/load/registry.lua` 加载 `lua/plugins/<category>/` 下直接存在的每个 `.lua` 文件。每个文件返回一个 spec 表或一组 spec：
 
 ```lua
--- 单个插件
-return {
-    { name = "mini.icons", src = "echasnovski/mini.icons", lazy = false, opts = {} },
-}
-```
-
-```lua
--- 一个文件里放多个插件
 return {
     { name = "flash.nvim", src = "folke/flash.nvim", lazy = true, keys = { ... }, opts = {} },
     { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true, keys = { ... }, opts = {} },
 }
 ```
 
-- `lazy = false`：启动时加载
-- `lazy = true`：延迟加载，可由 `cmd`、`keys`、`event`、`ft` 或 `colorscheme` 触发
-- `priority = <数字>`：`lazy = false` 插件的加载顺序，越大越先加载（默认 50；`lua/plugins/lib/deps.lua` 里的共享依赖用 1000）
-- `opts = { ... }`：等价于 `require(main).setup(opts)`
-- `main`：`opts` 对应的 Lua 模块名，默认取插件名去掉 `.nvim` 后缀；两者不一致时必须显式指定（`better_escape`、`everforest`、`idris2`、`treesitter-context`）
-- `config`：`opts` 表达不了的额外逻辑，在 `opts` 之后执行
-- 带 `action` 的 `keys` 映射在插件加载后绑定
-- 每个 `lazy = true` spec 至少需要一个触发器
-- 主题插件声明 `colorscheme = "<name>"`，`:colorscheme <name>` 也会据此按需加载
+spec 字段：
 
-`lua/load/init.lua` 只负责装配：读取 registry，将 spec 交给 `vim.pack`，应用主题，然后把全部 spec 交给 `lz.n` —— `lazy = false` 的由 `vim.pack` 加载、只执行 config（再次 `packadd` 会把 `plugin/` 脚本再 source 一遍），`lazy = true` 的注册触发器
+- `name`、`src`：插件名与仓库地址
+- `lazy = false`：由 `vim.pack` 加载
+- `lazy = true`：由 `cmd`、`keys`、`event`、`ft` 或 `colorscheme` 触发加载
+- `opts`：等价于 `require(main).setup(opts)`
+- `main`：`opts` 对应的模块名，默认取插件名去掉 `.nvim` 后缀
+- `config`：在 `opts` 之后执行的 setup 代码
+- `priority`：eager spec 的加载顺序，数值越大越先加载（默认 50）
+- `colorscheme`：启动主题，同时作为 `:colorscheme <name>` 的触发器
+- 带 `action` 的 `keys`：插件加载后绑定该映射
 
-配套模块：
+`lua/load/init.lua` 读取 registry，把 spec 交给 `vim.pack`，应用主题，然后把全部 spec 交给 `lz.n`：
 
-- `lua/load/install.lua`：`vim.pack` 安装 / 更新、`PackChanged` 构建钩子（`nvim-treesitter`、`blink.cmp`）、`:PackUpdate` / `:PackClean`
-- `lua/load/registry.lua`：spec 发现；直接放在 `lua/plugins/` 下的 spec 文件会直接报错，避免被静默忽略
-- `lua/load/spec.lua`：把 registry spec 转成 `lz.n` 规则（lazy 或 eager），并执行 `opts` / `main` / `config`
-- `lua/config/treesitter.lua`：Treesitter 高亮自启与 `foldexpr`
+- `lua/load/install.lua`：安装、更新、构建钩子、`:PackUpdate`、`:PackClean`
+- `lua/load/registry.lua`：spec 发现
+- `lua/load/spec.lua`：spec 转换，执行 `opts` 与 `config`
+- `lua/config/treesitter.lua`：高亮、缩进与折叠
 
 ## ⌨️ 快捷键
 
-Leader 键为 `<Space>`
+leader 键为 `<Space>`
 
 ### 查找 / 终端
 
-| 快捷键 | 功能 |
+| 按键 | 说明 |
 | --- | --- |
-| `<leader><space>` | Smart Find Files |
-| `<leader>f` | Find Files |
-| `<leader>g` | Live Grep |
-| `<leader>b` | Find Buffers |
-| `<leader>hh` | Help Tags |
-| `<F8>` | 切换底部终端 |
+| `<leader><space>` | 智能查找文件 |
+| `<leader>f` | 查找文件 |
+| `<leader>g` | 实时 grep |
+| `<leader>b` | 切换缓冲区 |
+| `<leader>hh` | 帮助标签 |
+| `<F8>` | 开关底部终端 |
 | `<leader>tn` | Nushell 浮窗 |
 | `<leader>tm` | Lazygit |
 
 ### LSP / 编辑
 
-| 快捷键 | 功能 |
+| 按键 | 说明 |
 | --- | --- |
-| `<leader>=` | 格式化当前 buffer |
-| `K` | Hover |
-| `<leader>o` | 显示诊断浮窗 |
+| `<leader>=` | 格式化当前缓冲区 |
+| `K` | 悬浮文档 |
+| `<leader>o` | 诊断浮窗 |
 | `J` / `K`（可视模式） | 向下 / 向上移动选中行 |
-| `<leader>e` | 切换 snacks explorer |
-| `-` | 用 Oil 打开父目录 |
+| `<leader>e` | 开关 snacks 文件树 |
+| `-` | 用 Oil 打开上级目录 |
 | `<leader>sv` / `<leader>sh` | 垂直 / 水平分屏 |
-| `sl` / `sh` | 下一个 / 上一个 buffer |
+| `sl` / `sh` | 下一个 / 上一个缓冲区 |
 | `nl` | 清除搜索高亮 |
-| `tl` | Todo location list |
-| `<leader>he` | Haskell evaluate all |
+| `tl` | Todo 位置列表 |
+| `<leader>he` | Haskell 求值全部 |
 
 ### Trouble
 
-| 快捷键 | 功能 |
+| 按键 | 说明 |
 | --- | --- |
 | `xx` | 工作区诊断 |
-| `xX` | 当前 buffer 诊断 |
-| `cs` | Symbols |
-| `cl` | LSP references / definitions |
-| `xL` | Location list |
-| `xQ` | Quickfix list |
+| `xX` | 当前缓冲区诊断 |
+| `cs` | 符号列表 |
+| `cl` | LSP 引用 / 定义 |
+| `xL` | 位置列表 |
+| `xQ` | quickfix 列表 |
 
-### 任务运行
+### 任务运行器
 
-| 快捷键 | 功能 |
+| 按键 | 说明 |
 | --- | --- |
 | `<leader>rr` | 运行任务 |
 | `<leader>rt` | 开关任务列表 |
@@ -243,38 +221,37 @@ Leader 键为 `<Space>`
 
 ### Flash / 预览 / 滚动
 
-| 快捷键 | 功能 |
+| 按键 | 说明 |
 | --- | --- |
-| `s` / `S` | Flash jump / Treesitter |
-| `r` / `R` | Remote Flash / Treesitter search |
-| `gpd` / `gpt` / `gpi` / `gpD` | Goto preview definition / type / implementation / declaration |
-| `gP` | 关闭所有 preview |
-| `<C-u>` / `<C-d>` | 上 / 下滚动半页 |
-| `<C-b>` / `<C-f>` | 上 / 下滚动整页 |
-| `<C-y>` / `<C-e>` | 上 / 下滚动一行 |
+| `s` / `S` | Flash 跳转 / Treesitter |
+| `r` / `R` | 远程 Flash / Treesitter 搜索 |
+| `gpd` / `gpt` / `gpi` / `gpD` | Goto preview 定义/类型/实现/声明 |
+| `gP` | 关闭全部预览 |
+| `<C-u>` / `<C-d>` | 上下滚动半页 |
+| `<C-b>` / `<C-f>` | 上下滚动整页 |
+| `<C-y>` / `<C-e>` | 上下滚动一行 |
 | `zz` / `zt` / `zb` | 光标行居中 / 置顶 / 置底 |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | 窗口 / tmux 导航 |
 
 ## 🛠 自定义
 
-- 基础选项：`lua/config/options.lua`
+- 选项：`lua/config/options.lua`
 - 快捷键：`lua/config/keymaps.lua`
-- 斜体：`lua/config/highlights.lua`（对固定的一组高亮组强制斜体，并在每次 `ColorScheme` 时重新应用）
+- 斜体：`lua/config/highlights.lua`
 - 状态栏透明：`lua/plugins/ui/status.lua`
-- Neovide 设置：`lua/config/neovide.lua`
+- Neovide：`lua/config/neovide.lua`
 - LSP server：`lua/plugins/lsp/core.lua`
 - 格式化器：`lua/plugins/lsp/formatting.lua`
-- 任务模板：`lua/plugins/tools/overseer/templates.lua`（bun 与 cabal）
-- 添加插件：在 `lua/plugins/<category>/` 下新增或修改 `.lua` 文件（直接放在 `lua/plugins/` 下会在启动时报错）
-- 切换主题：修改 `lua/plugins/ui/colorscheme.lua` 中的 `colorscheme` 字段
+- 任务模板：`lua/plugins/tools/overseer/templates.lua`
+- 新增插件：在 `lua/plugins/<category>/` 下新建文件
+- 主题：`lua/plugins/ui/colorscheme.lua`
 
 ## 备注
 
-- 插件源码安装位置：`stdpath("data")/site/pack/core/opt/`
-- 锁文件：`nvim-pack-lock.json`
-- 新增 spec 文件后，新插件会在下次启动时由 `vim.pack` 安装；`:PackUpdate` 结束时会依次执行构建钩子
-- 主题顺序：`vim.pack` 加载完插件后立即应用主题，早于任何插件 config，因此第一帧就是最终配色，所有 `setup()` 拿到的也是最终配色（见 `lua/load/init.lua`）
-- `lz.n` 接收全部 spec：`lazy = false` 的只执行 config，因为 `vim.pack` 已经加载过（`:packadd` 会重新 source `plugin/` 脚本，不能跑第二遍）；`lazy = true` 的注册触发器
+- 插件安装位置：`stdpath("data")/site/pack/core/opt/`
+- 版本锁定在 `nvim-pack-lock.json`
+- 新增 spec 后，下次启动会安装对应插件；`:PackUpdate` 也会执行构建钩子
+- 主题在插件加载完成后、任何插件 config 之前应用
+- `blink.cmp` 在首次启动和每次更新后编译原生 matcher
+- 共享依赖：`lua/plugins/lib/deps.lua`
 - 仓库工具配置：`.stylua.toml`、`.editorconfig`、`.luarc.json`
-- `blink.cmp` 会在首次启动和每次更新后编译原生 fuzzy matcher，之后启动是无操作
-- 共享依赖集中在 `lua/plugins/lib/deps.lua`：`lz.n`、`plenary.nvim`、`nui.nvim`、`_blink.lib`、`mini.icons`

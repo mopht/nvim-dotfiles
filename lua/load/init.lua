@@ -1,7 +1,4 @@
--- ============================================================================
--- load/init.lua — assembly entry point
--- registry specs → vim.pack install → colorscheme → lz.n (eager + lazy)
--- ============================================================================
+-- registry -> vim.pack -> theme -> lz.n
 
 local M = {}
 
@@ -12,17 +9,14 @@ local treesitter = require("config.treesitter")
 
 M.plugins = registry.plugins
 
--- Find the eager colorscheme plugin (lazy = false + colorscheme field).
--- Returns nil if none is found (graceful degradation).
+-- First eager spec that declares a colorscheme.
 local function find_current_theme(specs)
     for _, p in ipairs(specs) do
         if not p.lazy and p.colorscheme then return p end
     end
 end
 
--- Apply the current theme before lz.n.load() so that:
---   1. No first-frame flash (colorscheme active before any buffer is drawn)
---   2. lazy = false plugins' after() see the correct palette immediately
+-- Set up and apply the theme before lz.n loads the plugins.
 local function apply_theme(specs)
     local theme = find_current_theme(specs)
     if not theme then return end
@@ -34,10 +28,8 @@ local function apply_theme(specs)
     end
 end
 
--- Build lz.n specs for ALL plugins:
---   lazy = false  → lz.n loads them immediately (after theme is applied)
---   lazy = true   → lz.n registers trigger-based deferred loading
--- The theme plugin is skipped: apply_theme() already set it up and applied it.
+-- Eager specs run their config right away, lazy specs register their triggers.
+-- The theme plugin is skipped: apply_theme() already handled it.
 local function build_lz_specs(specs)
     local result = {}
     for _, p in ipairs(specs) do
@@ -51,18 +43,16 @@ local function build_lz_specs(specs)
 end
 
 function M.setup()
-    -- Phase 0: install / register plugins with vim.pack
+    -- install / register
     install.setup(M.plugins)
 
-    -- Phase 1: apply the current theme immediately (before lz.n.load)
+    -- theme
     apply_theme(M.plugins)
 
-    -- Phase 2: load all plugins via lz.n
-    -- eager plugins run their after() right now (palette already set)
-    -- lazy plugins register their trigger rules
+    -- load
     require("lz.n").load(build_lz_specs(M.plugins))
 
-    -- Phase 3: treesitter folds + highlight auto-start
+    -- treesitter
     treesitter.setup_folds()
     treesitter.auto_highlight()
 end

@@ -1,7 +1,4 @@
--- ============================================================================
--- load/install.lua — vim.pack wrapper: install, build hooks, maintenance commands
--- Owns "how plugins are installed/updated", not load order
--- ============================================================================
+-- vim.pack wrapper: install, build hooks, maintenance commands.
 
 local M = {}
 local api = vim.api
@@ -44,8 +41,7 @@ local function setup_build_hook()
     })
 end
 
--- eager plugins go on the rtp immediately; lazy ones are only registered,
--- loading them is lz.n's job
+-- eager plugins are loaded here; lazy ones are only registered
 function M.install(specs)
     local eager, lazy = {}, {}
     for _, p in ipairs(specs) do

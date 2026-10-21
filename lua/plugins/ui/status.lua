@@ -1,5 +1,4 @@
--- Keep the statusline background transparent, but leave mode groups alone so
--- NORMAL / INSERT / VISUAL keep their colored badge.
+-- Transparent statusline background; mode groups keep their colors.
 local function apply_transparency()
     local groups = {
         "StatusLine",

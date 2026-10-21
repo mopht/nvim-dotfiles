@@ -1,4 +1,2 @@
--- tabstop / shiftwidth / expandtab come from lua/config/options.lua.
--- softtabstop is not set globally, and it is what makes <BS> in insert mode
--- step back a whole indent, so keep it here for Haskell.
+-- softtabstop is not set globally; set it for Haskell buffers
 vim.bo.softtabstop = 4

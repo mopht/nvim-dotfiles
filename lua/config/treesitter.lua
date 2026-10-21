@@ -1,11 +1,7 @@
--- ============================================================================
--- treesitter.lua — treesitter highlight / indent auto-start + folding
--- ============================================================================
+-- Treesitter highlight, indent and folds.
 
 local M = {}
 
--- Folding: use Neovim's built-in foldexpr; the old nvim_treesitter#foldexpr()
--- no longer exists upstream
 function M.setup_folds()
     vim.wo.foldmethod = "expr"
     vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
@@ -26,12 +22,8 @@ function M.auto_highlight()
                 if not pcall(vim.treesitter.start, buf, lang) then return end
             end
 
-            -- The main branch no longer enables indent through setup(); it has
-            -- to be set per buffer. This runs on every event because the
-            -- filetype indent files are sourced on FileType, i.e. after
-            -- BufReadPost, and would otherwise override it. Languages without
-            -- an indent query are skipped: get_indent() returns 0 for them,
-            -- which would flatten the buffer instead of keeping its indent.
+            -- indentexpr is per buffer; only languages with an indent query
+            -- get it, nvim-treesitter's indentexpr returns 0 otherwise
             local ok, query = pcall(vim.treesitter.query.get, lang, "indents")
             if ok and query then
                 vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"

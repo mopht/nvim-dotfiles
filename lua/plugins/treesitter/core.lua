@@ -1,10 +1,6 @@
--- nvim-treesitter (main branch).
---
--- No setup() call is needed: the old keys (ensure_installed, highlight, indent,
--- rainbow) were dropped upstream and were silently ignored here. Parsers are
--- installed with :TSInstall, e.g.
---   :TSInstall c lua zig vim vimdoc kotlin query rust cpp javascript python haskell typescript
--- Highlighting, indent and folding are enabled per buffer in lua/config/treesitter.lua.
+-- nvim-treesitter (main branch), no setup() call needed.
+-- Parsers: :TSInstall c lua zig vim vimdoc kotlin query rust cpp javascript python haskell typescript
+-- Highlight, indent and folds: lua/config/treesitter.lua.
 return {
     { name = "nvim-treesitter", src = "nvim-treesitter/nvim-treesitter", lazy = false },
 

@@ -2,7 +2,7 @@
 
 English | [简体中文](README-CN.md)
 
-A personal Neovim configuration built on Neovim's native `vim.pack`, with lazy loading provided by `lz.n`
+Personal Neovim configuration built on the native `vim.pack` plugin manager, with lazy loading via `lz.n`
 
 ## 🎯 Design Philosophy
 
@@ -18,73 +18,59 @@ Maintaining a capable development environment at low complexity takes priority, 
 ## ✨ Features
 
 - **Plugin management**: `vim.pack` + `lz.n`
-- **LSP**: `nvim-lspconfig` with a table of `vim.lsp.config` / `vim.lsp.enable` overrides, plus `lazydev.nvim` and `haskell-tools.nvim` (which owns the Haskell client)
-- **Completion**: `blink.cmp` (lazydev source, `friendly-snippets`)
-- **Formatting**: `conform.nvim` (`stylua`, `nixfmt`, and LSP fallback)
+- **LSP**: `nvim-lspconfig` with `vim.lsp.config` / `vim.lsp.enable`, `lazydev.nvim`, `haskell-tools.nvim`
+- **Completion**: `blink.cmp`, `friendly-snippets`
+- **Formatting**: `conform.nvim` with `stylua`, `nixfmt` and LSP fallback
 - **Treesitter**: `nvim-treesitter`, `tree-sitter-manager.nvim`, `nvim-treesitter-context`, `rainbow-delimiters.nvim`
-- **Picker / terminal**: `snacks.nvim` (smart/files/grep/buffers/help, terminal, lazygit)
-- **UI**: `which-key.nvim` (Helix preset), `mini.statusline`, `mini.icons`, `dropbar.nvim`, `noice.nvim`
+- **Picker / terminal**: `snacks.nvim`
+- **UI**: `which-key.nvim`, `mini.statusline`, `mini.icons`, `dropbar.nvim`, `noice.nvim`
 - **Explorer / navigation**: `snacks.nvim` explorer, `oil.nvim`, `vim-tmux-navigator`
 - **Editing**: `flash.nvim`, `goto-preview`, `neoscroll`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `vim-better-whitespace`, `todo-comments.nvim`, `guess-indent.nvim`, `twilight.nvim`, `zen-mode.nvim`
 - **Language plugins**: `rustaceanvim`, `idris2-nvim`, `koka.nvim`, `moonbit.nvim`
-- **Git**: `gitsigns.nvim` (hunk signs and actions)
-- **Diagnostics panel**: `trouble.nvim`
-- **Task runner**: `overseer.nvim`, with bun and cabal templates
-- **Colorschemes**: `everforest` by default, with `tokyonight` and `catppuccin` available
-- **GUI**: Neovide font, opacity, and window settings
+- **Git**: `gitsigns.nvim`
+- **Diagnostics**: `trouble.nvim`
+- **Task runner**: `overseer.nvim` with bun and cabal templates
+- **Colorschemes**: `everforest` (default), `tokyonight`, `catppuccin`
+- **GUI**: Neovide settings
 
 ## ⚙️ Requirements
 
-- **Neovim >= 0.12.4** (required for native `vim.pack`)
+- **Neovim >= 0.12.4** (`vim.pack`)
 - `git`
-- `ripgrep`, `fd` (Snacks picker)
+- `ripgrep`, `fd` for the picker
 - A Nerd Font
-- `cargo` (builds the `blink.cmp` native fuzzy matcher)
-- Optional: `lazygit`, `nushell`, and `bun` / `cabal` (the last two back the overseer task templates)
+- `cargo` for the `blink.cmp` native matcher
+- Optional: `lazygit`, `nushell`, `bun` and `cabal` for the overseer templates
 
-LSP servers are configured manually in `lua/plugins/lsp/core.lua`, and the corresponding executables must be available on `PATH`
+LSP servers are declared in `lua/plugins/lsp/core.lua`; their executables must be on `PATH`:
 
-The following language toolchains are installed separately:
-
-- Haskell: `ghcup` + `haskell-language-server`
+- Haskell: `ghcup`, `haskell-language-server`
 - C/C++: `clangd`
 - Idris2: `idris2-lsp`
 - Prolog: `swipl`
 - Nix: `nixd`
-- MoonBit: `moon` / `moon-lsp`
+- MoonBit: `moon`, `moon-lsp`
 - Scheme: `guile-lsp-server`
 - TypeScript: `typescript-language-server`
-- Lua / lazydev: `lua-language-server`
+- Lua: `lua-language-server`
 - Formatting: `stylua`, `nixfmt`
 
 ## 📦 Installation
 
-Back up the existing configuration:
-
 ```bash
 mv ~/.config/nvim ~/.config/nvim.bak
-```
-
-Clone the repository:
-
-```bash
 git clone git@github.com:MoYu-CL/nvim-dotfiles.git ~/.config/nvim
-```
-
-Start Neovim:
-
-```bash
 nvim
 ```
 
-On first launch `vim.pack` prompts for the installation of missing plugins, and the resolved versions are recorded in `nvim-pack-lock.json`. The first launch also compiles the `blink.cmp` fuzzy matcher, which takes tens of seconds
+On the first start `vim.pack` installs the missing plugins and records the resolved versions in `nvim-pack-lock.json`. The first start also builds the `blink.cmp` native fuzzy matcher
 
-Maintenance commands:
+Commands:
 
 ```vim
 :PackUpdate          " update all plugins
-:PackUpdate <name>   " update a specific plugin
-:PackClean           " remove plugins not registered in the registry
+:PackUpdate <name>   " update one plugin
+:PackClean           " remove plugins missing from the registry
 ```
 
 ## 📁 Structure
@@ -152,41 +138,33 @@ Maintenance commands:
 
 ## 🧩 Plugin Layout
 
-`lua/load/registry.lua` automatically discovers every `.lua` file directly under `lua/plugins/<category>/`; each file returns either a single plugin spec or a list of specs (subdirectories are ignored and can hold helper modules):
+`lua/load/registry.lua` loads every `.lua` file directly under `lua/plugins/<category>/`. Each file returns one spec table or a list of specs:
 
 ```lua
--- A single plugin
-return {
-    { name = "mini.icons", src = "echasnovski/mini.icons", lazy = false, opts = {} },
-}
-```
-
-```lua
--- Multiple plugins in one file
 return {
     { name = "flash.nvim", src = "folke/flash.nvim", lazy = true, keys = { ... }, opts = {} },
     { name = "neoscroll.nvim", src = "karb94/neoscroll.nvim", lazy = true, keys = { ... }, opts = {} },
 }
 ```
 
-- `lazy = false`: loaded at startup
-- `lazy = true`: lazy-loaded via `cmd`, `keys`, `event`, `ft` or `colorscheme`
-- `priority = <number>`: load order for `lazy = false` plugins, higher first (default 50; the shared dependencies in `lua/plugins/lib/deps.lua` use 1000)
-- `opts = { ... }`: shorthand for `require(main).setup(opts)`
-- `main`: the Lua module that owns `opts`; defaults to the plugin name without the `.nvim` suffix, so set it when they differ (`better_escape`, `everforest`, `idris2`, `treesitter-context`)
-- `config`: extra setup that `opts` cannot express; runs after `opts`
-- Keymaps that carry an `action` are bound after the plugin loads
-- Every `lazy = true` spec requires at least one trigger
-- Colorscheme plugins declare `colorscheme = "<name>"`, which also makes `:colorscheme <name>` load them on demand
+Spec fields:
 
-`lua/load/init.lua` only assembles the pieces: it reads the registry, hands the specs to `vim.pack`, applies the colorscheme, and then hands every spec to `lz.n` — `lazy = false` plugins are loaded by `vim.pack` and only their config runs (a second `packadd` would source the `plugin/` scripts twice), `lazy = true` ones register their triggers
+- `name`, `src`: plugin name and repository
+- `lazy = false`: loaded by `vim.pack`
+- `lazy = true`: loaded by `cmd`, `keys`, `event`, `ft` or `colorscheme`
+- `opts`: `require(main).setup(opts)`
+- `main`: module that owns `opts`, defaults to `name` without the `.nvim` suffix
+- `config`: setup code that runs after `opts`
+- `priority`: load order for eager specs, higher first (default 50)
+- `colorscheme`: startup theme and `:colorscheme <name>` trigger
+- `keys` with `action`: the mapping is bound after the plugin loads
 
-Supporting modules:
+`lua/load/init.lua` reads the registry, hands the specs to `vim.pack`, applies the theme, then passes every spec to `lz.n`:
 
-- `lua/load/install.lua`: install/update via `vim.pack`, the `PackChanged` build hooks (`nvim-treesitter`, `blink.cmp`), and `:PackUpdate` / `:PackClean`
-- `lua/load/registry.lua`: spec discovery; a spec file placed directly in `lua/plugins/` raises an error, so a misplaced spec surfaces at startup
-- `lua/load/spec.lua`: turns a registry spec into an `lz.n` rule (lazy or eager) and applies `opts` / `main` / `config`
-- `lua/config/treesitter.lua`: Treesitter highlight auto-start and `foldexpr`
+- `lua/load/install.lua`: install, update, build hooks, `:PackUpdate`, `:PackClean`
+- `lua/load/registry.lua`: spec discovery
+- `lua/load/spec.lua`: spec normalization, `opts` and `config` execution
+- `lua/config/treesitter.lua`: highlight, indent and folds
 
 ## ⌨️ Keymaps
 
@@ -257,24 +235,23 @@ The leader key is `<Space>`
 
 ## 🛠 Customization
 
-- Core options: `lua/config/options.lua`
+- Options: `lua/config/options.lua`
 - Keymaps: `lua/config/keymaps.lua`
-- Italics: `lua/config/highlights.lua` (forces italics on a fixed group list and reapplies them on every `ColorScheme`)
+- Italics: `lua/config/highlights.lua`
 - Statusline transparency: `lua/plugins/ui/status.lua`
-- Neovide settings: `lua/config/neovide.lua`
+- Neovide: `lua/config/neovide.lua`
 - LSP servers: `lua/plugins/lsp/core.lua`
 - Formatters: `lua/plugins/lsp/formatting.lua`
-- Task templates: `lua/plugins/tools/overseer/templates.lua` (bun and cabal)
-- Add plugins: create or edit a `.lua` file under `lua/plugins/<category>/` (a file placed directly in `lua/plugins/` is rejected at startup)
-- Change colorscheme: edit the `colorscheme` field in `lua/plugins/ui/colorscheme.lua`
+- Task templates: `lua/plugins/tools/overseer/templates.lua`
+- Add a plugin: create a file under `lua/plugins/<category>/`
+- Colorscheme: `lua/plugins/ui/colorscheme.lua`
 
 ## Notes
 
-- Plugin install location: `stdpath("data")/site/pack/core/opt/`
-- Lock file: `nvim-pack-lock.json`
-- New plugins are installed by `vim.pack` on the next startup after adding a spec file; `:PackUpdate` runs the build hooks afterwards
-- Theme order: the theme is applied as soon as `vim.pack` has loaded the plugins and before any plugin config runs, so the first frame is already themed and every `setup()` sees the final palette (`lua/load/init.lua`)
-- `lz.n` receives every spec: `lazy = false` ones only run their config, since `vim.pack` already loaded them (`:packadd` sources `plugin/` scripts, so it must not run twice); `lazy = true` ones register their triggers
+- Plugins install to `stdpath("data")/site/pack/core/opt/`
+- Versions are pinned in `nvim-pack-lock.json`
+- New specs are installed on the next start; `:PackUpdate` also runs the build hooks
+- The theme is applied after the plugins are loaded and before any plugin config
+- `blink.cmp` builds its native matcher on the first start and after every update
+- Shared dependencies: `lua/plugins/lib/deps.lua`
 - Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`
-- `blink.cmp` compiles its native fuzzy matcher on the first start and after every update; later starts are a no-op
-- Shared dependencies live in `lua/plugins/lib/deps.lua`: `lz.n`, `plenary.nvim`, `nui.nvim`, `_blink.lib`, `mini.icons`

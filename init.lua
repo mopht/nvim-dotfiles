@@ -1,8 +1,3 @@
--- ============================================================================
--- init.lua — Entry point
--- Migrated from lazy.nvim to Neovim's built-in :h vim.pack
--- ============================================================================
-
 vim.loader.enable()
 
 vim.g.mapleader = " "
