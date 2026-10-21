@@ -29,6 +29,7 @@ Maintaining a capable development environment at low complexity takes priority, 
 - **Language plugins**: `rustaceanvim`, `idris2-nvim`, `koka.nvim`, `moonbit.nvim`
 - **Git**: `gitsigns.nvim`
 - **Diagnostics**: `trouble.nvim`
+- **Debugging**: `nvim-dap`, adapters come from the language plugins
 - **Task runner**: `overseer.nvim` with bun and cabal templates
 - **Colorschemes**: `everforest` (default), `tokyonight`, `catppuccin`
 - **GUI**: Neovide settings
@@ -105,20 +106,16 @@ Commands:
         ├── editor/
         │   ├── buffers.lua
         │   ├── edit.lua
-        │   ├── focus.lua
         │   └── motions.lua
         ├── language/
-        │   ├── functional.lua
-        │   ├── moonbit.lua
-        │   └── rust.lua
+        │   └── languages.lua
         ├── lsp/
         │   ├── completion.lua
-        │   ├── core.lua
-        │   ├── formatting.lua
-        │   └── lazydev.lua
+        │   └── core.lua
         ├── navigation/
         │   └── tmux.lua
         ├── tools/
+        │   ├── dap.lua
         │   ├── oil.lua
         │   ├── overseer.lua
         │   ├── overseer/
@@ -126,7 +123,6 @@ Commands:
         │   ├── snacks.lua
         │   └── trouble.lua
         ├── treesitter/
-        │   ├── context.lua
         │   └── core.lua
         └── ui/
             ├── colorscheme.lua
@@ -241,8 +237,9 @@ The leader key is `<Space>`
 - Statusline transparency: `lua/plugins/ui/status.lua`
 - Neovide: `lua/config/neovide.lua`
 - LSP servers: `lua/plugins/lsp/core.lua`
-- Formatters: `lua/plugins/lsp/formatting.lua`
+- Formatters: `lua/plugins/lsp/core.lua`
 - Task templates: `lua/plugins/tools/overseer/templates.lua`
+- DAP: `lua/plugins/tools/dap.lua`
 - Add a plugin: create a file under `lua/plugins/<category>/`
 - Colorscheme: `lua/plugins/ui/colorscheme.lua`
 

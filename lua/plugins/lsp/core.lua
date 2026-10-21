@@ -44,4 +44,23 @@ return {
             vim.lsp.enable(name)
         end
     end },
+
+    -- Loaded at startup: blink.cmp resolves the provider module eagerly
+    { name = "lazydev.nvim", src = "folke/lazydev.nvim", lazy = false,
+    opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } } },
+
+    { name = "conform.nvim", src = "stevearc/conform.nvim", lazy = false,
+    opts = {
+        -- Add formatters per filetype when the binaries are available, e.g.:
+        -- lua = { "stylua" },
+        -- nix = { "nixfmt" },
+        -- typescript = { "prettierd", "prettier", stop_after_first = true },
+        formatters_by_ft = {
+            lua = { "stylua" },
+            nix = { "nixfmt" },
+        },
+        default_format_opts = {
+            lsp_format = "fallback",
+        },
+    } },
 }
