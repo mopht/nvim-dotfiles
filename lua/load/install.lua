@@ -52,7 +52,7 @@ function M.install(specs)
     vim.pack.add(lazy, { load = function() end })
 end
 
-function M.commands(specs)
+local function commands(specs)
     api.nvim_create_user_command("PackUpdate", function(opts)
         local names = #opts.fargs > 0 and opts.fargs or nil
         vim.pack.update(names)
@@ -82,7 +82,7 @@ end
 function M.setup(specs)
     setup_build_hook()
     M.install(specs)
-    M.commands(specs)
+    commands(specs)
 end
 
 return M
