@@ -1,4 +1,5 @@
 -- registry -> vim.pack -> theme -> lz.n
+vim.pack.add({ "https://github.com/lumen-oss/lz.n" })
 
 local M = {}
 
@@ -27,6 +28,7 @@ end
 
 -- Set up and apply the theme before lz.n loads the plugins.
 local function apply_theme(theme)
+    vim.cmd.packadd(theme.name)
     spec.apply_config(theme)
 
     local ok, err = pcall(vim.cmd.colorscheme, theme.colorscheme)
