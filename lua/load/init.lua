@@ -1,4 +1,7 @@
--- registry -> vim.pack -> theme -> lz.n
+-- registry -> vim.pack (install only) -> theme -> lz.n (loads everything)
+
+-- vim.pack no longer loads plugins, so lz.n has to be on the runtimepath
+-- before it can load the rest.
 vim.pack.add({ "https://github.com/lumen-oss/lz.n" })
 
 local M = {}
@@ -15,18 +18,16 @@ M.plugins = registry.plugins
 local function collect(specs)
     local result, theme = {}, nil
     for _, p in ipairs(specs) do
-        if p.lazy then
-            result[#result + 1] = spec.to_lazy(p)
-        elseif p.colorscheme then
+        if p.colorscheme and not p.lazy then
             theme = theme or p
         else
-            result[#result + 1] = spec.to_eager(p)
+            result[#result + 1] = spec.to_lz(p)
         end
     end
     return result, theme
 end
 
--- Set up and apply the theme before lz.n loads the plugins.
+-- Load, set up and apply the theme before lz.n loads the other plugins.
 local function apply_theme(theme)
     vim.cmd.packadd(theme.name)
     spec.apply_config(theme)
@@ -39,7 +40,8 @@ end
 
 function M.setup()
     -- install / register
-    install.setup(M.plugins)
+    -- lz.n is added above, outside the registry; tell PackClean it is managed
+    install.setup(M.plugins, { "lz.n" })
 
     local specs, theme = collect(M.plugins)
 

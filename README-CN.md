@@ -146,7 +146,7 @@ return {
 spec 字段：
 
 - `name`、`src`：插件名与仓库地址
-- `lazy = false`：由 `vim.pack` 加载
+- `lazy = false`：由 `vim.pack` 登记，启动时由 `lz.n` 加载
 - `lazy = true`：由 `cmd`、`keys`、`event`、`ft` 或 `colorscheme` 触发加载
 - `opts`：等价于 `require(main).setup(opts)`
 - `main`：`opts` 对应的模块名，默认取插件名去掉 `.nvim` 后缀
@@ -155,11 +155,11 @@ spec 字段：
 - `colorscheme`：启动主题，同时作为 `:colorscheme <name>` 的触发器
 - 带 `action` 的 `keys`：插件加载后绑定该映射
 
-`lua/load/init.lua` 读取 registry，把 spec 交给 `vim.pack`，应用主题，然后把全部 spec 交给 `lz.n`：
+`lua/load/init.lua` 先把 `lz.n` 加入 runtimepath，用 `vim.pack` 登记全部插件但不加载，应用主题，然后把 spec 交给 `lz.n`：eager spec 立即加载，lazy spec 注册触发器
 
-- `lua/load/install.lua`：安装、更新、构建钩子、`:PackUpdate`、`:PackClean`
+- `lua/load/install.lua`：登记插件、构建钩子、`:PackUpdate`、`:PackClean`
 - `lua/load/registry.lua`：spec 发现
-- `lua/load/spec.lua`：spec 转换，执行 `opts` 与 `config`
+- `lua/load/spec.lua`：把 registry spec 转成 `lz.n` spec，执行 `opts` 与 `config`
 - `lua/config/treesitter.lua`：高亮、缩进与折叠
 
 ## ⌨️ 快捷键
@@ -244,7 +244,8 @@ leader 键为 `<Space>`
 - 插件安装位置：`stdpath("data")/site/pack/core/opt/`
 - 版本锁定在 `nvim-pack-lock.json`
 - 新增 spec 后，下次启动会安装对应插件；`:PackUpdate` 也会执行构建钩子
-- 主题在插件加载完成后、任何插件 config 之前应用
+- `lz.n` 在 `lua/load/init.lua` 中加入，不在 `lua/plugins/` 里
+- 主题插件在任何其它插件加载之前被加载并应用
 - `blink.cmp` 在 `InsertEnter` 时加载；原生 matcher 在安装和每次更新后编译
 - 共享依赖：`lua/plugins/lib/deps.lua`
 - 仓库工具配置：`.stylua.toml`、`.editorconfig`、`.luarc.json`

@@ -41,16 +41,18 @@ local function setup_build_hook()
     })
 end
 
--- eager plugins are loaded here; lazy ones are only registered
+-- Register every plugin without loading it; lz.n loads them later.
 function M.install(specs)
     local plugins = {}
     for _, p in ipairs(specs) do
         plugins[#plugins + 1] = to_pack_spec(p)
     end
-    vim.pack.add(plugins, { load = function() end})
+    vim.pack.add(plugins, { load = function() end })
 end
 
-local function commands(specs)
+-- `managed` holds plugins that vim.pack owns but that are not in the registry,
+-- e.g. lz.n, which load/init.lua adds itself
+local function commands(specs, managed)
     api.nvim_create_user_command("PackUpdate", function(opts)
         local names = #opts.fargs > 0 and opts.fargs or nil
         vim.pack.update(names)
@@ -58,6 +60,7 @@ local function commands(specs)
 
     api.nvim_create_user_command("PackClean", function()
         local known = {}
+        for _, name in ipairs(managed or {}) do known[name] = true end
         for _, p in ipairs(specs) do known[p.name] = true end
 
         local stale = {}
@@ -77,10 +80,10 @@ local function commands(specs)
     end, { desc = "Remove plugins not listed in the registry" })
 end
 
-function M.setup(specs)
+function M.setup(specs, managed)
     setup_build_hook()
     M.install(specs)
-    commands(specs)
+    commands(specs, managed)
 end
 
 return M

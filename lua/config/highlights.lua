@@ -1,5 +1,4 @@
--- Italics for the groups below. Reapplied on ColorScheme and UIEnter, plus
--- once at load.
+-- Italics for the groups below. Reapplied on ColorScheme, plus once at load.
 
 local GROUPS = {
     "@keyword", "@keyword.function", "@keyword.return", "@keyword.repeat",
@@ -27,5 +26,5 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
 })
 
 -- the theme is already applied when this file loads, so apply once immediately
--- instead of waiting for the first ColorScheme/UIEnter
+-- instead of waiting for the first ColorScheme
 apply_italics()

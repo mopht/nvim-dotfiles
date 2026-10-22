@@ -81,33 +81,25 @@ local function after(p)
     end
 end
 
--- Eager spec: run the config at startup
-function M.to_eager(p)
-    return {
-        p.name,
-        priority = p.priority,
-        after    = after(p),
-    }
-end
+-- lz.n spec: lazy specs carry their triggers and load on demand, eager
+-- specs carry none and are loaded by lz.n.load() right away
+function M.to_lz(p)
+    local s = { p.name }
 
--- Lazy spec: load on trigger
-function M.to_lazy(p)
-    local spec = {
-        p.name,
-        keys = p.keys and to_lz_keys(p.keys) or nil,
-    }
-
-    for _, field in ipairs(TRIGGER_FIELDS) do
-        spec[field] = p[field]
+    if p.lazy then
+        s.keys = p.keys and to_lz_keys(p.keys) or nil
+        for _, field in ipairs(TRIGGER_FIELDS) do
+            s[field] = p[field]
+        end
+        if not M.has_trigger(p) then
+            notify(p, "is lazy but has no trigger, so it loads at startup", vim.log.levels.WARN)
+        end
     end
 
-    if not M.has_trigger(p) then
-        notify(p, "is lazy but has no trigger, so it loads at startup", vim.log.levels.WARN)
-    end
-
-    spec.after = after(p)
-
-    return spec
+    -- eager load order, higher first
+    s.priority = p.priority
+    s.after    = after(p)
+    return s
 end
 
 return M
