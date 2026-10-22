@@ -10,14 +10,14 @@ local tokyonight_opts = {
 
 return {
     -- everforest's module is `everforest`, not `everforest-nvim`
-    { name = "everforest-nvim", src = "neanias/everforest-nvim", lazy = true,
+    { name = "everforest-nvim", src = "neanias/everforest-nvim", lazy = false,
     colorscheme = "everforest", main = "everforest",
     opts = { transparent_background_level = 2 } },
 
     { name = "catppuccin",      src = "catppuccin/nvim",         lazy = true,
     colorscheme = "catppuccin" },
 
-    { name = "tokyonight.nvim", src = "folke/tokyonight.nvim",   lazy = false,
+    { name = "tokyonight.nvim", src = "folke/tokyonight.nvim",   lazy = true,
     colorscheme = "tokyonight", opts = tokyonight_opts },
 
     { name = "onedark", src = "navarasu/onedark.nvim",           lazy = true,
