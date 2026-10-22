@@ -60,6 +60,10 @@
       "rev": "ec0fb7f22feeaa8d454e2b11675ae4c493228833",
       "src": "https://github.com/ShinKage/idris2-nvim"
     },
+    "kanso": {
+      "rev": "1afbbb449aa0254823dbe1932e3cbb51886ff9fe",
+      "src": "https://github.com/webhooked/kanso.nvim"
+    },
     "koka.nvim": {
       "rev": "c26bf5cf79cb12019b572ac7434e1d88ea561457",
       "src": "https://github.com/syaiful6/koka.nvim"
@@ -88,9 +92,21 @@
       "rev": "907c8240d3d2f96fa8e8569c73973e8604a7b1e6",
       "src": "https://github.com/moonbit-community/moonbit.nvim"
     },
+    "neomodern": {
+      "rev": "d41469578922a23d75a0d9e8deef1e34837230a6",
+      "src": "https://github.com/casedami/neomodern.nvim"
+    },
+    "neomodern.nvim": {
+      "rev": "d41469578922a23d75a0d9e8deef1e34837230a6",
+      "src": "https://github.com/casedami/neomodern.nvim"
+    },
     "noice.nvim": {
       "rev": "7bfd942445fb63089b59f97ca487d605e715f155",
       "src": "https://github.com/folke/noice.nvim"
+    },
+    "nordic": {
+      "rev": "9fb62116b891184049c50ca6ffb0d3bc100a1a6e",
+      "src": "https://github.com/AlexvZyl/nordic.nvim"
     },
     "nui.nvim": {
       "rev": "10fc361835c856ba4233ef5ea135b919bf3dce97",
@@ -152,7 +168,7 @@
       "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
       "src": "https://github.com/folke/todo-comments.nvim"
     },
-    "tokyonight.nvim": {
+    "tokyonight": {
       "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
       "src": "https://github.com/folke/tokyonight.nvim"
     },
