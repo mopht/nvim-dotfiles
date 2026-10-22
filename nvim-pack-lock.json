@@ -53,7 +53,7 @@
       "src": "https://github.com/NMAC427/guess-indent.nvim"
     },
     "haskell-tools.nvim": {
-      "rev": "cdbe5acbe78c96568a103a0a29f6416aef869d7a",
+      "rev": "e822e067b4bbb08aa552fbe5cd8b48956d859a23",
       "src": "https://github.com/mrcjkb/haskell-tools.nvim"
     },
     "idris2-nvim": {
@@ -70,7 +70,7 @@
     },
     "lz.n": {
       "rev": "c368ae2c6cc6b58a598adcee2cbfc36d341053f2",
-      "src": "https://github.com/nvim-neorocks/lz.n"
+      "src": "https://github.com/lumen-oss/lz.n"
     },
     "mini.icons": {
       "rev": "9e4c1645ce2b78afd6191b6be2c38bc0f998dd48",
@@ -137,7 +137,7 @@
       "src": "https://github.com/HiPhish/rainbow-delimiters.nvim"
     },
     "rustaceanvim": {
-      "rev": "4e01e114ad24e2f5ee91962e3a751b0c70a7447a",
+      "rev": "2a330e0a66b232f1c75a54d0f73a8fd15a88a39e",
       "src": "https://github.com/mrcjkb/rustaceanvim"
     },
     "snacks.nvim": {
@@ -157,7 +157,7 @@
       "src": "https://github.com/folke/tokyonight.nvim"
     },
     "tree-sitter-manager.nvim": {
-      "rev": "e99a8d5abf935cc193cc71600a2ad6a5b61b1aa0",
+      "rev": "06c90a3af8eb471f4a4ff979d681312284a8583a",
       "src": "https://github.com/romus204/tree-sitter-manager.nvim"
     },
     "trouble.nvim": {
