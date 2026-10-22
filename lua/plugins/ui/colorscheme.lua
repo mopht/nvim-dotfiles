@@ -21,6 +21,6 @@ return {
     colorscheme = "tokyonight", opts = tokyonight_opts },
 
     { name = "onedark", src = "navarasu/onedark.nvim",           lazy = true,
-    colorscheme = "onedark", opts = {},
+    colorscheme = "onedark", opts = { transparent = true },
     config = function() require('onedark').load() end }
 }
