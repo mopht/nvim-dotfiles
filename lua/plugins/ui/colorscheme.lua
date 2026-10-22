@@ -17,10 +17,9 @@ return {
     { name = "catppuccin",      src = "catppuccin/nvim",         lazy = true,
     colorscheme = "catppuccin" },
 
-    { name = "tokyonight.nvim", src = "folke/tokyonight.nvim",   lazy = true,
+    { name = "tokyonight",      src = "folke/tokyonight.nvim",   lazy = true,
     colorscheme = "tokyonight", opts = tokyonight_opts },
 
-    { name = "onedark", src = "navarasu/onedark.nvim",           lazy = true,
-    colorscheme = "onedark", opts = { transparent = true },
-    config = function() require('onedark').load() end }
+    { name = "onedark",         src = "navarasu/onedark.nvim",   lazy = true,
+    colorscheme = "onedark", opts = { transparent = true } },
 }
