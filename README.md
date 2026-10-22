@@ -146,7 +146,7 @@ return {
 Spec fields:
 
 - `name`, `src`: plugin name and repository
-- `lazy = false`: loaded by `vim.pack`
+- `lazy = false`: registered by `vim.pack`, loaded by `lz.n` at startup
 - `lazy = true`: loaded by `cmd`, `keys`, `event`, `ft` or `colorscheme`
 - `opts`: `require(main).setup(opts)`
 - `main`: module that owns `opts`, defaults to `name` without the `.nvim` suffix
@@ -155,11 +155,11 @@ Spec fields:
 - `colorscheme`: startup theme and `:colorscheme <name>` trigger
 - `keys` with `action`: the mapping is bound after the plugin loads
 
-`lua/load/init.lua` reads the registry, hands the specs to `vim.pack`, applies the theme, then passes every spec to `lz.n`:
+`lua/load/init.lua` puts `lz.n` on the runtimepath, registers every plugin with `vim.pack` without loading it, applies the theme, then hands the specs to `lz.n`: eager specs load immediately, lazy ones register their triggers
 
-- `lua/load/install.lua`: install, update, build hooks, `:PackUpdate`, `:PackClean`
+- `lua/load/install.lua`: register plugins, build hooks, `:PackUpdate`, `:PackClean`
 - `lua/load/registry.lua`: spec discovery
-- `lua/load/spec.lua`: spec normalization, `opts` and `config` execution
+- `lua/load/spec.lua`: turn registry specs into `lz.n` specs and run `opts` / `config`
 - `lua/config/treesitter.lua`: highlight, indent and folds
 
 ## ⌨️ Keymaps
@@ -244,7 +244,8 @@ The leader key is `<Space>`
 - Plugins install to `stdpath("data")/site/pack/core/opt/`
 - Versions are pinned in `nvim-pack-lock.json`
 - New specs are installed on the next start; `:PackUpdate` also runs the build hooks
-- The theme is applied after the plugins are loaded and before any plugin config
+- `lz.n` is added in `lua/load/init.lua` and is not listed under `lua/plugins/`
+- The theme plugin is loaded and applied before `lz.n` loads anything else
 - `blink.cmp` loads on `InsertEnter`; its native matcher is built on install and after every update
 - Shared dependencies: `lua/plugins/lib/deps.lua`
 - Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`
