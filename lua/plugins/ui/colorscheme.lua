@@ -10,13 +10,17 @@ local tokyonight_opts = {
 
 return {
     -- everforest's module is `everforest`, not `everforest-nvim`
-    { name = "everforest-nvim", src = "neanias/everforest-nvim", lazy = false,
+    { name = "everforest-nvim", src = "neanias/everforest-nvim", lazy = true,
     colorscheme = "everforest", main = "everforest",
     opts = { transparent_background_level = 2 } },
 
     { name = "catppuccin",      src = "catppuccin/nvim",         lazy = true,
     colorscheme = "catppuccin" },
 
-    { name = "tokyonight.nvim", src = "folke/tokyonight.nvim",   lazy = true,
+    { name = "tokyonight.nvim", src = "folke/tokyonight.nvim",   lazy = false,
     colorscheme = "tokyonight", opts = tokyonight_opts },
+
+    { name = "onedark", src = "navarasu/onedark.nvim",           lazy = true,
+    colorscheme = "onedark", opts = {},
+    config = function() require('onedark').load() end }
 }

@@ -85,8 +85,6 @@ end
 function M.to_eager(p)
     return {
         p.name,
-        -- vim.pack already loaded it; :packadd would source plugin/ again
-        load     = function() end,
         priority = p.priority,
         after    = after(p),
     }

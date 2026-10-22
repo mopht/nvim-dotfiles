@@ -43,13 +43,11 @@ end
 
 -- eager plugins are loaded here; lazy ones are only registered
 function M.install(specs)
-    local eager, lazy = {}, {}
+    local plugins = {}
     for _, p in ipairs(specs) do
-        table.insert(p.lazy and lazy or eager, to_pack_spec(p))
+        plugins[#plugins + 1] = to_pack_spec(p)
     end
-
-    vim.pack.add(eager)
-    vim.pack.add(lazy, { load = function() end })
+    vim.pack.add(plugins, { load = function() end})
 end
 
 local function commands(specs)
