@@ -41,7 +41,7 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "gitsigns.nvim": {
-      "rev": "fd780920613e541cbdfac41bf711583ed49f9249",
+      "rev": "683137003522aebd6948358334164a6ba2ca7cd5",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "goto-preview": {
@@ -53,7 +53,7 @@
       "src": "https://github.com/NMAC427/guess-indent.nvim"
     },
     "haskell-tools.nvim": {
-      "rev": "e822e067b4bbb08aa552fbe5cd8b48956d859a23",
+      "rev": "a8eba2b4d9d87fca74a6df3792678e71f6657b73",
       "src": "https://github.com/mrcjkb/haskell-tools.nvim"
     },
     "idris2-nvim": {
@@ -137,7 +137,7 @@
       "src": "https://github.com/HiPhish/rainbow-delimiters.nvim"
     },
     "rustaceanvim": {
-      "rev": "2a330e0a66b232f1c75a54d0f73a8fd15a88a39e",
+      "rev": "b27cedf50b1badd84aa59a665369c697c2d63eac",
       "src": "https://github.com/mrcjkb/rustaceanvim"
     },
     "snacks.nvim": {
