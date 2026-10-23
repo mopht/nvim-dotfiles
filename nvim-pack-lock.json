@@ -28,6 +28,10 @@
       "rev": "f7c6fa21e2a7c32576e7a1791774a3736987f467",
       "src": "https://github.com/Bekaboo/dropbar.nvim"
     },
+    "embark": {
+      "rev": "2331671b548abcade22b0197fde58e11744c99bb",
+      "src": "https://github.com/embark-theme/vim"
+    },
     "everforest-nvim": {
       "rev": "a0e9edc57379e8feafc6ba207c26dbb12fc1b6d8",
       "src": "https://github.com/neanias/everforest-nvim"
