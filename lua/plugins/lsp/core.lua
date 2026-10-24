@@ -51,11 +51,11 @@ return {
 
     { name = "conform.nvim", src = "stevearc/conform.nvim", lazy = true,
     event = { "BufWritePre" }, cmd = { "ConformInfo" },
-    keys = { {
-        "<leader>=", mode = "n", action = function ()
-            require("conform").format({ async = true, lsp_format = "fallback" })
-        end, desc = "Format"
-    }, },
+    keys = {
+        { "<leader>=", mode = "n", action = function()
+            require("conform").format({ async = true })
+        end, desc = "Format" },
+    },
     opts = {
         -- Add formatters per filetype when the binaries are available, e.g.:
         -- lua = { "stylua" },

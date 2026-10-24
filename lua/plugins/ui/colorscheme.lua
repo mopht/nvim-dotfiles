@@ -9,7 +9,6 @@ local tokyonight_opts = {
 }
 
 local catppuccin_opts = {
-    -- transparent_background = true,
     float = { solid = true },
 }
 

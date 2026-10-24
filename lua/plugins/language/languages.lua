@@ -26,11 +26,7 @@ return {
         },
         lsp = {
             native = true,
-            on_attach = function() end,
             capabilities = vim.lsp.protocol.make_client_capabilities(),
-        },
-        jsonls = {
-            settings = {},
         },
     }) end },
 }
