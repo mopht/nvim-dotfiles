@@ -1,6 +1,6 @@
 local which_key_opts = {
     preset = "helix",
-    delay = 120,
+    delay = 280,
     layout = {
         spacing = 2,
     },
