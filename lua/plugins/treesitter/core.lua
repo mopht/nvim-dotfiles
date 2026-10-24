@@ -1,20 +1,6 @@
 -- nvim-treesitter (main branch), no setup() call needed.
 -- Parsers: :TSInstall c lua zig vim vimdoc kotlin query rust cpp javascript python haskell typescript
 -- Highlight, indent and folds: lua/config/treesitter.lua.
-local context_opts = {
-    enable = true,
-    throttle = true,
-    max_lines = 0,
-    patterns = {
-        default = {
-            "class",
-            "function",
-            "method",
-        },
-    },
-    show_brackets = false,
-}
-
 return {
     { name = "nvim-treesitter", src = "nvim-treesitter/nvim-treesitter", lazy = true,
     event = "BufReadPost",
@@ -34,7 +20,7 @@ return {
     } },
 
     { name = "nvim-treesitter-context", src = "nvim-treesitter/nvim-treesitter-context", lazy = false,
-    main = "treesitter-context", opts = context_opts },
+    main = "treesitter-context", opts = {} },
 
     { name = "rainbow-delimiters.nvim", src = "HiPhish/rainbow-delimiters.nvim", lazy = false },
 }
