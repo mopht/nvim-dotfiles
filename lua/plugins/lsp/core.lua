@@ -7,7 +7,7 @@ local servers = {
     clangd = { cmd = { "clangd" }, filetypes = { "cpp", "c++", "c" } },
     nixd = { cmd = { "nixd" }, filetypes = { "nix" } },
     lua_ls = { cmd = { "lua-language-server" }, filetypes = { "lua" } },
-    ["moonbit-lsp"] = { cmd = { "moon-lsp" }, filetypes = { "moonbit" } },
+    ["moonbit-lsp"] = { cmd = { "moon lsp" }, filetypes = { "moonbit" } },
     ["scheme-lsp"] = { cmd = { "guile-lsp-server" }, filetypes = { "scheme" } },
     tslsp = {
         cmd = { "typescript-language-server", "--stdio" },
