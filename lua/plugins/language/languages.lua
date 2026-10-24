@@ -14,19 +14,22 @@ return {
 
     { name = "moonbit.nvim", src = "moonbit-community/moonbit.nvim", lazy = true,
     ft = "moonbit",
-    -- use config or vim.lsp will be called at start
-    config = function() require("moonbit").setup({
-        mooncakes = {
-            virtual_text = true,
-            use_local = true,
-        },
-        treesitter = {
-            enabled = true,
-            auto_install = true,
-        },
-        lsp = {
-            native = true,
-            capabilities = vim.lsp.protocol.make_client_capabilities(),
-        },
-    }) end },
+    -- also load for the json manifests, so mooncakes and the schema apply there
+    event = { "BufRead moon.mod.json", "BufRead moon.pkg.json" },
+    config = function()
+        require("moonbit").setup({
+            mooncakes = {
+                virtual_text = true,
+                use_local = true,
+            },
+            treesitter = {
+                enabled = true,
+                auto_install = true,
+            },
+            lsp = {
+                native = true,
+                capabilities = vim.lsp.protocol.make_client_capabilities(),
+            },
+        })
+    end },
 }

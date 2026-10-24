@@ -36,6 +36,16 @@ vim.opt.background = "dark"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- moonbit.nvim is lazy, so its ftdetect is not on the runtimepath yet
+vim.filetype.add({
+    extension = { mbt = "moonbit", mbti = "moonbit" },
+    filename = {
+        ["moon.mod"] = "moonbit",
+        ["moon.pkg"] = "moonbit",
+        ["moon.work"] = "moonbit",
+    },
+})
+
 -- Neovim is always UTF-8
 vim.opt.fileencoding = "utf-8"
 
