@@ -25,7 +25,7 @@
 - **Picker / 终端**：`snacks.nvim`（picker、terminal、explorer、scroll）
 - **UI**：`which-key.nvim`、`mini.statusline`、`mini.icons`、`dropbar.nvim`、`noice.nvim`
 - **文件树 / 窗口导航**：`snacks.nvim` explorer、`oil.nvim`、`vim-tmux-navigator`
-- **编辑能力**：`flash.nvim`、`goto-preview`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`mini.trailspace`、`todo-comments.nvim`、`guess-indent.nvim`、`twilight.nvim`、`zen-mode.nvim`
+- **编辑能力**：`flash.nvim`、`goto-preview`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`mini.trailspace`、`todo-comments.nvim`、`guess-indent.nvim`；禅模式与聚焦变暗由 `snacks.nvim` 提供（`:ZenMode`、`:Twilight`）
 - **语言插件**：`rustaceanvim`、`idris2-nvim`、`koka.nvim`、`moonbit.nvim`
 - **Git**：`gitsigns.nvim`
 - **诊断**：`trouble.nvim`

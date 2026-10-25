@@ -25,7 +25,7 @@ Maintaining a capable development environment at low complexity takes priority, 
 - **Picker / terminal**: `snacks.nvim` (picker, terminal, explorer, scroll)
 - **UI**: `which-key.nvim`, `mini.statusline`, `mini.icons`, `dropbar.nvim`, `noice.nvim`
 - **Explorer / navigation**: `snacks.nvim` explorer, `oil.nvim`, `vim-tmux-navigator`
-- **Editing**: `flash.nvim`, `goto-preview`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `mini.trailspace`, `todo-comments.nvim`, `guess-indent.nvim`, `twilight.nvim`, `zen-mode.nvim`
+- **Editing**: `flash.nvim`, `goto-preview`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `mini.trailspace`, `todo-comments.nvim`, `guess-indent.nvim`; zen mode and focus dimming via `snacks.nvim` (`:ZenMode`, `:Twilight`)
 - **Language plugins**: `rustaceanvim`, `idris2-nvim`, `koka.nvim`, `moonbit.nvim`
 - **Git**: `gitsigns.nvim`
 - **Diagnostics**: `trouble.nvim`

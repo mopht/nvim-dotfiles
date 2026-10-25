@@ -82,11 +82,47 @@ local snacks_opts = {
             style = "terminal",
         },
     },
+    -- replacement for zen-mode.nvim, driven by the commands below
+    zen = {
+        enabled = true,
+        -- zen-mode.nvim used to strip the gutters, keep that look
+        win = {
+            wo = {
+                number = false,
+                relativenumber = false,
+                signcolumn = "no",
+                foldcolumn = "0",
+            },
+        },
+    },
+    -- replacement for twilight.nvim, driven by the commands below
+    dim = { enabled = true },
 }
+
+-- Keep the commands of the plugins these two replaced, so nothing else moves.
+local function focus_commands()
+    local snacks = require("snacks")
+
+    local function toggle_dim()
+        if snacks.dim.enabled then
+            snacks.dim.disable()
+        else
+            snacks.dim.enable()
+        end
+    end
+
+    vim.api.nvim_create_user_command("ZenMode", function() snacks.zen() end, { desc = "Toggle zen mode" })
+    vim.api.nvim_create_user_command("Twilight", toggle_dim, { desc = "Toggle dimming outside the scope" })
+    vim.api.nvim_create_user_command("TwilightEnable", function() snacks.dim.enable() end,
+        { desc = "Dim outside the scope" })
+    vim.api.nvim_create_user_command("TwilightDisable", function() snacks.dim.disable() end,
+        { desc = "Stop dimming" })
+end
 
 return {
     { name = "snacks.nvim", src = "folke/snacks.nvim", lazy = true,
     event = { "BufReadPre" },
+    cmd = { "ZenMode", "Twilight", "TwilightEnable", "TwilightDisable" },
     keys = {
         { "<leader>e",       action = function() require("snacks").explorer() end,       desc = "Toggle explorer" },
         { "<leader><space>", action = function() require("snacks").picker.smart() end,   desc = "Smart Find Files" },
@@ -98,5 +134,6 @@ return {
         { "<leader>tn",      action = function() require("snacks").terminal.toggle("nu", { win = { position = "float", width = 0.8, height = 0.8 } }) end, desc = "Nushell" },
         { "<leader>tm",      action = function() require("snacks").lazygit() end, desc = "Lazygit" },
     },
-    opts = snacks_opts },
+    opts = snacks_opts,
+    config = focus_commands },
 }
