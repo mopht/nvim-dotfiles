@@ -29,7 +29,7 @@
 - **语言插件**：`rustaceanvim`、`idris2-nvim`、`koka.nvim`、`moonbit.nvim`
 - **Git**：`gitsigns.nvim`
 - **诊断**：`trouble.nvim`
-- **调试**：`nvim-dap`，适配器由语言插件提供
+- **调试**：`nvim-dap`，适配器由语言插件提供；不带默认键位，用 `:Dap*` 系列命令
 - **任务运行器**：`overseer.nvim`，内置 bun 和 cabal 模板
 - **主题**：默认 `everforest`，可选 `tokyonight`、`catppuccin`、`onedark`
 - **GUI**：Neovide 设置
@@ -187,7 +187,11 @@ leader 键为 `<Space>`
 | 按键 | 说明 |
 | --- | --- |
 | `<leader>=` | 格式化当前缓冲区 |
-| `K` | 悬浮文档 |
+| `K` | 有 LSP 客户端时悬浮文档；无客户端时走原生 `K`（keywordprg / `:help` 标签） |
+| `gra` / `grn` / `grr` | 代码操作 / 重命名 / 引用 |
+| `gri` / `grt` / `grx` / `gO` | 实现 / 类型定义 / codelens / 文档符号 |
+| `[d` / `]d`、`[D` / `]D` | 上 / 下一个诊断，缓冲区首个 / 末个诊断 |
+| `<C-w>d` | 光标处诊断 |
 | `<leader>o` | 诊断浮窗 |
 | `J` / `K`（可视模式） | 向下 / 向上移动选中行 |
 | `<leader>e` | 开关 snacks 文件树 |
@@ -196,6 +200,8 @@ leader 键为 `<Space>`
 | `<leader>n` | 清除搜索高亮 |
 | `<leader>tt` | Todo 位置列表 |
 | `<leader>he` | Haskell 求值全部 |
+
+`gr*` 与诊断跳转由 `nvim-lspconfig` 默认提供；`lua/plugins/lsp/core.lua` 只设置 server 命令与 `vim.diagnostic` 选项
 
 ### Trouble
 
@@ -222,7 +228,7 @@ leader 键为 `<Space>`
 | 按键 | 说明 |
 | --- | --- |
 | `s` / `S` | Flash 跳转 / Treesitter |
-| `r` / `R` | 远程 Flash / Treesitter 搜索 |
+| `r` / `R` | 远程 Flash（operator-pending）/ Treesitter 搜索（可视模式） |
 | `gpd` / `gpt` / `gpi` / `gpD` | Goto preview 定义/类型/实现/声明 |
 | `gP` | 关闭全部预览 |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | 窗口 / tmux 导航 |
@@ -250,5 +256,9 @@ leader 键为 `<Space>`
 - 主题插件在任何其它插件加载之前被加载并应用
 - `blink.cmp` 在 `InsertEnter` 时加载；原生 matcher 在安装和每次更新后编译
 - 格式化为手动触发（`<leader>=`），`conform.nvim` 不在保存时运行
+- 已开启持久化撤销（`lua/config/options.lua` 中的 `undofile`）：撤销历史跨会话保留，存放在默认的 `undodir` 下
 - 共享依赖：`lua/plugins/lib/deps.lua`
 - 仓库工具配置：`.stylua.toml`、`.editorconfig`、`.luarc.json`
+- `oil.nvim` 是 eager 加载，所以 `nvim .` 与 `-` 都由 Oil 打开目录缓冲区；snacks 文件树（`<leader>e`）只负责编辑期开关，它的 `replace_netrw` 不会被触发
+- `K` 是单个全局映射，在调用时检查是否有客户端附着，因此 help / man 缓冲区里的原生 `K` 不受影响
+- 插入模式下 `<Tab>`：补全菜单打开时归 `blink.cmp`，否则由 `tabout` 跳出右括号——blink 会重放它在安装自己键位时记录下的非 blink 映射

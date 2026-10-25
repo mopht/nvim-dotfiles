@@ -29,7 +29,7 @@ Maintaining a capable development environment at low complexity takes priority, 
 - **Language plugins**: `rustaceanvim`, `idris2-nvim`, `koka.nvim`, `moonbit.nvim`
 - **Git**: `gitsigns.nvim`
 - **Diagnostics**: `trouble.nvim`
-- **Debugging**: `nvim-dap`, adapters come from the language plugins
+- **Debugging**: `nvim-dap`, adapters come from the language plugins; no default keymaps, use the `:Dap*` commands
 - **Task runner**: `overseer.nvim` with bun and cabal templates
 - **Colorschemes**: `everforest` (default), `tokyonight`, `catppuccin`, `onedark`
 - **GUI**: Neovide settings
@@ -187,7 +187,11 @@ The leader key is `<Space>`
 | Key | Description |
 | --- | --- |
 | `<leader>=` | Format buffer |
-| `K` | Hover |
+| `K` | LSP hover; native `K` (keywordprg / `:help` tag) when no client is attached |
+| `gra` / `grn` / `grr` | Code action / rename / references |
+| `gri` / `grt` / `grx` / `gO` | Implementation / type definition / codelens / document symbols |
+| `[d` / `]d`, `[D` / `]D` | Previous / next diagnostic, first / last in buffer |
+| `<C-w>d` | Diagnostics under the cursor |
 | `<leader>o` | Diagnostics float |
 | `J` / `K` (visual) | Move the selection down / up |
 | `<leader>e` | Toggle snacks explorer |
@@ -196,6 +200,8 @@ The leader key is `<Space>`
 | `<leader>n` | Clear search highlight |
 | `<leader>tt` | Todo location list |
 | `<leader>he` | Haskell evaluate all |
+
+The `gr*` and diagnostic motions are `nvim-lspconfig` defaults; `lua/plugins/lsp/core.lua` only sets server commands and `vim.diagnostic` options
 
 ### Trouble
 
@@ -222,7 +228,7 @@ The leader key is `<Space>`
 | Key | Description |
 | --- | --- |
 | `s` / `S` | Flash jump / Treesitter |
-| `r` / `R` | Remote Flash / Treesitter search |
+| `r` / `R` | Remote Flash (operator-pending) / Treesitter search (visual) |
 | `gpd` / `gpt` / `gpi` / `gpD` | Goto preview definition/type/implementation/declaration |
 | `gP` | Close all previews |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Window / tmux navigation |
@@ -250,5 +256,9 @@ The leader key is `<Space>`
 - The theme plugin is loaded and applied before `lz.n` loads anything else
 - `blink.cmp` loads on `InsertEnter`; its native matcher is built on install and after every update
 - Formatting is manual (`<leader>=`); `conform.nvim` does not format on save
+- Persistent undo is on (`undofile` in `lua/config/options.lua`): undo history survives restarts and lives in the default `undodir`
 - Shared dependencies: `lua/plugins/lib/deps.lua`
 - Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`
+- `oil.nvim` is eager, so `nvim .` and `-` both open a directory buffer with Oil; the snacks explorer (`<leader>e`) is the in-editor toggle and its `replace_netrw` never fires
+- `K` is one global mapping that checks attached clients at call time, so help and man buffers keep their native `K`
+- In insert mode `<Tab>` belongs to `blink.cmp` while the menu is open; otherwise `tabout` leaves the closing bracket, because blink replays the non-blink mapping it recorded when it installed its own

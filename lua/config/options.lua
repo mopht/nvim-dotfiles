@@ -23,6 +23,8 @@ vim.opt.splitbelow = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+
+vim.opt.scrolloff = 4
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.opt.wildoptions = "pum"

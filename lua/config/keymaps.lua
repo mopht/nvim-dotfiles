@@ -1,8 +1,17 @@
 -- leader is set in init.lua
 
--- LSP
-vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
-vim.keymap.set("n", "<leader>o", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Diagnostics float" })
+-- -- -- LSP
+-- -- K stays native outside LSP buffers, so help/man keyword lookup still works
+vim.keymap.set('n', 'K', function()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    if #clients > 0 then
+        vim.lsp.buf.hover()
+    else
+        vim.cmd('normal! K')
+    end
+end, { desc = "LSP hover or keyword prg" })
+
+vim.keymap.set("n", "<leader>o", vim.diagnostic.open_float, { desc = "Diagnostics float" })
 
 -- Movement
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
