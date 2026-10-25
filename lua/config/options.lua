@@ -9,7 +9,7 @@ vim.opt.expandtab = true
 vim.opt.autoindent = true
 vim.opt.smarttab = true
 
--- anti warp
+-- no wrap
 vim.opt.wrap = false
 
 -- enable mouse
@@ -59,4 +59,3 @@ vim.opt.fillchars = { vert = " ", eob = " " }
 
 -- Folds: lua/config/treesitter.lua
 
-vim.g.everforest_enable_italic = true

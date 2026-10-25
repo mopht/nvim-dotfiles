@@ -11,6 +11,10 @@ vim.keymap.set('n', 'K', function()
     end
 end, { desc = "LSP hover or keyword prg" })
 
+vim.keymap.set("n", "<leader>D",  vim.lsp.buf.type_definition, { desc = "Type definition" })
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename,          { desc = "Rename symbol" })
+vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
+
 vim.keymap.set("n", "<leader>o", vim.diagnostic.open_float, { desc = "Diagnostics float" })
 
 -- Movement
