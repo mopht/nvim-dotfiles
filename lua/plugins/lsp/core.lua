@@ -7,7 +7,8 @@ local servers = {
     clangd = { cmd = { "clangd" }, filetypes = { "cpp", "c++", "c" } },
     nixd = { cmd = { "nixd" }, filetypes = { "nix" } },
     lua_ls = { cmd = { "lua-language-server" }, filetypes = { "lua" } },
-    ["moonbit-lsp"] = { cmd = { "moon lsp" }, filetypes = { "moonbit" } },
+    -- MoonBit: moonbit.nvim registers its own "moonbit-lsp" config (setup in
+    -- lua/plugins/language/languages.lua); do not redefine it here.
     ["scheme-lsp"] = { cmd = { "guile-lsp-server" }, filetypes = { "scheme" } },
     tslsp = {
         cmd = { "typescript-language-server", "--stdio" },
@@ -16,7 +17,7 @@ local servers = {
     },
     idris2_lsp = {
         cmd = { "idris2-lsp" },
-        filetypes = { "idris2", "idr" },
+        filetypes = { "idris2" },
         root_markers = { ".ipkg", ".git" },
     },
     prolog_ls = {
@@ -50,17 +51,13 @@ return {
     opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } } },
 
     { name = "conform.nvim", src = "stevearc/conform.nvim", lazy = true,
-    event = { "BufWritePre" }, cmd = { "ConformInfo" },
+    cmd = { "ConformInfo" },
     keys = {
         { "<leader>=", mode = "n", action = function()
             require("conform").format({ async = true })
         end, desc = "Format" },
     },
     opts = {
-        -- Add formatters per filetype when the binaries are available, e.g.:
-        -- lua = { "stylua" },
-        -- nix = { "nixfmt" },
-        -- typescript = { "prettierd", "prettier", stop_after_first = true },
         formatters_by_ft = {
             lua = { "stylua" },
             nix = { "nixfmt" },

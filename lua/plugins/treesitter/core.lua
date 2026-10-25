@@ -1,5 +1,4 @@
 -- nvim-treesitter (main branch), no setup() call needed.
--- Parsers: :TSInstall c lua zig vim vimdoc kotlin query rust cpp javascript python haskell typescript
 -- Highlight, indent and folds: lua/config/treesitter.lua.
 return {
     { name = "nvim-treesitter", src = "nvim-treesitter/nvim-treesitter", lazy = true,

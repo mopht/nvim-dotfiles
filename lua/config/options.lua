@@ -11,7 +11,6 @@ vim.opt.smarttab = true
 
 -- anti warp
 vim.opt.wrap = false
--- vim.opt.cursorline = true
 
 -- enable mouse
 vim.opt.mouse:append("a")

@@ -1,6 +1,6 @@
 return {
     -- The module is `idris2`, not `idris2-nvim`
-    { name = "idris2-nvim", src = "ShinKage/idris2-nvim", lazy = true, ft = "idris",
+    { name = "idris2-nvim", src = "ShinKage/idris2-nvim", lazy = true, ft = { "idris2", "lidris2" },
     main = "idris2", opts = {} },
 
     { name = "koka.nvim", src = "syaiful6/koka.nvim", lazy = true, ft = "koka" },

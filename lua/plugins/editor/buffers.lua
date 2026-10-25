@@ -9,14 +9,15 @@ return {
 
     { name = "todo-comments.nvim",    src = "folke/todo-comments.nvim",       lazy = true, event = { "BufEnter" },
     keys = {
-        { "tl", mode = "n", action = function() vim.cmd("TodoLocList toggle<cr>") end, desc = "Todo location list" },
+        { "tl", mode = "n", action = function() vim.cmd("TodoLocList") end, desc = "Todo location list" },
     },
     opts = {} },
 
     { name = "auto-save.nvim",        src = "okuuva/auto-save.nvim",          lazy = true, event = { "InsertEnter" },
     opts = {
         condition = function(buf)
-            return vim.fn.getbufvar(buf, "&buftype") ~= "acwrite"
+            local bo = vim.bo[buf]
+            return bo.buftype == "" and bo.filetype ~= "gitcommit"
         end,
     } },
 }

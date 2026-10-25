@@ -31,7 +31,7 @@
 - **诊断**：`trouble.nvim`
 - **调试**：`nvim-dap`，适配器由语言插件提供
 - **任务运行器**：`overseer.nvim`，内置 bun 和 cabal 模板
-- **主题**：默认 `everforest`，可选 `tokyonight`、`catppuccin`
+- **主题**：默认 `everforest`，可选 `tokyonight`、`catppuccin`、`onedark`
 - **GUI**：Neovide 设置
 
 ## ⚙️ 环境要求
@@ -73,6 +73,8 @@ nvim
 :PackUpdate <name>   " 更新单个插件
 :PackClean           " 删除 registry 中没有的插件
 ```
+
+`:PackClean` 会删除所有不在 registry 里的插件，并重写 `nvim-pack-lock.json`；执行后请检查它报告的删除列表。
 
 ## 📁 目录结构
 
@@ -247,5 +249,6 @@ leader 键为 `<Space>`
 - `lz.n` 在 `lua/load/init.lua` 中加入，不在 `lua/plugins/` 里
 - 主题插件在任何其它插件加载之前被加载并应用
 - `blink.cmp` 在 `InsertEnter` 时加载；原生 matcher 在安装和每次更新后编译
+- 格式化为手动触发（`<leader>=`），`conform.nvim` 不在保存时运行
 - 共享依赖：`lua/plugins/lib/deps.lua`
 - 仓库工具配置：`.stylua.toml`、`.editorconfig`、`.luarc.json`

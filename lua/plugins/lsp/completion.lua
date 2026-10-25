@@ -38,18 +38,9 @@ local blink_opts = {
 return {
     { name = "blink.cmp", src = "saghen/blink.cmp", lazy = true,
     event = "InsertEnter", cmd = { "BlinkCmp" },
-    -- build the native fuzzy matcher before setup; no-op when current
+    -- native matcher: built by the PackChanged hook in lua/load/install.lua
     config = function()
-        local cmp = require("blink.cmp")
-        -- pwait returns (ok, err) instead of throwing; on failure keep the Lua
-        -- implementation. blink.lib.Task does not annotate pwait.
-        ---@diagnostic disable-next-line: undefined-field
-        local done, err = cmp.build():pwait()
-        if not done then
-            vim.notify("blink.cmp: native build failed, using the Lua fallback: " .. tostring(err),
-                       vim.log.levels.WARN)
-        end
-        cmp.setup(blink_opts)
+        require("blink.cmp").setup(blink_opts)
     end },
 
     { name = "friendly-snippets", src = "rafamadriz/friendly-snippets", lazy = true,

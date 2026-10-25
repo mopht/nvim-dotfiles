@@ -31,7 +31,7 @@ Maintaining a capable development environment at low complexity takes priority, 
 - **Diagnostics**: `trouble.nvim`
 - **Debugging**: `nvim-dap`, adapters come from the language plugins
 - **Task runner**: `overseer.nvim` with bun and cabal templates
-- **Colorschemes**: `everforest` (default), `tokyonight`, `catppuccin`
+- **Colorschemes**: `everforest` (default), `tokyonight`, `catppuccin`, `onedark`
 - **GUI**: Neovide settings
 
 ## ⚙️ Requirements
@@ -73,6 +73,8 @@ Commands:
 :PackUpdate <name>   " update one plugin
 :PackClean           " remove plugins missing from the registry
 ```
+
+`:PackClean` deletes every plugin that is not in the registry and rewrites `nvim-pack-lock.json`; check the list it reports.
 
 ## 📁 Structure
 
@@ -247,5 +249,6 @@ The leader key is `<Space>`
 - `lz.n` is added in `lua/load/init.lua` and is not listed under `lua/plugins/`
 - The theme plugin is loaded and applied before `lz.n` loads anything else
 - `blink.cmp` loads on `InsertEnter`; its native matcher is built on install and after every update
+- Formatting is manual (`<leader>=`); `conform.nvim` does not format on save
 - Shared dependencies: `lua/plugins/lib/deps.lua`
 - Repo tooling: `.stylua.toml`, `.editorconfig`, `.luarc.json`
