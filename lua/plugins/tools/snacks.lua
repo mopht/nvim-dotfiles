@@ -113,9 +113,9 @@ local function focus_commands()
 
     vim.api.nvim_create_user_command("ZenMode", function() snacks.zen() end, { desc = "Toggle zen mode" })
     vim.api.nvim_create_user_command("Twilight", toggle_dim, { desc = "Toggle dimming outside the scope" })
-    vim.api.nvim_create_user_command("TwilightEnable", function() snacks.dim.enable() end,
+    vim.api.nvim_create_user_command("TwilightEnable", snacks.dim.enable,
         { desc = "Dim outside the scope" })
-    vim.api.nvim_create_user_command("TwilightDisable", function() snacks.dim.disable() end,
+    vim.api.nvim_create_user_command("TwilightDisable", snacks.dim.disable,
         { desc = "Stop dimming" })
 end
 

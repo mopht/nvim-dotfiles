@@ -13,9 +13,9 @@ vim.opt.smarttab = true
 vim.opt.wrap = false
 
 -- enable mouse
-vim.opt.mouse:append("a")
+vim.opt.mouse:append "a"
 
-vim.opt.clipboard:append("unnamedplus")
+vim.opt.clipboard:append "unnamedplus"
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -38,14 +38,14 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- moonbit.nvim is lazy, so its ftdetect is not on the runtimepath yet
-vim.filetype.add({
+vim.filetype.add {
     extension = { mbt = "moonbit", mbti = "moonbit" },
     filename = {
         ["moon.mod"] = "moonbit",
         ["moon.pkg"] = "moonbit",
         ["moon.work"] = "moonbit",
     },
-})
+}
 
 -- Neovim is always UTF-8
 vim.opt.fileencoding = "utf-8"

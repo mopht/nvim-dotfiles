@@ -3,11 +3,11 @@
 -- -- -- LSP
 -- -- K stays native outside LSP buffers, so help/man keyword lookup still works
 vim.keymap.set('n', 'K', function()
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    local clients = vim.lsp.get_clients { bufnr = 0 }
     if #clients > 0 then
         vim.lsp.buf.hover()
     else
-        vim.cmd('normal! K')
+        vim.cmd "normal! K"
     end
 end, { desc = "LSP hover or keyword prg" })
 

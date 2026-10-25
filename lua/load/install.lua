@@ -14,7 +14,7 @@ end
 
 -- Extra build step to run after a plugin is installed or updated
 local BUILDERS = {
-    ["nvim-treesitter"] = function() vim.cmd("TSUpdate") end,
+    ["nvim-treesitter"] = function() vim.cmd "TSUpdate" end,
     ["blink.cmp"] = function()
         -- build() returns a blink.lib.Task; that class does not annotate its
         -- pwait/wait methods, hence the suppression

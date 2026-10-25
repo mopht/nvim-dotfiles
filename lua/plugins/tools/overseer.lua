@@ -18,7 +18,7 @@ return {
     },
     opts = {},
     config = function()
-        local overseer = require("overseer")
+        local overseer = require "overseer"
         for _, template in ipairs(require("plugins.tools.overseer.templates").templates) do
             overseer.register_template(template)
         end

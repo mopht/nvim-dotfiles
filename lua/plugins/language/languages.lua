@@ -26,10 +26,7 @@ return {
                 enabled = true,
                 auto_install = true,
             },
-            lsp = {
-                native = true,
-                capabilities = vim.lsp.protocol.make_client_capabilities(),
-            },
+            lsp = { native = true },
         })
     end },
 }

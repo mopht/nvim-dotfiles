@@ -2,14 +2,14 @@
 
 -- vim.pack no longer loads plugins, so lz.n has to be on the runtimepath
 -- before it can load the rest.
-vim.pack.add({ "https://github.com/lumen-oss/lz.n" })
+vim.pack.add { "https://github.com/lumen-oss/lz.n" }
 
 local M = {}
 
-local registry   = require("load.registry")
-local install    = require("load.install")
-local spec       = require("load.spec")
-local treesitter = require("config.treesitter")
+local registry   = require "load.registry"
+local install    = require "load.install"
+local spec       = require "load.spec"
+local treesitter = require "config.treesitter"
 
 M.plugins = registry.plugins
 

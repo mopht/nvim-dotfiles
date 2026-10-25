@@ -7,15 +7,15 @@ local function project_root(markers)
 end
 
 local function bun_root()
-    return project_root({ "bun.lockb", "bun.lock", "package.json" })
+    return project_root { "bun.lockb", "bun.lock", "package.json" }
 end
 
 local function cabal_root()
-    return project_root({
+    return project_root{
         "cabal.project",
         "cabal.project.local",
         function(name) return name:match("%.cabal$") ~= nil end,
-    })
+    }
 end
 
 -- Scripts declared in the nearest package.json
