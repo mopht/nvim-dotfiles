@@ -176,6 +176,7 @@ The leader key is `<Space>`
 | `<leader>f` | Find Files |
 | `<leader>g` | Live Grep |
 | `<leader>b` | Find Buffers |
+| `<leader>bn` / `<leader>bp` | Next / previous buffer |
 | `<leader>hh` | Help Tags |
 | `<F8>` | Toggle bottom terminal |
 | `<leader>tn` | Nushell float |
@@ -192,21 +193,20 @@ The leader key is `<Space>`
 | `<leader>e` | Toggle snacks explorer |
 | `-` | Open parent directory with Oil |
 | `<leader>sv` / `<leader>sh` | Vertical / horizontal split |
-| `sl` / `sh` | Next / previous buffer |
-| `nl` | Clear search highlight |
-| `tl` | Todo location list |
+| `<leader>n` | Clear search highlight |
+| `<leader>tt` | Todo location list |
 | `<leader>he` | Haskell evaluate all |
 
 ### Trouble
 
 | Key | Description |
 | --- | --- |
-| `xx` | Workspace diagnostics |
-| `xX` | Buffer diagnostics |
-| `cs` | Symbols |
-| `cl` | LSP references/definitions |
-| `xL` | Location list |
-| `xQ` | Quickfix list |
+| `<leader>xx` | Workspace diagnostics |
+| `<leader>xX` | Buffer diagnostics |
+| `<leader>xs` | Symbols |
+| `<leader>xL` | LSP references/definitions |
+| `<leader>xl` | Location list |
+| `<leader>xq` | Quickfix list |
 
 ### Task runner
 

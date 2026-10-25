@@ -176,6 +176,7 @@ leader 键为 `<Space>`
 | `<leader>f` | 查找文件 |
 | `<leader>g` | 实时 grep |
 | `<leader>b` | 切换缓冲区 |
+| `<leader>bn` / `<leader>bp` | 下一个 / 上一个缓冲区 |
 | `<leader>hh` | 帮助标签 |
 | `<F8>` | 开关底部终端 |
 | `<leader>tn` | Nushell 浮窗 |
@@ -192,21 +193,20 @@ leader 键为 `<Space>`
 | `<leader>e` | 开关 snacks 文件树 |
 | `-` | 用 Oil 打开上级目录 |
 | `<leader>sv` / `<leader>sh` | 垂直 / 水平分屏 |
-| `sl` / `sh` | 下一个 / 上一个缓冲区 |
-| `nl` | 清除搜索高亮 |
-| `tl` | Todo 位置列表 |
+| `<leader>n` | 清除搜索高亮 |
+| `<leader>tt` | Todo 位置列表 |
 | `<leader>he` | Haskell 求值全部 |
 
 ### Trouble
 
 | 按键 | 说明 |
 | --- | --- |
-| `xx` | 工作区诊断 |
-| `xX` | 当前缓冲区诊断 |
-| `cs` | 符号列表 |
-| `cl` | LSP 引用 / 定义 |
-| `xL` | 位置列表 |
-| `xQ` | quickfix 列表 |
+| `<leader>xx` | 工作区诊断 |
+| `<leader>xX` | 当前缓冲区诊断 |
+| `<leader>xs` | 符号列表 |
+| `<leader>xL` | LSP 引用 / 定义 |
+| `<leader>xl` | 位置列表 |
+| `<leader>xq` | quickfix 列表 |
 
 ### 任务运行器
 

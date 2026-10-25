@@ -50,6 +50,8 @@ vim.opt.fileencoding = "utf-8"
 
 vim.opt.backup = false
 
+vim.opt.undofile = true
+
 vim.opt.laststatus = 2
 vim.opt.fillchars = { vert = " ", eob = " " }
 

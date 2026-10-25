@@ -9,7 +9,7 @@ return {
 
     { "folke/todo-comments.nvim", lazy = true, event = { "BufEnter" },
     keys = {
-        { "tl", mode = "n", action = function() vim.cmd("TodoLocList") end, desc = "Todo location list" },
+        { "<leader>tt", mode = "n", action = function() vim.cmd("TodoLocList") end, desc = "Todo location list" },
     },
     opts = {} },
 
