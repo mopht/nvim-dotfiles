@@ -70,9 +70,12 @@ local statusline_opts = {
 }
 
 return {
-    { name = "dropbar.nvim", src = "Bekaboo/dropbar.nvim", lazy = false },
+    -- default is 32 ms, which rebuilds the breadcrumbs on nearly every cursor
+    -- move while scrolling; 100 ms only delays updates during held-down keys
+    { "Bekaboo/dropbar.nvim", lazy = false,
+    opts = { bar = { update_debounce = 100 } } },
 
-    { name = "mini.statusline", src = "nvim-mini/mini.statusline", lazy = false,
+    { "nvim-mini/mini.statusline", lazy = false,
     opts = statusline_opts,
     config = function()
         apply_transparency()

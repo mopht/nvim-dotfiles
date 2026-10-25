@@ -36,13 +36,13 @@ local blink_opts = {
 }
 
 return {
-    { name = "blink.cmp", src = "saghen/blink.cmp", lazy = true,
+    { "saghen/blink.cmp", lazy = true,
     event = "InsertEnter", cmd = { "BlinkCmp" },
     -- native matcher: built by the PackChanged hook in lua/load/install.lua
     config = function()
         require("blink.cmp").setup(blink_opts)
     end },
 
-    { name = "friendly-snippets", src = "rafamadriz/friendly-snippets", lazy = true,
+    { "rafamadriz/friendly-snippets", lazy = true,
     event = { "InsertEnter" } },
 }

@@ -1,7 +1,7 @@
 local goto_preview_opts = { default_mappings = true }
 
 return {
-    { name = "flash.nvim", src = "folke/flash.nvim", lazy = true,
+    { "folke/flash.nvim", lazy = true,
     keys = {
         { "s",     mode = { "n", "x", "o" }, action = function() require("flash").jump() end,              desc = "Flash" },
         { "S",     mode = { "n", "x", "o" }, action = function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
@@ -11,7 +11,7 @@ return {
     },
     opts = {} },
 
-    { name = "goto-preview", src = "rmagatti/goto-preview", lazy = true,
+    { "rmagatti/goto-preview", lazy = true,
     keys = {
         { "gpd", mode = "n", action = function() require("goto-preview").goto_preview_definition() end,      desc = "Preview Definition" },
         { "gpt", mode = "n", action = function() require("goto-preview").goto_preview_type_definition({}) end, desc = "Preview Type Def" },

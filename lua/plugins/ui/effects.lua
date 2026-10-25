@@ -10,6 +10,6 @@ local noice_opts = {
 
 -- noice must be ready before the first message
 return {
-    { name = "noice.nvim", src = "folke/noice.nvim", lazy = false,
+    { "folke/noice.nvim", lazy = false,
     opts = noice_opts },
 }

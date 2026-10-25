@@ -14,16 +14,16 @@ local catppuccin_opts = {
 
 return {
     -- everforest's module is `everforest`, not `everforest-nvim`
-    { name = "everforest-nvim", src = "neanias/everforest-nvim", lazy = false,
+    { "neanias/everforest-nvim", lazy = false,
     colorscheme = "everforest", main = "everforest",
     opts = { transparent_background_level = 2 } },
 
-    { name = "catppuccin",      src = "catppuccin/nvim",         lazy = true,
+    { "catppuccin/nvim", name = "catppuccin", lazy = true,
     colorscheme = "catppuccin", opts = catppuccin_opts },
 
-    { name = "tokyonight",      src = "folke/tokyonight.nvim",   lazy = true,
+    { "folke/tokyonight.nvim", name = "tokyonight", lazy = true,
     colorscheme = "tokyonight", opts = tokyonight_opts },
 
-    { name = "onedark",         src = "navarasu/onedark.nvim",   lazy = true,
+    { "navarasu/onedark.nvim", name = "onedark", lazy = true,
     colorscheme = "onedark", opts = { transparent = true } },
 }

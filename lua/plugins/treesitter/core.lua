@@ -1,11 +1,11 @@
 -- nvim-treesitter (main branch), no setup() call needed.
 -- Highlight, indent and folds: lua/config/treesitter.lua.
 return {
-    { name = "nvim-treesitter", src = "nvim-treesitter/nvim-treesitter", lazy = true,
+    { "nvim-treesitter/nvim-treesitter", lazy = true,
     event = "BufReadPost",
     cmd = { "TSInstall", "TSInstallFromGrammar", "TSUpdate", "TSUninstall", "TSLog" } },
 
-    { name = "tree-sitter-manager.nvim", src = "romus204/tree-sitter-manager.nvim", lazy = true,
+    { "romus204/tree-sitter-manager.nvim", lazy = true,
     ft = "haskell",
     opts = {
         ensure_installed = {
@@ -18,8 +18,8 @@ return {
         }, }, },
     } },
 
-    { name = "nvim-treesitter-context", src = "nvim-treesitter/nvim-treesitter-context", lazy = false,
+    { "nvim-treesitter/nvim-treesitter-context", lazy = false,
     main = "treesitter-context", opts = {} },
 
-    { name = "rainbow-delimiters.nvim", src = "HiPhish/rainbow-delimiters.nvim", lazy = false },
+    { "HiPhish/rainbow-delimiters.nvim", lazy = false },
 }

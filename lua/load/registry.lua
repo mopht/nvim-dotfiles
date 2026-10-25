@@ -1,5 +1,7 @@
 -- Discovers specs in lua/plugins/<category>/*.lua. Each file returns one spec
--- table or a list of specs. A spec file directly in lua/plugins/ is an error.
+-- table or a list of specs. A spec's first element is its repository; `name`
+-- defaults to the repository name and only needs to be set when it differs.
+-- A spec file directly in lua/plugins/ is an error.
 
 local M = {}
 
@@ -18,20 +20,31 @@ end
 local specs = {}
 local seen = {}
 
+-- "folke/flash.nvim" or a full URL -> "flash.nvim"
+local function src_name(src)
+    local path = src:gsub("%.git$", ""):gsub("/+$", "")
+    return path:match("([^/]+)$") or path
+end
+
 local function check_spec(entry, module)
     if type(entry) ~= "table" then
         error(("plugin spec %s: expected a table, got %s"):format(module, type(entry)), 0)
     end
-    if type(entry.name) ~= "string" then
-        error(("plugin spec %s: missing name"):format(module), 0)
+
+    local src = entry[1] or entry.src
+    if type(src) ~= "string" then
+        error(("plugin spec %s: missing repository"):format(module), 0)
     end
-    if type(entry.src) ~= "string" then
-        error(("plugin spec %s (%s): missing src"):format(module, entry.name), 0)
+
+    local name = entry.name or src_name(src)
+    if seen[name] then
+        error(("plugin spec %s: duplicate plugin %q"):format(module, name), 0)
     end
-    if seen[entry.name] then
-        error(("plugin spec %s: duplicate plugin %q"):format(module, entry.name), 0)
-    end
-    seen[entry.name] = true
+    seen[name] = true
+
+    -- normalize, the rest of the loader only deals with name and src
+    entry.name = name
+    entry.src = src
 end
 
 local function load_spec(module)
@@ -43,7 +56,8 @@ local function load_spec(module)
         error(("plugin spec %s must return a table, got %s"):format(module, type(loaded)), 1)
     end
 
-    if loaded.name then
+    -- one spec ({ "owner/repo", ... }) or a list of specs
+    if type(loaded[1]) == "string" or loaded.name or loaded.src then
         check_spec(loaded, module)
         table.insert(specs, loaded)
     else

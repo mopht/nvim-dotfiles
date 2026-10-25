@@ -140,14 +140,14 @@ Commands:
 
 ```lua
 return {
-    { name = "flash.nvim", src = "folke/flash.nvim", lazy = true, keys = { ... }, opts = {} },
-    { name = "guess-indent.nvim", src = "NMAC427/guess-indent.nvim", lazy = true, cmd = { "GuessIndent" }, opts = {} },
+    { "folke/flash.nvim", lazy = true, keys = { ... }, opts = {} },
+    { "NMAC427/guess-indent.nvim", lazy = true, cmd = { "GuessIndent" }, opts = {} },
 }
 ```
 
 Spec fields:
 
-- `name`, `src`: plugin name and repository
+- first element: repository, `owner/repo` or a full URL; `name` defaults to the repository name and only needs to be set when it differs (e.g. `catppuccin/nvim` needs `name = "catppuccin"`)
 - `lazy = false`: registered by `vim.pack`, loaded by `lz.n` at startup
 - `lazy = true`: loaded by `cmd`, `keys`, `event`, `ft` or `colorscheme`
 - `opts`: `require(main).setup(opts)`

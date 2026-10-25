@@ -120,7 +120,7 @@ local function focus_commands()
 end
 
 return {
-    { name = "snacks.nvim", src = "folke/snacks.nvim", lazy = true,
+    { "folke/snacks.nvim", lazy = true,
     event = { "BufReadPre" },
     cmd = { "ZenMode", "Twilight", "TwilightEnable", "TwilightDisable" },
     keys = {

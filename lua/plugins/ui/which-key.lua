@@ -13,6 +13,6 @@ local which_key_opts = {
 }
 
 return {
-    { name = "which-key.nvim",    src = "folke/which-key.nvim",         lazy = false,
+    { "folke/which-key.nvim", lazy = false,
     opts = which_key_opts },
 }

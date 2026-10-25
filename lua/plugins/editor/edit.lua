@@ -5,13 +5,13 @@ local better_escape_opts = {
 }
 
 return {
-    { name = "better-escape.nvim", src = "max397574/better-escape.nvim", lazy = true,
+    { "max397574/better-escape.nvim", lazy = true,
     event = { "InsertEnter" }, main = "better_escape", opts = better_escape_opts },
 
-    { name = "tabout.nvim",        src = "abecodes/tabout.nvim",  lazy = true,
+    { "abecodes/tabout.nvim", lazy = true,
     event = { "InsertEnter" }, opts = {} },
 
-    { name = "nvim-autopairs",     src = "windwp/nvim-autopairs", lazy = true,
+    { "windwp/nvim-autopairs", lazy = true,
     event = { "InsertEnter" },
     opts = {
         check_ts = true,
@@ -31,6 +31,6 @@ return {
         },
     } },
 
-    { name = "guess-indent.nvim", src = "NMAC427/guess-indent.nvim", lazy = true,
+    { "NMAC427/guess-indent.nvim", lazy = true,
     cmd = { "GuessIndent" }, opts = {} },
 }

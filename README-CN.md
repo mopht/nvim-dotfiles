@@ -140,14 +140,14 @@ nvim
 
 ```lua
 return {
-    { name = "flash.nvim", src = "folke/flash.nvim", lazy = true, keys = { ... }, opts = {} },
-    { name = "guess-indent.nvim", src = "NMAC427/guess-indent.nvim", lazy = true, cmd = { "GuessIndent" }, opts = {} },
+    { "folke/flash.nvim", lazy = true, keys = { ... }, opts = {} },
+    { "NMAC427/guess-indent.nvim", lazy = true, cmd = { "GuessIndent" }, opts = {} },
 }
 ```
 
 spec 字段：
 
-- `name`、`src`：插件名与仓库地址
+- 第一个元素：仓库地址，`owner/repo` 或完整 URL；`name` 默认取仓库名，只有不一致时才需要覆盖（例如 `catppuccin/nvim` 需要 `name = "catppuccin"`）
 - `lazy = false`：由 `vim.pack` 登记，启动时由 `lz.n` 加载
 - `lazy = true`：由 `cmd`、`keys`、`event`、`ft` 或 `colorscheme` 触发加载
 - `opts`：等价于 `require(main).setup(opts)`

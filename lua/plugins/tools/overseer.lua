@@ -1,6 +1,6 @@
 -- Task runner. Loaded by `cmd` or `keys`.
 return {
-    { name = "overseer.nvim", src = "stevearc/overseer.nvim", lazy = true,
+    { "stevearc/overseer.nvim", lazy = true,
     cmd = {
         "Overseer",
         "OverseerOpen",

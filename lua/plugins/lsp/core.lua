@@ -31,7 +31,7 @@ local servers = {
 }
 
 return {
-    { name = "nvim-lspconfig", src = "neovim/nvim-lspconfig", lazy = false,
+    { "neovim/nvim-lspconfig", lazy = false,
     config = function()
         -- vim.lsp.config() / vim.lsp.enable()
         vim.diagnostic.config({
@@ -47,10 +47,10 @@ return {
     end },
 
     -- Loaded at startup: blink.cmp requires the provider module when it sets up
-    { name = "lazydev.nvim", src = "folke/lazydev.nvim", lazy = false,
+    { "folke/lazydev.nvim", lazy = false,
     opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } } },
 
-    { name = "conform.nvim", src = "stevearc/conform.nvim", lazy = true,
+    { "stevearc/conform.nvim", lazy = true,
     cmd = { "ConformInfo" },
     keys = {
         { "<leader>=", mode = "n", action = function()
