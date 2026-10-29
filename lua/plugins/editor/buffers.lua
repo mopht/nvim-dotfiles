@@ -7,7 +7,7 @@ return {
         end, { desc = "Trim trailing whitespace" })
     end },
 
-    { "folke/todo-comments.nvim", lazy = true, event = { "BufEnter" },
+    { "folke/todo-comments.nvim", lazy = true, event = { "BufReadPost", "BufNewFile" },
     keys = {
         { "<leader>tt", mode = "n", action = function() vim.cmd "TodoLocList" end, desc = "Todo location list" },
     },

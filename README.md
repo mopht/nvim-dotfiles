@@ -32,7 +32,6 @@ Maintaining a capable development environment at low complexity takes priority, 
 - **Debugging**: `nvim-dap`, adapters come from the language plugins; no default keymaps, use the `:Dap*` commands
 - **Task runner**: `overseer.nvim` with bun and cabal templates
 - **Colorschemes**: `everforest` (default), `tokyonight`, `catppuccin`, `onedark`
-- **Theme switching**: light/dark follows the system appearance (`auto-dark-mode.nvim`; Linux needs a portal implementing `org.freedesktop.appearance.color-scheme`)
 - **GUI**: Neovide settings
 
 ## ⚙️ Requirements
@@ -128,7 +127,6 @@ Commands:
         ├── treesitter/
         │   └── core.lua
         └── ui/
-            ├── auto-dark-mode.lua
             ├── colorscheme.lua
             ├── effects.lua
             ├── gitsigns.lua

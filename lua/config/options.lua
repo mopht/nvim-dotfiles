@@ -31,7 +31,6 @@ vim.opt.wildoptions = "pum"
 vim.opt.winblend = 30
 vim.opt.pumblend = 23
 vim.opt.pumheight = 12
-vim.opt.background = "dark"
 -- Theme: lua/plugins/ui/colorscheme.lua, applied by lua/load/init.lua
 
 vim.g.loaded_netrw = 1
