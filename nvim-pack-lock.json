@@ -4,6 +4,10 @@
       "rev": "fd9a48ebbe6ec30d5dfcc5b42c243941ccdca1aa",
       "src": "https://github.com/saghen/blink.lib"
     },
+    "auto-dark-mode.nvim": {
+      "rev": "2b16a24c202892e61fca7df4d2d7c4c872a44165",
+      "src": "https://github.com/f-person/auto-dark-mode.nvim"
+    },
     "auto-save.nvim": {
       "rev": "5961d5e041c227e4d99e9e44e3a7ce9c6826c145",
       "src": "https://github.com/okuuva/auto-save.nvim"

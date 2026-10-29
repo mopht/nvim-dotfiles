@@ -32,6 +32,7 @@
 - **调试**：`nvim-dap`，适配器由语言插件提供；不带默认键位，用 `:Dap*` 系列命令
 - **任务运行器**：`overseer.nvim`，内置 bun 和 cabal 模板
 - **主题**：默认 `everforest`，可选 `tokyonight`、`catppuccin`、`onedark`
+- **主题切换**：明暗跟随系统（`auto-dark-mode.nvim`；Linux 需要实现 `org.freedesktop.appearance.color-scheme` 的 portal）
 - **GUI**：Neovide 设置
 
 ## ⚙️ 环境要求
@@ -127,6 +128,7 @@ nvim
         ├── treesitter/
         │   └── core.lua
         └── ui/
+            ├── auto-dark-mode.lua
             ├── colorscheme.lua
             ├── effects.lua
             ├── gitsigns.lua
