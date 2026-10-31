@@ -1,16 +1,6 @@
 -- leader is set in init.lua
 
 -- -- -- LSP
--- -- K stays native outside LSP buffers, so help/man keyword lookup still works
-vim.keymap.set('n', 'K', function()
-    local clients = vim.lsp.get_clients { bufnr = 0 }
-    if #clients > 0 then
-        vim.lsp.buf.hover()
-    else
-        vim.cmd "normal! K"
-    end
-end, { desc = "LSP hover or keyword prg" })
-
 vim.keymap.set("n", "<leader>D",  vim.lsp.buf.type_definition, { desc = "Type definition" })
 vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
 
@@ -25,9 +15,9 @@ vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split vertical" })
 vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split horizontal" })
 
 -- Buffers / search
-vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", { desc = "Previous buffer" })
-vim.keymap.set("n", "<leader>n", ":nohl<CR>", { desc = "Clear search highlight" })
+vim.keymap.set("n", "<leader>bn", "<CMD>bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<leader>bp", "<CMD>bprevious<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<leader>n", "<CMD>nohl<CR>", { desc = "Clear search highlight" })
 
 -- Tools. Plugin keys live in their specs; `-` opens Oil.
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

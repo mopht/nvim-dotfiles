@@ -7,13 +7,12 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.autoindent = true
-vim.opt.smarttab = true
 
 -- no wrap
 vim.opt.wrap = false
 
 -- enable mouse
-vim.opt.mouse:append "a"
+vim.opt.mouse = "a"
 
 vim.opt.clipboard:append "unnamedplus"
 
@@ -23,9 +22,8 @@ vim.opt.splitbelow = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
-
 vim.opt.scrolloff = 4
-vim.opt.termguicolors = true
+vim.opt.updatetime = 250
 vim.opt.signcolumn = "yes"
 vim.opt.wildoptions = "pum"
 vim.opt.winblend = 30
@@ -46,10 +44,8 @@ vim.filetype.add {
     },
 }
 
--- Neovim is always UTF-8
-vim.opt.fileencoding = "utf-8"
-
 vim.opt.backup = false
+vim.opt.swapfile = false
 
 vim.opt.undofile = true
 
@@ -57,4 +53,3 @@ vim.opt.laststatus = 2
 vim.opt.fillchars = { vert = " ", eob = " " }
 
 -- Folds: lua/config/treesitter.lua
-

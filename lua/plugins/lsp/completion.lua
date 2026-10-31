@@ -39,9 +39,7 @@ return {
     { "saghen/blink.cmp", lazy = true,
     event = "InsertEnter", cmd = { "BlinkCmp" },
     -- native matcher: built by the PackChanged hook in lua/load/install.lua
-    config = function()
-        require("blink.cmp").setup(blink_opts)
-    end },
+    opts = blink_opts },
 
     { "rafamadriz/friendly-snippets", lazy = true,
     event = { "InsertEnter" } },

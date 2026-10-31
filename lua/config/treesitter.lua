@@ -18,6 +18,7 @@ function M.auto_highlight()
     vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "FileType" }, {
         callback = function(ev)
             local buf = ev.buf
+            if vim.bo[buf].buftype ~= "" then return end
             local ft = vim.bo[buf].filetype
             if ft == "" then return end
 

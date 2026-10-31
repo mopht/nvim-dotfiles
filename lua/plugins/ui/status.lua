@@ -21,7 +21,7 @@ end
 
 local function file_info()
     local ft = vim.bo.filetype
-    local enc = vim.bo.fileencoding ~= "" and vim.bo.fileencoding or vim.bo.encoding
+    local enc = vim.bo.fileencoding ~= "" and vim.bo.fileencoding or vim.o.encoding
     local icon = ""
 
     local mini_icons = rawget(_G, "MiniIcons")
@@ -41,8 +41,8 @@ local function file_info()
 end
 
 local function progress()
-    local line = vim.fn.line(".")
-    local total = math.max(vim.fn.line("$"), 1)
+    local line = vim.api.nvim_win_get_cursor(0)[1]
+    local total = math.max(vim.api.nvim_buf_line_count(0), 1)
     return math.floor(line / total * 100) .. "%%"
 end
 

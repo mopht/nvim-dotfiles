@@ -16,17 +16,15 @@ return {
     ft = "moonbit",
     -- also load for the json manifests, so mooncakes and the schema apply there
     event = { "BufRead moon.mod.json", "BufRead moon.pkg.json" },
-    config = function()
-        require("moonbit").setup({
-            mooncakes = {
-                virtual_text = true,
-                use_local = true,
-            },
-            treesitter = {
-                enabled = true,
-                auto_install = true,
-            },
-            lsp = { native = true },
-        })
-    end },
+    opts = {
+        mooncakes = {
+            virtual_text = true,
+            use_local = true,
+        },
+        treesitter = {
+            enabled = true,
+            auto_install = true,
+        },
+        lsp = { native = true },
+    } },
 }
