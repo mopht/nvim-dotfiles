@@ -32,8 +32,7 @@ local servers = {
 
 return {
     { "neovim/nvim-lspconfig", lazy = false,
-    config = function()
-        -- vim.lsp.config() / vim.lsp.enable()
+    config = function() -- vim.lsp.config() / vim.lsp.enable()
         vim.diagnostic.config({
             virtual_text = { prefix = "■" },
             severity_sort = true,

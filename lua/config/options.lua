@@ -22,7 +22,7 @@ vim.opt.splitbelow = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
-vim.opt.scrolloff = 4
+-- vim.opt.scrolloff = 4
 vim.opt.updatetime = 250
 vim.opt.signcolumn = "yes"
 vim.opt.wildoptions = "pum"
