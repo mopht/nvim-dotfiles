@@ -15,8 +15,8 @@ vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split vertical" })
 vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split horizontal" })
 
 -- Buffers / search
-vim.keymap.set("n", "<leader>bn", "<CMD>bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<leader>bp", "<CMD>bprevious<CR>", { desc = "Previous buffer" })
+-- vim.keymap.set("n", "<leader>bn", "<CMD>bnext<CR>", { desc = "Next buffer" })
+-- vim.keymap.set("n", "<leader>bp", "<CMD>bprevious<CR>", { desc = "Previous buffer" })
 vim.keymap.set("n", "<leader>n", "<CMD>nohl<CR>", { desc = "Clear search highlight" })
 
 -- Tools. Plugin keys live in their specs; `-` opens Oil.

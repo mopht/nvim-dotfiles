@@ -176,7 +176,6 @@ The leader key is `<Space>`
 | `<leader>f` | Find Files |
 | `<leader>g` | Live Grep |
 | `<leader>b` | Find Buffers |
-| `<leader>bn` / `<leader>bp` | Next / previous buffer |
 | `<leader>hh` | Help Tags |
 | `<F8>` | Toggle bottom terminal |
 | `<leader>tn` | Nushell float |

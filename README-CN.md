@@ -176,7 +176,6 @@ leader 键为 `<Space>`
 | `<leader>f` | 查找文件 |
 | `<leader>g` | 实时 grep |
 | `<leader>b` | 切换缓冲区 |
-| `<leader>bn` / `<leader>bp` | 下一个 / 上一个缓冲区 |
 | `<leader>hh` | 帮助标签 |
 | `<F8>` | 开关底部终端 |
 | `<leader>tn` | Nushell 浮窗 |
