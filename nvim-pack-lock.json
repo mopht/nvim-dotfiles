@@ -53,7 +53,7 @@
       "src": "https://github.com/NMAC427/guess-indent.nvim"
     },
     "haskell-tools.nvim": {
-      "rev": "0fb42addecd4bf77ae75a2845bc3e00bd120a01e",
+      "rev": "e755912cd53b1a8c56ed90c944a93d1c24b208ac",
       "src": "https://github.com/mrcjkb/haskell-tools.nvim"
     },
     "idris2-nvim": {
@@ -112,10 +112,6 @@
       "rev": "a9c4e1457e2e59f1b82c8f78dcdb3b2517555200",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
-    "nvim-treesitter-context": {
-      "rev": "8decd73460d26ef0a0befb745d022dd1fc2c38b8",
-      "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
-    },
     "oil.nvim": {
       "rev": "d3733d933833a0e59b813ecec99341527adf0c28",
       "src": "https://github.com/stevearc/oil.nvim"
@@ -137,7 +133,7 @@
       "src": "https://github.com/HiPhish/rainbow-delimiters.nvim"
     },
     "rustaceanvim": {
-      "rev": "3da79b08f963341193755bec04796b73a99c655e",
+      "rev": "9c5c1aa055b33aa17d4f113724b1e5c4f1f77a1e",
       "src": "https://github.com/mrcjkb/rustaceanvim"
     },
     "snacks.nvim": {

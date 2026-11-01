@@ -21,7 +21,7 @@ Maintaining a capable development environment at low complexity takes priority, 
 - **LSP**: `nvim-lspconfig` with `vim.lsp.config` / `vim.lsp.enable`, `lazydev.nvim`, `haskell-tools.nvim`
 - **Completion**: `blink.cmp`, `friendly-snippets`
 - **Formatting**: `conform.nvim` with `stylua`, `nixfmt` and LSP fallback
-- **Treesitter**: `nvim-treesitter`, `tree-sitter-manager.nvim`, `nvim-treesitter-context`, `rainbow-delimiters.nvim`
+- **Treesitter**: `nvim-treesitter`, `tree-sitter-manager.nvim`, `rainbow-delimiters.nvim`
 - **Picker / terminal**: `snacks.nvim` (picker, terminal, explorer, scroll)
 - **UI**: `which-key.nvim`, `mini.statusline`, `mini.icons`, `dropbar.nvim`, `noice.nvim`
 - **Explorer / navigation**: `snacks.nvim` explorer, `oil.nvim`, `vim-tmux-navigator`

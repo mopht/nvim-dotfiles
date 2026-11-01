@@ -18,8 +18,5 @@ return {
         }, }, },
     } },
 
-    { "nvim-treesitter/nvim-treesitter-context", lazy = false,
-    main = "treesitter-context", opts = {} },
-
     { "HiPhish/rainbow-delimiters.nvim", lazy = false },
 }

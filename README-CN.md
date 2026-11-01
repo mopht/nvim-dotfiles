@@ -21,7 +21,7 @@
 - **LSP**：`nvim-lspconfig` 配一张 `vim.lsp.config` / `vim.lsp.enable` 覆盖表，搭配 `lazydev.nvim` 与 `haskell-tools.nvim`
 - **补全**：`blink.cmp`、`friendly-snippets`
 - **格式化**：`conform.nvim`，使用 `stylua`、`nixfmt`，并回退到 LSP 格式化
-- **Treesitter**：`nvim-treesitter`、`tree-sitter-manager.nvim`、`nvim-treesitter-context`、`rainbow-delimiters.nvim`
+- **Treesitter**：`nvim-treesitter`、`tree-sitter-manager.nvim`、`rainbow-delimiters.nvim`
 - **Picker / 终端**：`snacks.nvim`（picker、terminal、explorer、scroll）
 - **UI**：`which-key.nvim`、`mini.statusline`、`mini.icons`、`dropbar.nvim`、`noice.nvim`
 - **文件树 / 窗口导航**：`snacks.nvim` explorer、`oil.nvim`、`vim-tmux-navigator`
