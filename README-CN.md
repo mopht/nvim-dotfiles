@@ -23,7 +23,7 @@
 - **格式化**：`conform.nvim`，使用 `stylua`、`nixfmt`，并回退到 LSP 格式化
 - **Treesitter**：`nvim-treesitter`、`tree-sitter-manager.nvim`、`rainbow-delimiters.nvim`
 - **Picker / 终端**：`snacks.nvim`（picker、terminal、explorer、scroll）
-- **UI**：`which-key.nvim`、`mini.statusline`、`mini.icons`、`dropbar.nvim`、`noice.nvim`
+- **UI**：`which-key.nvim`、`mini.statusline`、`mini.icons`、`dropbar.nvim`；消息与 cmdline 使用 Neovim UI2，通知使用 `snacks.nvim` notifier
 - **文件树 / 窗口导航**：`snacks.nvim` explorer、`oil.nvim`、`vim-tmux-navigator`
 - **编辑能力**：`flash.nvim`、`goto-preview`、`nvim-autopairs`、`better-escape`、`tabout`、`auto-save`、`mini.trailspace`、`todo-comments.nvim`、`guess-indent.nvim`；禅模式与聚焦变暗由 `snacks.nvim` 提供（`:ZenMode`、`:Twilight`）
 - **语言插件**：`rustaceanvim`、`idris2-nvim`、`koka.nvim`、`moonbit.nvim`
@@ -128,7 +128,6 @@ nvim
         │   └── core.lua
         └── ui/
             ├── colorscheme.lua
-            ├── effects.lua
             ├── gitsigns.lua
             ├── status.lua
             └── which-key.lua
@@ -253,7 +252,9 @@ leader 键为 `<Space>`
 - 新增 spec 后，下次启动会安装对应插件；`:PackUpdate` 也会执行构建钩子
 - `lz.n` 在 `lua/load/init.lua` 中加入，不在 `lua/plugins/` 里
 - 主题插件在任何其它插件加载之前被加载并应用
-- `blink.cmp` 在 `InsertEnter` 时加载；原生 matcher 在安装和每次更新后编译
+- `blink.cmp` 在 `InsertEnter` 时加载；原生 matcher 在安装和每次更新后编译，缺失时在加载阶段重建
+- UI2 在 `init.lua` 中启用（`require("vim._core.ui2").enable()`），并设置 `cmdheight = 0`
+- 通知统一走 `vim.notify` -> `snacks.nvim` notifier
 - 格式化为手动触发（`<leader>=`），`conform.nvim` 不在保存时运行
 - 已开启持久化撤销（`lua/config/options.lua` 中的 `undofile`）：撤销历史跨会话保留，存放在默认的 `undodir` 下
 - 共享依赖：`lua/plugins/lib/deps.lua`

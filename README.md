@@ -23,7 +23,7 @@ Maintaining a capable development environment at low complexity takes priority, 
 - **Formatting**: `conform.nvim` with `stylua`, `nixfmt` and LSP fallback
 - **Treesitter**: `nvim-treesitter`, `tree-sitter-manager.nvim`, `rainbow-delimiters.nvim`
 - **Picker / terminal**: `snacks.nvim` (picker, terminal, explorer, scroll)
-- **UI**: `which-key.nvim`, `mini.statusline`, `mini.icons`, `dropbar.nvim`, `noice.nvim`
+- **UI**: `which-key.nvim`, `mini.statusline`, `mini.icons`, `dropbar.nvim`; messages and cmdline via Neovim UI2, notifications via the `snacks.nvim` notifier
 - **Explorer / navigation**: `snacks.nvim` explorer, `oil.nvim`, `vim-tmux-navigator`
 - **Editing**: `flash.nvim`, `goto-preview`, `nvim-autopairs`, `better-escape`, `tabout`, `auto-save`, `mini.trailspace`, `todo-comments.nvim`, `guess-indent.nvim`; zen mode and focus dimming via `snacks.nvim` (`:ZenMode`, `:Twilight`)
 - **Language plugins**: `rustaceanvim`, `idris2-nvim`, `koka.nvim`, `moonbit.nvim`
@@ -128,7 +128,6 @@ Commands:
         │   └── core.lua
         └── ui/
             ├── colorscheme.lua
-            ├── effects.lua
             ├── gitsigns.lua
             ├── status.lua
             └── which-key.lua
@@ -253,7 +252,9 @@ The `gr*` and diagnostic motions are `nvim-lspconfig` defaults; `lua/plugins/lsp
 - New specs are installed on the next start; `:PackUpdate` also runs the build hooks
 - `lz.n` is added in `lua/load/init.lua` and is not listed under `lua/plugins/`
 - The theme plugin is loaded and applied before `lz.n` loads anything else
-- `blink.cmp` loads on `InsertEnter`; its native matcher is built on install and after every update
+- `blink.cmp` loads on `InsertEnter`; its native matcher is built on install and after every update, and rebuilt at load when missing
+- UI2 is enabled in `init.lua` (`require("vim._core.ui2").enable()`) with `cmdheight = 0`
+- Notifications go through `vim.notify` -> `snacks.nvim` notifier
 - Formatting is manual (`<leader>=`); `conform.nvim` does not format on save
 - Persistent undo is on (`undofile` in `lua/config/options.lua`): undo history survives restarts and lives in the default `undodir`
 - Shared dependencies: `lua/plugins/lib/deps.lua`

@@ -16,6 +16,7 @@ local function explorer_resize_to_widest(picker)
 end
 
 local snacks_opts = {
+    notifier = { enabled = true },
     scroll = {
         animate = {
             duration = { step = 10, total = 200 },

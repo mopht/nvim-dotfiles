@@ -9,7 +9,18 @@ local servers = {
     lua_ls = { cmd = { "lua-language-server" }, filetypes = { "lua" } },
     -- MoonBit: moonbit.nvim registers its own "moonbit-lsp" config (setup in
     -- lua/plugins/language/languages.lua); do not redefine it here.
-    ["scheme-lsp"] = { cmd = { "guile-lsp-server" }, filetypes = { "scheme" } },
+    -- ["scheme-lsp"] = {
+    --     cmd = { "scheme-langserver", "-m", "disable" }, -- workaround: 2.0.3 thread-pool bug fixed in 2.1.10
+    --     filetypes = { "scheme" },
+    --     root_dir = function(bufnr, cb)
+    --         local root = vim.fs.root(bufnr, { ".akku", "Akku.manifest", ".git" })
+    --         cb(root or vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr)))
+    --     end,
+    -- },
+    ["scheme-lsp"] = {
+        cmd = { "guile-lsp-server"},
+        filetypes = { "scheme" }
+    },
     tslsp = {
         cmd = { "typescript-language-server", "--stdio" },
         filetypes = { "typescript" },
